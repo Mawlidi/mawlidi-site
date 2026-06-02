@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0A0A1A">
+<title>مَوْلِدي — ميلادك هذا العام في التقويم القمري | Mawlidi</title>
+<style>
+/* System Arabic fonts — no external loading needed */
+</style>
+<style>
+:root {
+  --gold:#C9A84C; --gold-light:#E8C97A; --bg:#0A0A1A; --bg2:#0F0F24;
+  --card:rgba(255,255,255,0.04); --border:rgba(201,168,76,0.2);
+  --text:#F0EDE8; --muted:rgba(240,237,232,0.45);
+  --green:#4CAF7D; --red:#E94560;
+  --safe:env(safe-area-inset-bottom,0px);
+  /* Ad tier colors */
+  --platinum:#E8E8F0; --platinum-glow:rgba(220,220,255,0.3);
+  --gold-ad:#C9A84C; --gold-glow:rgba(201,168,76,0.35);
+  --silver:#A8B8C8; --silver-glow:rgba(168,184,200,0.3);
+  --bronze:#CD7F32; --bronze-glow:rgba(205,127,50,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;font-family:'Geeza Pro',-apple-system,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* Stars */
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.s{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d) ease-in-out infinite alternate;}
+@keyframes tw{from{opacity:.05;transform:scale(1)}to{opacity:.8;transform:scale(1.5)}}
+
+/* Lang */
+.lang-toggle{position:fixed;top:max(16px,env(safe-area-inset-top,16px));right:16px;left:auto;z-index:9999;display:flex;gap:4px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:20px;padding:4px;backdrop-filter:blur(10px);}
+.lang-btn{background:transparent;border:none;border-radius:16px;padding:6px 14px;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;color:var(--muted);font-family:'Lato',sans-serif;}
+.lang-btn.active{background:var(--gold);color:#0A0A1A;box-shadow:0 2px 8px rgba(201,168,76,0.4);}
+
+/* Screens */
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;z-index:1;transition:opacity .4s,transform .4s;}
+.screen.hidden{opacity:0;pointer-events:none;transform:translateY(30px);}
+
+/* Screen 1 */
+#s-input{justify-content:flex-start;padding:max(70px,env(safe-area-inset-top,20px)) 24px max(100px,calc(var(--safe) + 90px)) 24px;background:radial-gradient(ellipse at 30% 20%,rgba(201,168,76,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(15,52,96,0.4) 0%,transparent 60%),var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;gap:16px;}
+.logo-wrap{text-align:center;padding-top:20px;margin-bottom:28px;overflow:visible;flex-shrink:0;}
+.moon-icon{font-size:52px;display:block;line-height:1;filter:drop-shadow(0 0 24px rgba(201,168,76,0.6));animation:float 4s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.app-title{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:52px;font-weight:900;line-height:1.5;color:var(--gold-light);margin-top:4px;padding-top:8px;padding-bottom:8px;overflow:visible;display:block;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:1px;}
+.app-title-en{font-family:'Lato',sans-serif;font-size:42px;font-weight:900;line-height:1.4;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-top:4px;padding-top:10px;padding-bottom:10px;display:block;letter-spacing:2px;}
+.app-sub{font-size:13px;color:rgba(201,168,76,0.6);letter-spacing:0;margin-top:2px;font-weight:400;}
+.app-sub-en{font-size:11px;color:rgba(201,168,76,0.6);letter-spacing:2px;margin-top:2px;font-weight:300;font-family:'Lato',sans-serif;}
+.input-card{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:24px;padding:28px 24px;backdrop-filter:blur(20px);box-shadow:0 24px 64px rgba(0,0,0,0.4),inset 0 1px 0 rgba(201,168,76,0.1);}
+.input-label{font-size:12px;color:var(--gold);letter-spacing:0;text-transform:none;margin-bottom:20px;font-weight:600;}
+.date-pickers{display:grid;grid-template-columns:80px 1fr 100px;gap:10px;margin-bottom:20px;}
+.picker-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:0;}
+.picker-group select,.picker-group input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:14px;padding:14px 10px;color:var(--text);font-size:16px;font-weight:700;outline:none;-webkit-appearance:none;text-align:center;transition:all .3s;}
+.picker-group select{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;}
+.picker-group input{font-family:'Lato',sans-serif;}
+.picker-group select:focus,.picker-group input:focus{border-color:var(--gold);background:rgba(201,168,76,0.08);box-shadow:0 0 0 3px rgba(201,168,76,0.12);}
+.picker-group select option{background:#0F0F24;}
+.calc-btn{width:100%;background:linear-gradient(135deg,var(--gold-light),var(--gold),#8B6914);border:none;border-radius:16px;padding:18px;color:#0A0A1A;font-size:17px;font-weight:900;cursor:pointer;letter-spacing:1px;box-shadow:0 8px 32px rgba(201,168,76,0.35);transition:all .2s;position:relative;overflow:hidden;}
+.calc-btn-ar{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;}
+.calc-btn-en{font-family:'Lato',sans-serif;letter-spacing:2px;}
+.calc-btn:active{transform:scale(0.97);}
+.err{background:rgba(233,69,96,0.12);border:1px solid rgba(233,69,96,0.3);border-radius:12px;padding:12px 16px;color:#ff8fa3;font-size:13px;display:none;margin-top:12px;text-align:center;}
+.bottom-note{text-align:center;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0;padding-bottom:8px;}
+
+/* Screen 2 */
+#s-result{background:var(--bg2);overflow:hidden;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:max(60px,env(safe-area-inset-top,16px)) 20px 16px;background:rgba(10,10,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:relative;z-index:10;flex-shrink:0;}
+.back-btn{background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:14px;padding:12px 20px;color:var(--gold);font-size:20px;cursor:pointer;font-weight:700;line-height:1;}
+.topbar-title{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:22px;color:var(--gold-light);font-weight:700;}
+.topbar-title-en{font-family:'Lato',sans-serif;font-size:18px;color:var(--gold-light);font-weight:900;letter-spacing:2px;}
+.share-btn-top{background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:12px;padding:10px 16px;color:var(--gold);font-size:14px;cursor:pointer;}
+.result-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 16px max(80px,calc(var(--safe)+60px)) 16px;}
+.result-scroll::-webkit-scrollbar{display:none;}
+.hero-card{background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.04));border:1px solid rgba(201,168,76,0.3);border-radius:24px;padding:24px 20px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden;}
+.hero-card::before{content:'🌙';position:absolute;top:-10px;right:-10px;font-size:80px;opacity:0.06;line-height:1;}
+.hero-dates-row{display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.hd-block{flex:1;}
+.hd-val{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:clamp(15px,4vw,20px);color:var(--gold-light);font-weight:700;line-height:1.3;}
+.hd-val-en{font-family:'Lato',sans-serif;font-size:clamp(13px,3.5vw,17px);color:var(--gold-light);font-weight:700;line-height:1.3;}
+.hd-label{font-size:11px;color:var(--muted);letter-spacing:0;margin-top:4px;}
+.hd-sep{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4),transparent);margin:0 16px;flex-shrink:0;}
+.next-pill{display:inline-block;background:rgba(76,175,125,0.15);border:1px solid rgba(76,175,125,0.35);border-radius:30px;padding:8px 16px;font-size:12px;color:#7DFFB3;line-height:1.4;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px 14px;text-align:center;}
+.stat-val{font-family:'Lato',sans-serif;font-size:32px;color:var(--gold-light);font-weight:900;line-height:1;margin-bottom:6px;}
+.stat-lbl{font-size:11px;color:var(--muted);letter-spacing:0;}
+.tabs-row{display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;}
+.tabs-row::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:8px 16px;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab.active{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.1);}
+.sec-title{font-size:11px;color:var(--gold);letter-spacing:0;text-transform:none;margin-bottom:10px;padding-right:4px;font-weight:600;}
+.list-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;}
+.list-item{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background .2s;}
+.list-item:last-child{border-bottom:none;}
+.li-birth{background:rgba(201,168,76,0.08);border-bottom:1px solid rgba(201,168,76,0.15)!important;}
+.li-today{background:rgba(233,69,96,0.08);border-bottom:1px solid rgba(233,69,96,0.15)!important;}
+.li-next{background:rgba(76,175,125,0.07);border-bottom:1px solid rgba(76,175,125,0.15)!important;}
+.li-age{width:40px;flex-shrink:0;font-family:'Lato',sans-serif;font-size:18px;color:var(--gold);font-weight:900;text-align:center;}
+.li-body{flex:1;padding:0 12px;}
+.li-greg{font-size:15px;font-weight:700;color:var(--text);line-height:1.3;}
+.li-hijri{font-size:11px;color:var(--muted);margin-top:2px;}
+.li-right{text-align:left;flex-shrink:0;}
+.li-day{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.badge{display:inline-block;border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:0.5px;}
+.b-birth{background:rgba(201,168,76,0.2);color:var(--gold-light);}
+.b-today{background:rgba(233,69,96,0.2);color:#ff8fa3;}
+.b-next{background:rgba(76,175,125,0.2);color:#7DFFB3;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;padding:12px 16px max(16px,var(--safe));background:rgba(10,10,26,0.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);z-index:10;}
+.new-calc-btn{width:100%;background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:16px;padding:14px;color:var(--gold);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:1px;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(76,175,125,0.9);color:#fff;padding:12px 24px;border-radius:30px;font-size:14px;font-weight:700;opacity:0;transition:all .3s;z-index:99;white-space:nowrap;backdrop-filter:blur(10px);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ========== AD SLOTS ========== */
+.ad-section { margin: 20px 0; }
+.ad-section-title {
+  font-size:9px; color:var(--muted); letter-spacing:2px;
+  text-transform:uppercase; text-align:center; margin-bottom:8px; opacity:0.6;
+}
+
+/* PLATINUM — Full width banner, top position, most prominent */
+.ad-platinum {
+  background: linear-gradient(135deg, rgba(220,220,255,0.08), rgba(180,180,220,0.04));
+  border: 1px solid rgba(220,220,255,0.35);
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .3s;
+  box-shadow: 0 0 30px rgba(220,220,255,0.08), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.ad-platinum::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,220,255,0.6), transparent);
+}
+.ad-platinum:active { transform: scale(0.99); }
+.ad-tier-badge {
+  position: absolute; top: 12px; left: 12px;
+  font-size: 9px; font-weight: 900; letter-spacing: 2px;
+  padding: 3px 8px; border-radius: 6px; text-transform: uppercase;
+}
+.badge-platinum { background: rgba(220,220,255,0.15); color: #D0D0FF; border: 1px solid rgba(220,220,255,0.3); }
+.badge-gold-ad  { background: rgba(201,168,76,0.15);  color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
+.badge-silver   { background: rgba(168,184,200,0.15); color: #C0D0E0; border: 1px solid rgba(168,184,200,0.3); }
+.badge-bronze   { background: rgba(205,127,50,0.15);  color: #E0A060; border: 1px solid rgba(205,127,50,0.3); }
+
+.ad-content { display: flex; align-items: center; gap: 16px; padding-top: 8px; }
+.ad-icon { font-size: 40px; flex-shrink: 0; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+.ad-icon-sm { font-size: 32px; flex-shrink: 0; }
+.ad-icon-xs { font-size: 26px; flex-shrink: 0; }
+.ad-text { flex: 1; }
+.ad-name {
+  font-size: 16px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;
+  color: #E8E8FF;
+}
+.ad-name-gold { color: var(--gold-light); }
+.ad-name-silver { color: #C8D8E8; font-size: 15px; }
+.ad-name-bronze { color: #D89060; font-size: 14px; }
+.ad-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.ad-cta {
+  flex-shrink: 0;
+  padding: 8px 14px; border-radius: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  border: none; cursor: pointer; transition: all .2s;
+  white-space: nowrap;
+}
+.cta-platinum { background: rgba(220,220,255,0.15); color: #D0D0FF; border: 1px solid rgba(220,220,255,0.3); }
+.cta-gold-ad  { background: rgba(201,168,76,0.15);  color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
+.cta-silver   { background: rgba(168,184,200,0.12); color: #B0C8D8; border: 1px solid rgba(168,184,200,0.25); }
+.cta-bronze   { background: rgba(205,127,50,0.12);  color: #C89050; border: 1px solid rgba(205,127,50,0.25); }
+
+/* GOLD — slightly smaller */
+.ad-gold {
+  background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.03));
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 18px; padding: 18px;
+  position: relative; overflow: hidden; cursor: pointer; transition: all .3s;
+  box-shadow: 0 0 20px rgba(201,168,76,0.08);
+}
+.ad-gold::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
+}
+
+/* SILVER — two in a row */
+.ad-silver-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ad-silver {
+  background: linear-gradient(135deg, rgba(168,184,200,0.08), rgba(168,184,200,0.02));
+  border: 1px solid rgba(168,184,200,0.25);
+  border-radius: 16px; padding: 14px;
+  position: relative; overflow: hidden; cursor: pointer; transition: all .3s;
+}
+.ad-silver .ad-content { flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 14px; }
+.ad-silver .ad-cta { width: 100%; text-align: center; margin-top: 4px; }
+
+/* BRONZE — compact horizontal */
+.ad-bronze {
+  background: linear-gradient(135deg, rgba(205,127,50,0.07), rgba(205,127,50,0.02));
+  border: 1px solid rgba(205,127,50,0.2);
+  border-radius: 14px; padding: 12px 14px;
+  position: relative; overflow: hidden; cursor: pointer; transition: all .3s;
+  display: flex; align-items: center; gap: 12px;
+}
+.ad-bronze .ad-tier-badge { position: relative; top: auto; left: auto; flex-shrink: 0; }
+
+/* Advertise CTA */
+.advertise-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px dashed rgba(201,168,76,0.25);
+  border-radius: 16px; padding: 16px;
+  text-align: center; margin-top: 16px; cursor: pointer;
+  transition: all .3s;
+}
+.advertise-card:active { background: rgba(201,168,76,0.05); }
+.advertise-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
+.advertise-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.advertise-btn {
+  display: inline-block; margin-top: 10px;
+  background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 20px; padding: 6px 18px;
+  font-size: 12px; color: var(--gold); font-weight: 700; letter-spacing: 1px;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(10,10,26,0.97);backdrop-filter:blur(20px);border-top:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:space-around;padding:8px 4px max(12px,env(safe-area-inset-bottom,0px));}
+.bnav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;cursor:pointer;padding:5px 8px;border-radius:10px;flex:1;-webkit-tap-highlight-color:transparent;}
+.bnav-btn:active{background:rgba(201,168,76,0.1);}
+.bnav-icon{font-size:20px;line-height:1;}
+.bnav-lbl{font-size:9px;color:rgba(240,237,232,0.45);font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-weight:600;letter-spacing:0.5px;white-space:nowrap;}
+.bnav-btn.on .bnav-lbl{color:#C9A84C;}
+
+/* ===== SUB SCREENS ===== */
+.subscreen{position:fixed;inset:0;z-index:8000;background:#0A0A1A;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(100%);transition:transform 0.3s ease;padding-bottom:80px;}
+.subscreen.open{transform:translateY(0);}
+.subscreen-top{position:sticky;top:0;z-index:10;background:rgba(10,10,26,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;gap:12px;padding:max(52px,env(safe-area-inset-top,12px)) 20px 12px;flex-direction:row-reverse;}
+.subscreen-back{background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:10px 18px;color:#C9A84C;font-size:20px;cursor:pointer;font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-weight:700;line-height:1;}
+.subscreen-title{flex:1;font-size:14px;font-weight:700;text-align:center;color:#F0EDE8;}
+.subscreen-body{max-width:680px;margin:0 auto;padding:20px 16px;}
+
+/* ===== ARTICLE CARDS ===== */
+.art-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:18px;padding:18px;margin-bottom:12px;cursor:pointer;display:block;transition:all .2s;}
+.art-card:active{transform:scale(0.99);}
+.art-card-cat{font-size:10px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:700;}
+.art-card-title{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:19px;color:#F0EDE8;font-weight:700;line-height:1.5;margin-bottom:6px;}
+.art-card-sub{font-size:12px;color:rgba(240,237,232,0.45);line-height:1.6;margin-bottom:8px;}
+.art-card-meta{font-size:11px;color:rgba(201,168,76,0.5);}
+
+/* ===== READER ===== */
+.reader-body p{font-size:15px;line-height:2.1;color:rgba(240,237,232,0.82);margin-bottom:20px;}
+.reader-body h2{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:21px;color:#E8C97A;font-weight:700;margin:28px 0 12px;padding-right:14px;border-right:3px solid #C9A84C;line-height:1.4;}
+.reader-body strong{color:#E8C97A;}
+.reader-body blockquote{background:rgba(201,168,76,0.06);border-right:3px solid #C9A84C;border-radius:0 12px 12px 0;padding:14px 16px;margin:18px 0;font-size:14px;color:rgba(240,237,232,0.7);line-height:1.9;font-style:italic;}
+.protect{-webkit-user-select:none!important;user-select:none!important;-webkit-touch-callout:none!important;}
+
+/* ===== ADV TIERS ===== */
+.adv-tier{border-radius:16px;padding:18px;margin-bottom:12px;}
+.adv-pt{background:rgba(200,200,255,0.05);border:1px solid rgba(200,200,255,0.2);}
+.adv-gd{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.25);}
+.adv-sv{background:rgba(168,184,200,0.04);border:1px solid rgba(168,184,200,0.18);}
+.adv-bz{background:rgba(205,127,50,0.04);border:1px solid rgba(205,127,50,0.18);}
+.adv-badge{font-size:10px;font-weight:900;letter-spacing:2px;padding:3px 10px;border-radius:6px;display:inline-block;margin-bottom:10px;}
+.adv-price{font-size:28px;font-weight:900;line-height:1;margin-bottom:3px;}
+.adv-psub{font-size:11px;color:rgba(240,237,232,0.45);margin-bottom:10px;}
+.adv-feats{list-style:none;margin-bottom:12px;}
+.adv-feats li{font-size:12px;color:rgba(240,237,232,0.7);padding:3px 0 3px 0;position:relative;padding-right:14px;}
+.adv-feats li::before{content:'✓';position:absolute;right:0;color:#C9A84C;}
+.adv-cbtn{display:block;width:100%;padding:11px;border-radius:12px;font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-align:center;border:none;}
+
+/* ===== OBS CATS ===== */
+.obs-cat{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;}
+.obs-cat:active{background:rgba(201,168,76,0.08);}
+.obs-cat-icon{font-size:28px;margin-bottom:8px;}
+.obs-cat-t{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:20px;color:#E8C97A;font-weight:700;margin-bottom:6px;}
+.obs-cat-d{font-size:12px;color:rgba(240,237,232,0.45);line-height:1.7;}
+
+/* ===== ABOUT ===== */
+.about-sec{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:18px;margin-bottom:12px;}
+.about-sec-t{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:18px;color:#E8C97A;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.about-p{font-size:13px;color:rgba(240,237,232,0.65);line-height:1.9;margin-bottom:8px;}
+.val-row{display:flex;align-items:flex-start;gap:10px;padding:8px;background:rgba(201,168,76,0.04);border-radius:10px;margin-bottom:6px;}
+.val-icon{font-size:18px;flex-shrink:0;}
+.val-t{font-size:13px;color:#F0EDE8;font-weight:700;display:block;margin-bottom:2px;}
+.val-d{font-size:12px;color:rgba(240,237,232,0.5);}
+
+/* ===== SIG ===== */
+.sig{text-align:center;padding:24px 0;border-top:1px solid rgba(201,168,76,0.2);margin-top:24px;}
+/* Language-specific signature visibility */
+html[lang="ar"] .sig-en{display:none;}
+html[lang="en"] .subscreen-top{flex-direction:row;}
+html[lang="en"] .sig-ar{display:none;}
+.sig-ar{font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:20px;color:#E8C97A;font-weight:700;margin-bottom:4px;}
+.sig-en{font-size:11px;color:rgba(240,237,232,0.45);letter-spacing:2px;}
+.sig-url{font-size:11px;color:rgba(201,168,76,0.45);letter-spacing:3px;margin-top:5px;}
+
+/* ===== DISC ===== */
+.disc{background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:14px;padding:12px 16px;margin-bottom:18px;font-size:12px;color:rgba(240,237,232,0.5);line-height:1.8;text-align:center;}
+.disc strong{color:#C9A84C;display:block;margin-bottom:4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;}
+
+/* ===== CONTACT ===== */
+.contact-a{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;border-radius:12px;font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:8px;}
+.cwa{background:rgba(37,211,102,0.1);color:#25D166;border:1px solid rgba(37,211,102,0.25);}
+.cem{background:rgba(201,168,76,0.08);color:#C9A84C;border:1px solid rgba(201,168,76,0.2);}
+
+/* ===== FIX FONT CLIPPING ===== */
+.app-title{font-family:'Geeza Pro',-apple-system,Arial,sans-serif!important;font-size:clamp(32px,5vw,52px)!important;font-weight:900!important;line-height:1.5!important;overflow:visible!important;padding-top:8px!important;padding-bottom:8px!important;letter-spacing:1px!important;}
+.app-title-en{font-family:'Lato',sans-serif!important;font-size:clamp(26px,4.5vw,40px)!important;font-weight:900!important;line-height:1.6!important;padding-top:8px!important;padding-bottom:8px!important;}
+
+/* ===== ADJUST EXISTING FOR NAV ===== */
+#s-input{padding-bottom:max(80px,calc(env(safe-area-inset-bottom,0px) + 70px))!important;}
+.result-scroll{padding-bottom:max(80px,calc(env(safe-area-inset-bottom,0px) + 70px))!important;}
+
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="toast" id="toast">✓</div>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- SCREEN 1: INPUT -->
+<div class="screen" id="s-input">
+  <div class="logo-wrap">
+    <span class="moon-icon">🌙</span>
+    <span class="app-title" id="t-appname">مَوْلِدي</span>
+    <div class="app-sub" id="t-appsub">ميلادك هذا العام في التقويم القمري 🌙</div>
+  </div>
+  <div class="input-card">
+    <div class="input-label" id="t-inputlabel">✦ تاريخ ميلادك الميلادي</div>
+    <div class="date-pickers">
+      <div class="picker-group">
+        <label id="t-day">اليوم</label>
+        <input type="number" id="day" min="1" max="31" value="1" inputmode="numeric">
+      </div>
+      <div class="picker-group">
+        <label id="t-month">الشهر</label>
+        <select id="month"></select>
+      </div>
+      <div class="picker-group">
+        <label id="t-year">السنة</label>
+        <input type="number" id="year" min="1900" max="2025" value="2015" inputmode="numeric">
+      </div>
+    </div>
+    <button class="calc-btn calc-btn-ar" id="calcBtn" onclick="calculate()">ميلادك هذا العام قمرياً 🌙</button>
+    <div class="err" id="err"></div>
+  </div>
+  <div class="bottom-note" id="t-privacy">لا يتم حفظ أو إرسال أي بيانات · يعمل بدون إنترنت</div>
+</div>
+
+<!-- SCREEN 2: RESULTS -->
+<div class="screen hidden" id="s-result">
+  <div class="topbar">
+    <button class="back-btn" id="backBtn">→</button>
+    <div class="topbar-title" id="t-topname">مَوْلِدي 🌙</div>
+    <button class="share-btn-top" id="shareBtn">📋</button>
+  </div>
+
+  <div class="result-scroll">
+
+    <!-- Hero -->
+    <div class="hero-card">
+      <div class="hero-dates-row">
+        <div class="hd-block">
+          <div class="hd-val" id="hGreg">—</div>
+          <div class="hd-label" id="t-greglabel">تاريخ ميلادك الميلادي</div>
+        </div>
+        <div class="hd-sep"></div>
+        <div class="hd-block">
+          <div class="hd-val" id="hHijri">—</div>
+          <div class="hd-label" id="t-hijrilabel">تاريخ ميلادك الهجري</div>
+        </div>
+      </div>
+      <div class="next-pill" id="nextPill">—</div>
+    </div>
+
+    <!-- ★ PLATINUM AD — أعلى الصفحة مباشرة بعد النتيجة الرئيسية -->
+    <div class="ad-section">
+      <div class="ad-section-title" id="t-adlabel">إعلان</div>
+      <div class="ad-platinum" onclick="adClick('platinum')">
+        <span class="ad-tier-badge badge-platinum">PLATINUM ✦</span>
+        <div class="ad-content">
+          <div class="ad-icon">🎂</div>
+          <div class="ad-text">
+            <div class="ad-name" id="ad-p-name">مخبز النجوم الذهبية</div>
+            <div class="ad-desc" id="ad-p-desc">تورتات مخصصة لعيد ميلادك الهجري — توصيل لجميع المناطق</div>
+          </div>
+          <button class="ad-cta cta-platinum" id="ad-p-cta">اطلب الآن</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="sec-title" id="t-statsTitle">إحصائياتك</div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val" id="stHijri">—</div><div class="stat-lbl" id="t-s1">عمرك بالهجري</div></div>
+      <div class="stat-card"><div class="stat-val" id="stGreg">—</div><div class="stat-lbl" id="t-s2">عمرك بالميلادي</div></div>
+      <div class="stat-card"><div class="stat-val" id="stDiff">—</div><div class="stat-lbl" id="t-s3">سنوات الفارق</div></div>
+      <div class="stat-card"><div class="stat-val" id="stDays">—</div><div class="stat-lbl" id="t-s4">يوم على عيدك</div></div>
+    </div>
+
+    <!-- ★ GOLD AD — بعد الإحصائيات -->
+    <div class="ad-section">
+      <div class="ad-section-title" id="t-adlabel2">إعلان</div>
+      <div class="ad-gold" onclick="adClick('gold')">
+        <span class="ad-tier-badge badge-gold-ad">GOLD ★</span>
+        <div class="ad-content">
+          <div class="ad-icon-sm">🎁</div>
+          <div class="ad-text">
+            <div class="ad-name ad-name-gold" id="ad-g-name">هدايا الهلال</div>
+            <div class="ad-desc" id="ad-g-desc">هدايا فاخرة مخصصة للمناسبات الهجرية — تغليف مميز مجاناً</div>
+          </div>
+          <button class="ad-cta cta-gold-ad" id="ad-g-cta">تسوّق</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Journey -->
+    <div class="sec-title" id="t-journeyTitle">رحلة ميلادك عبر السنين</div>
+    <div class="tabs-row">
+      <button class="tab active" id="tab-all" onclick="setFilter('all',this)">الكل</button>
+      <button class="tab" id="tab-past" onclick="setFilter('past',this)">الماضي</button>
+      <button class="tab" id="tab-future" onclick="setFilter('future',this)">المستقبل</button>
+    </div>
+    <div class="list-wrap" id="listWrap"></div>
+
+    <!-- ★ SILVER ADS — بعد الجدول، زوج جنباً لجنب -->
+    <div class="ad-section" style="margin-top:20px">
+      <div class="ad-section-title">إعلان</div>
+      <div class="ad-silver-row">
+        <div class="ad-silver" onclick="adClick('silver1')">
+          <span class="ad-tier-badge badge-silver">SILVER</span>
+          <div class="ad-content">
+            <div class="ad-icon-xs">🌸</div>
+            <div class="ad-text">
+              <div class="ad-name ad-name-silver" id="ad-s1-name">ورود القمر</div>
+              <div class="ad-desc" id="ad-s1-desc">باقات زهور لكل مناسبة هجرية</div>
+            </div>
+            <button class="ad-cta cta-silver" id="ad-s1-cta">اكتشف</button>
+          </div>
+        </div>
+        <div class="ad-silver" onclick="adClick('silver2')">
+          <span class="ad-tier-badge badge-silver">SILVER</span>
+          <div class="ad-content">
+            <div class="ad-icon-xs">📸</div>
+            <div class="ad-text">
+              <div class="ad-name ad-name-silver" id="ad-s2-name">لحظات</div>
+              <div class="ad-desc" id="ad-s2-desc">تصوير احترافي لأعياد الميلاد</div>
+            </div>
+            <button class="ad-cta cta-silver" id="ad-s2-cta">احجز</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ BRONZE AD — أسفل الصفحة، compact -->
+    <div class="ad-section">
+      <div class="ad-section-title">إعلان</div>
+      <div class="ad-bronze" onclick="adClick('bronze')">
+        <span class="ad-tier-badge badge-bronze">BRONZE</span>
+        <div class="ad-icon-xs">🎈</div>
+        <div class="ad-text">
+          <div class="ad-name ad-name-bronze" id="ad-b-name">بالونات الفرح</div>
+          <div class="ad-desc" id="ad-b-desc">تنسيق حفلات وتوصيل بالونات</div>
+        </div>
+        <button class="ad-cta cta-bronze" id="ad-b-cta">اتصل</button>
+      </div>
+    </div>
+
+    <!-- Advertise with us -->
+    <div class="advertise-card" onclick="advertiseClick()">
+      <div class="advertise-title" id="t-adv-title">✦ أعلن معنا في مَوْلِدي</div>
+      <div class="advertise-sub" id="t-adv-sub">وصول مباشر لجمهور يبحث عن أعياد الميلاد الهجرية · باقات بلاتيني وذهبي وفضي وبرونزي</div>
+      <div class="advertise-btn" id="t-adv-btn">تواصل معنا</div>
+    </div>
+
+    <div style="height:16px"></div>
+    <div style="text-align:center;font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0;padding-bottom:8px" id="t-note">± يوم حسب رؤية الهلال الفعلية</div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="new-calc-btn" id="newCalcBtn">🌙 <span id="t-newcalc">احسب تاريخاً آخر</span></button>
+  </div>
+</div>
+
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bnav" id="bnav">
+  <button class="bnav-btn on" id="bn-home" onclick="SS.go('home')">
+    <span class="bnav-icon">🌙</span>
+    <span class="bnav-lbl" id="bn-home-l">مَوْلِدي</span>
+  </button>
+  <button class="bnav-btn" id="bn-obs" onclick="SS.go('obs')">
+    <span class="bnav-icon">🔭</span>
+    <span class="bnav-lbl" id="bn-obs-l">المرصد</span>
+  </button>
+  <button class="bnav-btn" id="bn-arts" onclick="SS.go('arts')">
+    <span class="bnav-icon">📖</span>
+    <span class="bnav-lbl" id="bn-arts-l">مقالات</span>
+  </button>
+  <button class="bnav-btn" id="bn-adv" onclick="SS.go('adv')">
+    <span class="bnav-icon">💎</span>
+    <span class="bnav-lbl" id="bn-adv-l">أعلن</span>
+  </button>
+  <button class="bnav-btn" id="bn-about" onclick="SS.go('about')">
+    <span class="bnav-icon">ℹ️</span>
+    <span class="bnav-lbl" id="bn-about-l">من نحن</span>
+  </button>
+</nav>
+
+<!-- ===== OBS SCREEN ===== -->
+<div class="subscreen" id="sc-obs">
+  <div class="subscreen-top">
+    <button class="subscreen-back" onclick="SS.go('home')">←</button>
+    <div class="subscreen-title" id="sc-obs-t">🔭 مرصد المواليد</div>
+    <div style="width:50px"></div>
+  </div>
+  <div class="subscreen-body">
+    <div style="text-align:center;padding:20px 0">
+      <div style="font-size:44px;margin-bottom:12px;filter:drop-shadow(0 0 16px rgba(201,168,76,0.5))">🌙</div>
+      <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:clamp(26px,5vw,38px);color:#E8C97A;font-weight:700;line-height:1.4;padding:6px 0 8px" id="obs-title">مرصد المواليد</div>
+      <div style="font-size:11px;color:rgba(201,168,76,0.6);letter-spacing:0" id="obs-sub">حيث يلتقي الإنسان والزمن والسماء</div>
+    </div>
+    <div class="disc"><strong id="obs-disc-t">✦ ميثاق المرصد</strong><span id="obs-disc-b">مساحة ثقافية ومعرفية — لا توقعات ولا ادعاء بمعرفة الغيب الذي لا يعلمه إلا الله سبحانه وتعالى</span></div>
+    <div class="obs-cat" onclick="SS.go('arts');MW.renderArts('birth')">
+      <div class="obs-cat-icon">🌱</div>
+      <div class="obs-cat-t" id="obs-c1t">الإنسان والميلاد</div>
+      <div class="obs-cat-d" id="obs-c1d">استكشاف معنى يوم الميلاد عبر الثقافات والتاريخ والعلم</div>
+    </div>
+    <div class="obs-cat" onclick="SS.go('arts');MW.renderArts('personality')">
+      <div class="obs-cat-icon">🧠</div>
+      <div class="obs-cat-t" id="obs-c2t">الشخصية والاختلاف الإنساني</div>
+      <div class="obs-cat-d" id="obs-c2d">علم النفس والفروق الفردية وأسرار تشكّل الشخصية</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('sky')">
+      <div class="obs-cat-icon">🌌</div>
+      <div class="obs-cat-t" id="obs-c3t">السماء والثقافة الإنسانية</div>
+      <div class="obs-cat-d" id="obs-c3d">الأبراج والتقاويم والفلك في تراث الحضارات</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('cultures')">
+      <div class="obs-cat-icon">🌍</div>
+      <div class="obs-cat-t" id="obs-c4t">الثقافات والميلاد</div>
+      <div class="obs-cat-d" id="obs-c4d">كيف تحتفل الحضارات بيوم الميلاد</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('hijri')">
+      <div class="obs-cat-icon">📅</div>
+      <div class="obs-cat-t" id="obs-c5t">التقويم الهجري</div>
+      <div class="obs-cat-d" id="obs-c5d">قصة القمر والزمن والهوية في الحضارة الإسلامية</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('psychology')">
+      <div class="obs-cat-icon">🔬</div>
+      <div class="obs-cat-t" id="obs-c6t">علم النفس والميلاد</div>
+      <div class="obs-cat-d" id="obs-c6d">ما يقوله العلم عن ترتيب الميلاد والشخصية</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('history')">
+      <div class="obs-cat-icon">📜</div>
+      <div class="obs-cat-t" id="obs-c7t">التاريخ والميلاد</div>
+      <div class="obs-cat-d" id="obs-c7d">مواليد غيّروا مسار التاريخ الإنساني</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('zodiac')">
+      <div class="obs-cat-icon">♈</div>
+      <div class="obs-cat-t" id="obs-c8t">الأبراج الفلكية</div>
+      <div class="obs-cat-d" id="obs-c8d">تأملات ثقافية في رموز الأبراج</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('philosophy')">
+      <div class="obs-cat-icon">⏳</div>
+      <div class="obs-cat-t" id="obs-c9t">الزمن والفلسفة</div>
+      <div class="obs-cat-d" id="obs-c9d">تأمل فلسفي في معنى الزمن والوجود</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('moon')">
+      <div class="obs-cat-icon">🌙</div>
+      <div class="obs-cat-t" id="obs-c10t">القمر والإنسان</div>
+      <div class="obs-cat-d" id="obs-c10d">القمر في الثقافة الإسلامية والشعر العربي</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('future')">
+      <div class="obs-cat-icon">🚀</div>
+      <div class="obs-cat-t" id="obs-c11t">المستقبل والتطلعات</div>
+      <div class="obs-cat-d" id="obs-c11d">دليل عملي لرحلة معرفة الذات</div>
+    </div>
+    <div class="obs-cat" onclick="SS.goArts('all')">
+      <div class="obs-cat-icon">✨</div>
+      <div class="obs-cat-t" id="obs-c12t">جميع المقالات</div>
+      <div class="obs-cat-d" id="obs-c12d">استعرض كل المقالات من جميع الأقسام</div>
+    </div>
+    <div class="sig"><div class="sig-ar">الفنان الطيب عامر</div><div class="sig-en">Artist Altayeb Amer</div><div class="sig-url">Mawlidi.com</div></div>
+  </div>
+</div>
+
+<!-- ===== ARTICLES SCREEN ===== -->
+<div class="subscreen" id="sc-arts">
+  <div class="subscreen-top">
+    <button class="subscreen-back" onclick="SS.go('home')">←</button>
+    <div class="subscreen-title" id="sc-arts-t">📖 المقالات</div>
+    <div style="width:50px"></div>
+  </div>
+  <div class="subscreen-body">
+    <div class="disc"><strong id="arts-disc-t">✦ تنبيه</strong><span id="arts-disc-b">جميع المقالات للثقافة والتأمل — الغيب لا يعلمه إلا الله سبحانه وتعالى</span></div>
+    <div style="display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px" id="arts-filter"></div>
+    <div id="arts-grid"></div>
+    <div class="sig"><div class="sig-ar">الفنان الطيب عامر</div><div class="sig-en">Artist Altayeb Amer</div><div class="sig-url">Mawlidi.com</div></div>
+  </div>
+</div>
+
+<!-- ===== ARTICLE READER ===== -->
+<div class="subscreen" id="sc-read">
+  <div class="subscreen-top">
+    <button class="subscreen-back" onclick="SS.go('arts')">←</button>
+    <div class="subscreen-title" id="sc-read-t">مرصد المواليد</div>
+    <div style="width:50px"></div>
+  </div>
+  <div class="subscreen-body protect reader-body" id="sc-read-body"></div>
+</div>
+
+<!-- ===== ADV SCREEN ===== -->
+<div class="subscreen" id="sc-adv">
+  <div class="subscreen-top">
+    <button class="subscreen-back" onclick="SS.go('home')">←</button>
+    <div class="subscreen-title" id="sc-adv-t">💎 أعلن معنا</div>
+    <div style="width:50px"></div>
+  </div>
+  <div class="subscreen-body">
+    <div style="text-align:center;padding:20px 0 16px">
+      <div style="font-size:44px;margin-bottom:12px">💎</div>
+      <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:clamp(24px,5vw,36px);color:#E8C97A;font-weight:700;line-height:1.4;padding:6px 0 8px" id="adv-title">أعلن معنا في مَوْلِدي</div>
+      <div style="font-size:12px;color:rgba(240,237,232,0.45)" id="adv-sub">وصول مباشر لجمهور يبحث عن أعياد الميلاد الهجرية</div>
+    </div>
+    <div class="adv-tier adv-pt">
+      <span class="adv-badge" style="background:rgba(200,200,255,0.1);color:#C8C8FF">PLATINUM ✦</span>
+      <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:18px;font-weight:700;color:#C8C8FF;margin-bottom:6px" id="adv-pt-t">الباقة البلاتينية</div>
+      <div class="adv-price" style="color:#C8C8FF">2,000+</div>
+      <div class="adv-psub" id="adv-cur">درهم / شهر</div>
+      <ul class="adv-feats"><li id="adv-pt-f1">أعلى ظهور — أول بطاقة بعد النتائج</li><li id="adv-pt-f2">حجم كبير مع صورة ونص وزر</li><li id="adv-pt-f3">ظهور في المقالات</li></ul>
+      <button class="adv-cbtn" style="background:rgba(200,200,255,0.12);color:#C8C8FF;border:1px solid rgba(200,200,255,0.25)" onclick="contactAd('platinum')" id="adv-pt-btn">تواصل للحجز</button>
+    </div>
+    <div class="adv-tier adv-gd">
+      <span class="adv-badge" style="background:rgba(201,168,76,0.12);color:#E8C97A">GOLD ★</span>
+      <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:18px;font-weight:700;color:#E8C97A;margin-bottom:6px" id="adv-gd-t">الباقة الذهبية</div>
+      <div class="adv-price" style="color:#E8C97A">1,000</div>
+      <div class="adv-psub">درهم / شهر</div>
+      <ul class="adv-feats"><li id="adv-gd-f1">ظهور بعد الإحصائيات</li><li id="adv-gd-f2">حجم متوسط مع صورة ونص</li></ul>
+      <button class="adv-cbtn" style="background:linear-gradient(135deg,#E8C97A,#C9A84C);color:#0A0A1A" onclick="contactAd('gold')" id="adv-gd-btn">تواصل للحجز</button>
+    </div>
+    <div class="adv-tier adv-sv">
+      <span class="adv-badge" style="background:rgba(168,184,200,0.08);color:#A8B8C8">SILVER</span>
+      <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:18px;font-weight:700;color:#A8B8C8;margin-bottom:6px" id="adv-sv-t">الباقة الفضية</div>
+      <div class="adv-price" style="color:#A8B8C8">500</div>
+      <div class="adv-psub">درهم / شهر</div>
+      <ul class="adv-feats"><li id="adv-sv-f1">بطاقة داخل جدول النتائج</li></ul>
+      <button class="adv-cbtn" style="background:rgba(168,184,200,0.1);color:#A8B8C8;border:1px solid rgba(168,184,200,0.2)" onclick="contactAd('silver')" id="adv-sv-btn">تواصل للحجز</button>
+    </div>
+    <div class="adv-tier adv-bz">
+      <span class="adv-badge" style="background:rgba(205,127,50,0.08);color:#CD7F32">BRONZE</span>
+      <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:18px;font-weight:700;color:#CD7F32;margin-bottom:6px" id="adv-bz-t">الباقة البرونزية</div>
+      <div class="adv-price" style="color:#CD7F32">200</div>
+      <div class="adv-psub">درهم / شهر</div>
+      <ul class="adv-feats"><li id="adv-bz-f1">بطاقة أسفل الصفحة</li></ul>
+      <button class="adv-cbtn" style="background:rgba(205,127,50,0.1);color:#CD7F32;border:1px solid rgba(205,127,50,0.2)" onclick="contactAd('bronze')" id="adv-bz-btn">تواصل للحجز</button>
+    </div>
+    <div style="background:rgba(255,255,255,0.02);border:1px dashed rgba(201,168,76,0.15);border-radius:14px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:700" id="adv-pay-t">💳 طريقة الدفع</div>
+      <div style="font-size:13px;color:rgba(240,237,232,0.7);line-height:1.8" id="adv-pay-d">الدفع عبر PayPal · يتم التواصل لتأكيد التفاصيل قبل الدفع</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.02);border:1px dashed rgba(201,168,76,0.15);border-radius:14px;padding:14px;text-align:center;margin-bottom:14px;font-size:12px;color:rgba(240,237,232,0.45);line-height:1.8" id="adv-audience">🎉 جمهور مَوْلِدي الأعزاء: محبي الحفلات وأعياد الميلاد من السعودية والإمارات والخليج العربي، دامت دياركم عامرة بالفرح</div>
+    <a class="contact-a cem" href="mailto:info@mawlidi.com?subject=إعلان في مَوْلِدي">✉️ info@mawlidi.com</a>
+    <div class="sig"><div class="sig-ar">الفنان الطيب عامر</div><div class="sig-en">Artist Altayeb Amer</div><div class="sig-url">Mawlidi.com</div></div>
+  </div>
+</div>
+
+<!-- ===== ABOUT SCREEN ===== -->
+<div class="subscreen" id="sc-about">
+  <div class="subscreen-top">
+    <button class="subscreen-back" onclick="SS.go('home')">←</button>
+    <div class="subscreen-title" id="sc-about-t">ℹ️ من نحن</div>
+    <div style="width:50px"></div>
+  </div>
+  <div class="subscreen-body">
+    <div style="text-align:center;padding:20px 0 16px">
+      <div style="font-size:44px;margin-bottom:12px">🌙</div>
+      <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:clamp(24px,5vw,36px);color:#E8C97A;font-weight:700;line-height:1.4;padding:6px 0 8px" id="about-main-t">من نحن</div>
+      <div style="font-size:11px;color:rgba(201,168,76,0.6);letter-spacing:2px" id="about-main-s">مشروع عربي مستقل</div>
+    </div>
+    <div class="about-sec">
+      <div class="about-sec-t">🌙 <span id="about-s1t">عن مَوْلِدي</span></div>
+      <p class="about-p" id="about-p1">مَوْلِدي مشروع عربي مستقل يهدف إلى تقديم أدوات دقيقة لحساب العمر الهجري، إضافة إلى محتوى ثقافي ومعرفي.</p>
+      <p class="about-p" id="about-p2">نؤمن أن الإنسان أعقد من أن يُختزل في تاريخ ميلاد، وأن شخصيته تتشكل من الإيمان والتربية والبيئة والتجارب.</p>
+      <p class="about-p" id="about-p3">لا يقدم الموقع تنبؤات أو ادعاءات بمعرفة الغيب — الغيب لا يعلمه إلا الله سبحانه وتعالى.</p>
+    </div>
+    <div class="about-sec">
+      <div class="about-sec-t">✦ <span id="about-s2t">قيمنا</span></div>
+      <div class="val-row"><span class="val-icon">🎯</span><div><span class="val-t" id="v1t">الدقة</span><span class="val-d" id="v1d">خوارزميات حساب مبنية على التقويم الهجري الرسمي</span></div></div>
+      <div class="val-row"><span class="val-icon">📚</span><div><span class="val-t" id="v2t">المعرفة</span><span class="val-d" id="v2d">محتوى ثقافي وتاريخي يحترم العقل ويغني الفكر</span></div></div>
+      <div class="val-row"><span class="val-icon">🛡️</span><div><span class="val-t" id="v3t">الأمانة</span><span class="val-d" id="v3d">لا توقعات ولا ادعاء بمعرفة الغيب</span></div></div>
+      <div class="val-row"><span class="val-icon">🔒</span><div><span class="val-t" id="v4t">الخصوصية</span><span class="val-d" id="v4d">لا يتم حفظ أو إرسال أي بيانات</span></div></div>
+    </div>
+    <div class="about-sec" style="background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.03));border-color:rgba(201,168,76,0.25);text-align:center">
+      <div style="font-size:44px;margin-bottom:12px">✍️</div>
+      <div class="sig-ar" style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:24px;color:#E8C97A;font-weight:700;margin-bottom:4px">الفنان الطيب عامر</div>
+      <div class="sig-en" style="font-size:24px;font-family:'Lato',sans-serif;color:#E8C97A;font-weight:700;margin-bottom:4px">Artist Altayeb Amer</div>
+      <div style="font-size:12px;color:rgba(240,237,232,0.45);letter-spacing:2px;margin-bottom:8px">Mawlidi.com</div>
+      <div style="font-size:11px;color:#C9A84C;letter-spacing:1px" id="about-role">مؤسس مَوْلِدي · Founder</div>
+    </div>
+    <div class="about-sec">
+      <div class="about-sec-t">📧 <span id="about-contact-t">تواصل معنا</span></div>
+      <a class="contact-a cem" href="mailto:info@mawlidi.com?subject=مَوْلِدي">✉️ info@mawlidi.com</a>
+    </div>
+    <div class="about-sec" id="about-ad-section" style="background:linear-gradient(135deg,rgba(201,168,76,0.06),rgba(201,168,76,0.02));border-color:rgba(201,168,76,0.3)">
+      <div class="about-sec-t">💎 <span id="about-ad-t">الإعلان في مَوْلِدي</span></div>
+      <p class="about-p" id="about-ad-p">لحجز مساحة إعلانية، تواصل معنا عبر البريد الإلكتروني. سنرد خلال 24-48 ساعة لتأكيد التفاصيل وإرسال رابط الدفع عبر PayPal.</p>
+      <div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:12px;color:rgba(240,237,232,0.6);line-height:2" id="about-ad-steps">١ — تواصل وحدد الباقة المطلوبة<br>٢ — نرسل لك تفاصيل الإعلان وتكلفته<br>٣ — الدفع يتم عبر PayPal بشكل آمن<br>٤ — ينشر إعلانك خلال 24 ساعة</div>
+      <a class="contact-a cem" id="about-ad-link" href="mailto:info@mawlidi.com?subject=طلب إعلان في مَوْلِدي" style="background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));border:1px solid rgba(201,168,76,0.4)">💎 <span id="about-ad-btn">تواصل للإعلان</span></a>
+    </div>
+    <div class="sig"><div class="sig-ar">الفنان الطيب عامر</div><div class="sig-en">Artist Altayeb Amer</div><div class="sig-url">Mawlidi.com</div></div>
+  </div>
+</div>
+
+<script>
+// Stars
+(function(){const c=document.getElementById('stars');for(let i=0;i<80;i++){const el=document.createElement('div');el.className='s';const sz=Math.random()*2.2+0.4;el.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*5}s;animation-delay:${Math.random()*5}s;opacity:${.05+Math.random()*.5}`;c.appendChild(el);}})();
+
+// Algorithm
+const EP=1948438;
+function gToJ(y,m,d){const a=Math.floor((14-m)/12),y2=y+4800-a,m2=m+12*a-3;return d+Math.floor((153*m2+2)/5)+365*y2+Math.floor(y2/4)-Math.floor(y2/100)+Math.floor(y2/400)-32045;}
+function jToG(j){const l=j+68569,n=Math.floor(4*l/146097),l2=l-Math.floor((146097*n+3)/4),i=Math.floor(4000*(l2+1)/1461001),l3=l2-Math.floor(1461*i/4)+31,jj=Math.floor(80*l3/2447),d=l3-Math.floor(2447*jj/80),l4=Math.floor(jj/11);return{y:100*(n-49)+i+l4,m:jj+2-12*l4,d};}
+function hToJ(hy,hm,hd){return hd+Math.ceil(29.5*(hm-1))+(hy-1)*354+Math.floor((11*hy+3)/30)+EP;}
+function jToH(jdn){const j=jdn-EP,y=Math.floor((30*j+10646)/10631),rem=j-((y-1)*354+Math.floor((11*y+3)/30)),m=Math.min(12,Math.ceil(rem/29.5));return{y,m,d:rem-Math.ceil(29.5*(m-1))};}
+function gToH(gy,gm,gd){return jToH(gToJ(gy,gm,gd));}
+function hToG(hy,hm,hd){return jToG(hToJ(hy,hm,hd));}
+
+const LANG={
+  ar:{dir:'rtl',lang:'ar',appname:'مَوْلِدي',appsub:'ميلادك هذا العام في التقويم القمري 🌙',inputlabel:'✦ تاريخ ميلادك الميلادي',day:'اليوم',month:'الشهر',year:'السنة',calcBtn:'ميلادك هذا العام قمرياً 🌙',privacy:'لا يتم حفظ أو إرسال أي بيانات · يعمل بدون إنترنت',topname:'مَوْلِدي 🌙',greglabel:'تاريخ ميلادك الميلادي',hijrilabel:'تاريخ ميلادك الهجري',statsTitle:'إحصائياتك',s1:'عمرك بالهجري',s2:'عمرك بالميلادي',s3:'سنوات الفارق',s4:'يوم على عيدك',journeyTitle:'رحلة ميلادك عبر السنين',tabAll:'الكل',tabPast:'الماضي',tabFuture:'المستقبل',note:'± يوم حسب رؤية الهلال الفعلية',newcalc:'احسب تاريخاً آخر',bBirth:'🎂 الميلاد',bToday:'📍 اليوم',bNext:'⭐ القادم',toastCopied:'✓ تم النسخ!',errMsg:'يرجى إدخال تاريخ ميلاد صحيح',nextLabel:(d,m,y,days)=>`⭐ عيدك القادم: ${d} ${m} ${y}م — بعد ${days} يوم`,todayLabel:'🎂 اليوم هو عيد ميلادك الهجري! مبارك!',fontClass:'calc-btn-ar',titleClass:'app-title',topClass:'topbar-title',
+    months:['','يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+    hmonths:['','محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'],
+    days:['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],
+    adLabel:'إعلان', advTitle:'✦ أعلن معنا في مَوْلِدي',
+    advSub:'وصول مباشر لجمهور يبحث عن أعياد الميلاد الهجرية · باقات بلاتيني وذهبي وفضي وبرونزي',
+    advBtn:'تواصل معنا',
+  },
+  en:{dir:'ltr',lang:'en',appname:'Mawlidi',appsub:'Your Birthday This Year in the Lunar Calendar 🌙',inputlabel:'✦ Enter Your Gregorian Birth Date',day:'Day',month:'Month',year:'Year',calcBtn:'Your Birthday This Year — Lunar 🌙',privacy:'No data stored · Works offline',topname:'Mawlidi 🌙',greglabel:'Your Gregorian Birthday',hijrilabel:'Your Hijri Birthday',statsTitle:'Your Stats',s1:'Hijri Age',s2:'Gregorian Age',s3:'Years Difference',s4:'Days to Birthday',journeyTitle:'Your Birthday Journey',tabAll:'All',tabPast:'Past',tabFuture:'Future',note:'± 1 day based on moon sighting',newcalc:'Calculate Another Date',bBirth:'🎂 Birth',bToday:'📍 Today',bNext:'⭐ Next',toastCopied:'✓ Copied!',errMsg:'Please enter a valid birth date',nextLabel:(d,m,y,days)=>`⭐ Next: ${m} ${d}, ${y} — in ${days} days`,todayLabel:'🎂 Today is your Hijri Birthday!',fontClass:'calc-btn-en',titleClass:'app-title-en',topClass:'topbar-title-en',
+    months:['','January','February','March','April','May','June','July','August','September','October','November','December'],
+    hmonths:['','Muharram','Safar','Rabi I','Rabi II','Jumada I','Jumada II','Rajab',"Sha'ban",'Ramadan','Shawwal',"Dhul Qi'dah",'Dhul Hijjah'],
+    days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    adLabel:'Ad', advTitle:'✦ Advertise on Mawlidi',
+    advSub:'Direct access to users searching for Hijri birthdays · Platinum, Gold, Silver & Bronze packages',
+    advBtn:'Contact Us',
+  }
+};
+
+let curLang='ar', rows=[], filter='all';
+const todayD=new Date();
+const todayJ=gToJ(todayD.getFullYear(),todayD.getMonth()+1,todayD.getDate());
+
+function setLang(l){
+  curLang=l; const L=LANG[l];
+  document.getElementById('html-root').setAttribute('lang',L.lang);
+  document.getElementById('html-root').setAttribute('dir',L.dir);
+  document.getElementById('btn-ar').classList.toggle('active',l==='ar');
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  const tn=document.getElementById('t-appname'); tn.className=L.titleClass; tn.textContent=L.appname;
+  document.getElementById('t-appsub').className=l==='ar'?'app-sub':'app-sub-en'; document.getElementById('t-appsub').textContent=L.appsub;
+  const tt=document.getElementById('t-topname'); tt.className=L.topClass; tt.textContent=L.topname;
+  ['inputlabel','day','month','year','privacy','greglabel','hijrilabel','statsTitle','s1','s2','s3','s4','journeyTitle','note'].forEach(k=>{const el=document.getElementById('t-'+k);if(el)el.textContent=L[k];});
+  const btn=document.getElementById('calcBtn'); btn.className='calc-btn '+L.fontClass; btn.textContent=L.calcBtn;
+  document.getElementById('t-newcalc').textContent=L.newcalc;
+  document.getElementById('tab-all').textContent=L.tabAll;
+  document.getElementById('tab-past').textContent=L.tabPast;
+  document.getElementById('tab-future').textContent=L.tabFuture;
+  // Ad labels
+  document.querySelectorAll('[id^="t-adlabel"]').forEach(el=>el.textContent=L.adLabel);
+  document.getElementById('t-adv-title').textContent=L.advTitle;
+  document.getElementById('t-adv-sub').textContent=L.advSub;
+  document.getElementById('t-adv-btn').textContent=L.advBtn;
+  // Ad CTAs
+  const ctaMap={ar:['اطلب الآن','تسوّق','اكتشف','احجز','اتصل'],en:['Order Now','Shop','Explore','Book','Call']};
+  ['ad-p-cta','ad-g-cta','ad-s1-cta','ad-s2-cta','ad-b-cta'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=ctaMap[l][i];});
+  buildMonths();
+  if(!document.getElementById('s-result').classList.contains('hidden')) renderList(filter);
+}
+
+function buildMonths(){
+  const L=LANG[curLang]; const sel=document.getElementById('month'); const cur=sel.value;
+  sel.innerHTML='';
+  for(let i=1;i<=12;i++){const o=document.createElement('option');o.value=i;o.textContent=L.months[i];if(i==cur||(!cur&&i==1))o.selected=true;sel.appendChild(o);}
+}
+
+function calculate(){
+  const L=LANG[curLang];
+  const day=parseInt(document.getElementById('day').value);
+  const mon=parseInt(document.getElementById('month').value);
+  const yr=parseInt(document.getElementById('year').value);
+  const err=document.getElementById('err'); err.style.display='none'; err.textContent=L.errMsg;
+  if(!day||!mon||!yr||yr<1900||yr>2025||day<1||day>31){err.style.display='block';return;}
+  const td=new Date(yr,mon-1,day); if(td.getMonth()!==mon-1){err.style.display='block';return;}
+  const bH=gToH(yr,mon,day); rows=[];
+  for(let hy=bH.y;hy<=bH.y+90;hy++){const g=hToG(hy,bH.m,bH.d);if(g.y>2051)break;const jdn=gToJ(g.y,g.m,g.d);rows.push({hy,gy:g.y,gm:g.m,gd:g.d,age:hy-bH.y,jdn,isBirth:hy===bH.y});}
+  const nextRow=rows.find(r=>r.jdn>todayJ); const todayRow=rows.find(r=>r.jdn===todayJ);
+  document.getElementById('hGreg').className=curLang==='en'?'hd-val-en':'hd-val';
+  document.getElementById('hHijri').className=curLang==='en'?'hd-val-en':'hd-val';
+  document.getElementById('hGreg').textContent=curLang==='ar'?`${day} ${L.months[mon]} ${yr}م`:`${L.months[mon]} ${day}, ${yr}`;
+  document.getElementById('hHijri').textContent=curLang==='ar'?`${bH.d} ${L.hmonths[bH.m]} ${bH.y}هـ`:`${bH.d} ${L.hmonths[bH.m]} ${bH.y} AH`;
+  if(todayRow)document.getElementById('nextPill').textContent=L.todayLabel;
+  else if(nextRow){const dl=nextRow.jdn-todayJ;document.getElementById('nextPill').textContent=L.nextLabel(nextRow.gd,L.months[nextRow.gm],nextRow.gy,dl);}
+  const tH=jToH(todayJ);
+  document.getElementById('stHijri').textContent=tH.y-bH.y;
+  document.getElementById('stGreg').textContent=todayD.getFullYear()-yr;
+  document.getElementById('stDiff').textContent=Math.abs((tH.y-bH.y)-(todayD.getFullYear()-yr));
+  document.getElementById('stDays').textContent=nextRow?(nextRow.jdn-todayJ):(todayRow?'0 🎂':'—');
+  renderList('all');
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.getElementById('s-input').classList.add('hidden');
+  document.getElementById('s-result').classList.remove('hidden');
+  document.querySelector('.result-scroll').scrollTop=0;
+}
+
+function renderList(f){
+  filter=f; const L=LANG[curLang];
+  const wrap=document.getElementById('listWrap'); wrap.innerHTML='';
+  const data=f==='past'?rows.filter(r=>r.jdn<=todayJ):f==='future'?rows.filter(r=>r.jdn>=todayJ):rows;
+  data.forEach((r,i)=>{
+    const isToday=r.jdn===todayJ;
+    const isNext=f!=='past'&&!data.slice(0,i).some(x=>x.jdn>todayJ)&&r.jdn>todayJ;
+    const div=document.createElement('div');
+    div.className='list-item'+(r.isBirth?' li-birth':isToday?' li-today':isNext?' li-next':'');
+    let badge='';
+    if(r.isBirth)badge=`<span class="badge b-birth">${L.bBirth}</span>`;
+    else if(isToday)badge=`<span class="badge b-today">${L.bToday}</span>`;
+    else if(isNext)badge=`<span class="badge b-next">${L.bNext}</span>`;
+    const hm=jToH(r.jdn);
+    const gregStr=curLang==='ar'?`${r.gd} ${L.months[r.gm]} ${r.gy}م`:`${L.months[r.gm]} ${r.gd}, ${r.gy}`;
+    const hijriStr=curLang==='ar'?`${r.hy} هـ · ${L.hmonths[hm.m]}`:`${r.hy} AH · ${L.hmonths[hm.m]}`;
+    const dayName=L.days[new Date(r.gy,r.gm-1,r.gd).getDay()];
+    div.innerHTML=`<div class="li-age">${r.age===0?'🎂':r.age}</div><div class="li-body"><div class="li-greg">${gregStr}</div><div class="li-hijri">${hijriStr}</div></div><div class="li-right"><div class="li-day">${dayName}</div>${badge}</div>`;
+    wrap.appendChild(div);
+  });
+}
+
+function setFilter(f,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderList(f);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function copyData(){const L=LANG[curLang];const lines=rows.map(r=>`${r.hy} | ${r.gd} ${L.months[r.gm]} ${r.gy} | ${r.age}`);navigator.clipboard.writeText((curLang==='ar'?'مَوْلِدي\n':'Mawlidi\n')+lines.join('\n')).then(()=>showToast(L.toastCopied)).catch(()=>showToast('!'));}
+
+// Ad clicks — replace with real URLs
+function adClick(tier){
+  const urls={platinum:'#',gold:'#',silver1:'#',silver2:'#',bronze:'#'};
+  showToast(curLang==='ar'?'جاري التحويل...':'Redirecting...');
+}
+function advertiseClick(){
+  window.location.href='mailto:info@mawlidi.com?subject=إعلان في مَوْلِدي';
+}
+
+document.getElementById('backBtn').onclick=()=>{document.getElementById('s-result').classList.add('hidden');document.getElementById('s-input').classList.remove('hidden');};
+document.getElementById('newCalcBtn').onclick=()=>{document.getElementById('s-result').classList.add('hidden');document.getElementById('s-input').classList.remove('hidden');};
+document.getElementById('shareBtn').onclick=copyData;
+document.addEventListener('keydown',e=>{if(e.key==='Enter')calculate();});
+buildMonths();
+
+// ═══════════════════════════════════
+// SCREEN NAVIGATION
+// ═══════════════════════════════════
+const SS = {
+  screens: ['obs','arts','adv','about'],
+  current: 'home',
+  goArts(cat) {
+    this.go('arts');
+    setTimeout(()=>MW.renderArts(cat), 100);
+  },
+  go(name) {
+    // Close all screens
+    this.screens.forEach(s => {
+      const el = document.getElementById('sc-' + s);
+      if(el) el.classList.remove('open');
+    });
+    const reader = document.getElementById('sc-read');
+    if(reader) reader.classList.remove('open');
+
+    // Update nav buttons
+    ['home','obs','arts','adv','about'].forEach(n => {
+      const btn = document.getElementById('bn-' + n);
+      if(btn) btn.classList.toggle('on', n === (name === 'read' ? 'arts' : name));
+    });
+
+    this.current = name;
+
+    if(name === 'home') return;
+
+    const target = document.getElementById('sc-' + name);
+    if(target) {
+      target.classList.add('open');
+      target.scrollTop = 0;
+      if(name === 'arts') MW.renderArts();
+      if(name === 'obs' || name === 'arts' || name === 'adv' || name === 'about') MW.updateLang();
+    }
+  },
+  openRead(id) {
+    this.screens.forEach(s => {
+      const el = document.getElementById('sc-' + s);
+      if(el) el.classList.remove('open');
+    });
+    const reader = document.getElementById('sc-read');
+    if(reader) {
+      reader.classList.add('open');
+      reader.scrollTop = 0;
+    }
+    MW._currentArticleId = id;
+    MW.renderRead(id);
+  }
+};
+
+// ═══════════════════════════════════
+// ARTICLES DATA — 12 CATEGORIES
+// ═══════════════════════════════════
+const ARTS = [
+
+// ═══ 1. الإنسان والميلاد | Birth & Humanity ═══
+{id:'a1', cat:'birth',
+ cat_ar:'🌱 الإنسان والميلاد', cat_en:'🌱 Birth & Humanity',
+ t_ar:'لماذا يختلف شخصان وُلدا في اليوم نفسه؟',
+ t_en:'Why Do Two People Born on the Same Day Differ?',
+ s_ar:'رحلة في أسرار الشخصية والبيئة والاختيارات',
+ s_en:'A journey into personality, environment, and choices',
+ min:35,
+ b_ar:`في صباح هادئ من أيام الربيع، استقبلت إحدى المستشفيات الكبرى في بغداد طفلين اثنين وُلدا بفارق لا يتجاوز أربع وعشرين دقيقة. الأول من عائلة متوسطة الحال، والثاني من عائلة ميسورة. بعد مرور ثلاثين سنة كاملة، لم يعد ثمة أي قاسم مشترك بينهما — لا في الشخصية ولا في المسار ولا في طريقة التفكير.
+
+هذه القصة ليست استثناءً. إنها القاعدة. وهي تطرح واحدًا من أعمق التساؤلات التي يمكن أن يطرحها إنسان على نفسه: ما الذي يصنع الإنسان؟
+
+## الجينات: اللبنات الأولى
+
+حين يُولد طفل، يحمل معه خريطة جينية فريدة من نوعها. هذه الخريطة تحدد كثيرًا من الصفات الجسدية، وتؤثر في بعض الاستعدادات النفسية والذهنية. لكن الخبراء يؤكدون أن الجينات تشبه الفهرس لا الكتاب — تحدد ما هو ممكن، لكنها لا تكتب ما سيحدث بالفعل.
+
+دراسات التوائم المتطابقة — وهي الدراسات الأكثر موثوقية في هذا المجال — تكشف أن التوائم المتطابقة جينيًا يختلفون بشكل لافت في شخصياتهم وتوجهاتهم حين ينشآن في بيئات مختلفة. وحتى حين ينشآن في بيئة واحدة، تبرز فروق تدريجية تزداد عمقًا مع مرور السنين.
+
+## البيئة: المشرط الذي ينحت الإنسان
+
+إذا كانت الجينات هي الطينة، فالبيئة هي المشرط. والبيئة هنا لا تعني فقط المكان الجغرافي أو مستوى الدخل، بل تشمل:
+
+**أولًا: البيئة الأسرية المبكرة**
+
+الطفل الذي ينشأ في كنف أبوين يتيحان له التعبير عن مشاعره بحرية، يطور ذكاءً عاطفيًا أعمق. أما الطفل الذي يتعلم مبكرًا أن يكتم مشاعره خشية العقاب، فقد يحمل هذا النمط معه لسنوات طويلة.
+
+**ثانيًا: البيئة التعليمية**
+
+المدرسة ليست مجرد مكان للحفظ والاستظهار. المعلم الذي يُشعر الطفل بقدرته يصنع إنسانًا مختلفًا عن المعلم الذي يُشعره بالعجز. دراسات طويلة الأمد تُثبت أن الطفل الذي يتلقى تعزيزًا إيجابيًا حقيقيًا في سنواته الأولى يحتفظ بثقة أكبر بنفسه حتى في العقد الخامس من عمره.
+
+**ثالثًا: البيئة الاجتماعية والأقران**
+
+جماعة الأقران تؤثر تأثيرًا عميقًا بشكل مدهش. الطفل الذي ينشأ محاطًا بأقران يقرؤون ويتساءلون يطور فضولًا معرفيًا مختلفًا تمامًا عن الطفل الذي تدور دائرة أقرانه حول الترفيه السطحي.
+
+## الاختيارات: حيث يصنع الإنسان نفسه
+
+لكن هناك عاملًا ثالثًا لا يمكن إهماله، ويُشكّل مع الجينات والبيئة مثلثًا متكاملًا — وهو الاختيار.
+
+الإنسان ليس مجرد مُستقبِل سلبي للجينات والبيئة. في مرحلة معينة من النضج، يبدأ في اتخاذ قرارات واعية تغير مساره. الكتاب الذي يختار قراءته، الصديق الذي يختار مرافقته، الموقف الذي يختار الصمود أمامه أو الفرار منه — كل هذه الاختيارات الصغيرة تتراكم لتصنع شخصية كاملة.
+
+✦ وهنا يكمن السر الحقيقي: الإنسان ليس نتاجًا حتميًا لجيناته ولا لبيئته، بل هو مزيج ديناميكي متفاعل بين الاثنين، تُضيف إليه إرادته طبقةً خاصة لا يستطيع أي علم تفسيرها بالكامل.
+
+## السؤال الحقيقي: من أنت؟
+
+حين تسأل نفسك: من أنا؟ — فأنت تسأل عن هذا المزيج الفريد. أنت لست مجرد تاريخ ميلاد، ولا مجرد برج فلكي، ولا مجرد جينات موروثة. أنت تاريخ من القرارات المتراكمة، والتجارب المُعاشة، والأسئلة التي اخترت أن تطرحها على نفسك.
+
+والشخص الآخر الذي وُلد في اليوم نفسه؟ طرح أسئلة مختلفة، واتخذ قرارات مختلفة، وعاش تجارب مختلفة. ولهذا هو إنسان آخر تمامًا.
+
+## ماذا يعني هذا عمليًا؟
+
+هذا الفهم يحمل معه حرية عظيمة. حين تدرك أنك لست محددًا بشكل مطلق لا بجيناتك ولا ببيئتك، تدرك أن التغيير ممكن في أي مرحلة من العمر.
+
+علم الأعصاب الحديث يُثبت أن الدماغ البشري يحتفظ بمرونة ملحوظة — تُسمى plasticity — حتى في مرحلة البلوغ المتأخرة. هذا يعني أن الأنماط التي تكوّنت في طفولتك ليست محفورة في الحجر، بل يمكن تعديلها بوعي ومثابرة.
+
+**الإنسان الذي يفهم هذا يعيش بشكل أكثر حرية وأقل عذرًا.**
+
+لا يلوم جيناته على كسله. لا يلوم بيئته على توقفه عن النمو. يتحمل مسؤولية تشكيل نفسه بيديه، مدركًا في الوقت ذاته أن هذا لا يُلغي الرحمة — لا رحمته بنفسه ولا رحمته بالآخرين الذين صنعتهم ظروف لم يختاروها.
+
+## الميلاد الهجري ومعنى التأمل
+
+في تقليدنا العربي الإسلامي، للميلاد معنى خاص. التقويم الهجري القمري ليس مجرد نظام لحساب الأيام — إنه ارتباط بدورة الكون الكبرى، بصعود الهلال وغيابه، بالأوقات الكبرى التي شهدت أحداثًا غيّرت التاريخ.
+
+حين تعرف يوم ميلادك الهجري، تكتشف بُعدًا جديدًا من بُعدين في هويتك. لا لتتنبأ بمستقبلك — فالغيب لا يعلمه إلا الله — بل لتتصل بتراثك، ولتفهم أن وجودك في هذه اللحظة الكونية بالذات ليس صدفة عابرة.
+
+## خلاصة
+
+الشخصان اللذان وُلدا في اليوم نفسه يختلفان لأن:
+
+أولًا — جيناتهما، رغم تشابهها في بعض الجوانب، تختلف في آلاف التفاصيل الدقيقة.
+
+ثانيًا — بيئتاهما، حتى لو تشابهتا في الظاهر، تختلفان في التجارب اليومية المتراكمة.
+
+ثالثًا — اختياراتهما، وهذا هو الأهم، تتباعد باستمرار مع كل قرار صغير أو كبير يتخذانه.
+
+> أنت لست نتيجة حتمية — أنت مشروع مفتوح.`,
+
+ b_en:`On a quiet spring morning, two babies were born minutes apart in a large hospital. One came from a middle-class family, the other from a wealthy one. Thirty years later, they couldn't be more different — in personality, in direction, in how they see the world.
+
+This isn't an exception. It's the rule. And it raises one of the deepest questions a person can ask: what actually makes a human being?
+
+## Genes: The First Blueprint
+
+When a child is born, they carry a unique genetic map. This map determines many physical traits and influences some psychological and mental tendencies. But experts emphasize that genes are more like a table of contents than the book itself — they define what's possible, not what will actually happen.
+
+Twin studies — the most reliable research tool in this field — reveal that genetically identical twins develop markedly different personalities when raised in different environments. Even when raised together, differences emerge gradually and deepen over time.
+
+## Environment: The Sculptor
+
+If genes are the clay, environment is the sculptor. And environment means far more than geography or income level. It includes:
+
+**First: Early Family Environment**
+
+A child raised by parents who allow free emotional expression develops deeper emotional intelligence. A child who learns early to suppress feelings out of fear of punishment may carry that pattern for decades.
+
+**Second: Educational Environment**
+
+School is not merely a place for memorization. A teacher who makes a child feel capable creates a fundamentally different human being than one who instills a sense of inadequacy. Long-term studies prove that children who receive genuine positive reinforcement in their early years retain greater self-confidence even into their fifties.
+
+**Third: Social Environment and Peers**
+
+Peer groups exert a surprisingly profound influence. A child surrounded by peers who read and question develops a different intellectual curiosity than one whose circle revolves around shallow entertainment.
+
+## Choices: Where People Make Themselves
+
+But there's a third factor that cannot be ignored — and it forms, with genes and environment, a complete triangle: choice.
+
+A person is not merely a passive recipient of genes and environment. At a certain stage of maturity, they begin making conscious decisions that alter their trajectory. The book chosen to read, the friend chosen to accompany, the challenge chosen to face or flee — these small choices accumulate to build an entire personality.
+
+✦ This is the real secret: a person is not the inevitable product of their genes or their environment, but a dynamic, interactive blend of both — to which their will adds a layer that no science can fully explain.
+
+## The Real Question: Who Are You?
+
+When you ask yourself: who am I? — you're asking about this unique mixture. You are not merely a birth date, not merely a zodiac sign, not merely inherited genes. You are a history of accumulated decisions, lived experiences, and questions you chose to ask yourself.
+
+The person born on the same day? They asked different questions, made different decisions, lived different experiences. That is why they are a completely different person.
+
+## What Does This Mean Practically?
+
+This understanding carries immense freedom. When you realize you are not absolutely determined by your genes or environment, you realize that change is possible at any stage of life.
+
+Modern neuroscience proves that the human brain retains remarkable plasticity even in late adulthood. This means the patterns formed in your childhood are not carved in stone — they can be reshaped with awareness and persistence.
+
+**The person who understands this lives with greater freedom and fewer excuses.**
+
+They don't blame their genes for their laziness. They don't blame their environment for their stagnation. They take responsibility for shaping themselves, while recognizing that this doesn't eliminate compassion — neither for themselves nor for others shaped by circumstances they didn't choose.
+
+## Hijri Birth and the Meaning of Reflection
+
+In our Arab-Islamic tradition, birth carries special meaning. The Hijri lunar calendar is not merely a system for counting days — it is a connection to the great cycles of the cosmos, to the rising and setting of the crescent moon, to the pivotal moments that changed history.
+
+When you discover your Hijri birthday, you uncover a new dimension of your identity. Not to predict your future — for only God knows the unseen — but to connect with your heritage, and to understand that your existence at this particular cosmic moment is not a passing coincidence.
+
+## Summary
+
+Two people born on the same day differ because:
+
+First — their genes, despite similarities in some aspects, differ in thousands of subtle details.
+
+Second — their environments, even if superficially similar, differ in the accumulated daily experiences.
+
+Third — their choices, and this is most important, continuously diverge with every small or large decision they make.
+
+> You are not an inevitable result — you are an open project.`
+},
+
+// ═══ 2. الشخصية والاختلاف الإنساني | Personality & Differences ═══
+{id:'a2', cat:'personality',
+ cat_ar:'🧠 الشخصية والاختلاف الإنساني', cat_en:'🧠 Personality & Differences',
+ t_ar:'لماذا نبحث عن أنفسنا في الأبراج؟',
+ t_en:'Why Do We Search for Ourselves in Horoscopes?',
+ s_ar:'علم النفس وراء الفضول الإنساني نحو التصنيفات',
+ s_en:'The psychology behind our fascination with personality labels',
+ min:30,
+ b_ar:`قرأت سارة وصف برجها ذات يوم وابتسمت: "هذا يشبهني فعلاً." ثم قرأت وصف برج آخر — "هذا يشبهني أيضًا!" قرأت ثلاثة أبراج متتالية، وشعرت أن كل واحد منها يصفها هي بالذات. توقفت ولاحظت: أين تكمن الحقيقة؟
+
+هذه الظاهرة لها اسم علمي: تأثير بارنوم (Barnum Effect)، أو تأثير فورر. وفهمها لا يقلل من قيمة الفضول الإنساني — بل يعمّق فهمنا لأنفسنا.
+
+## تأثير بارنوم: حين نرى أنفسنا في كل مرآة
+
+في عام 1948، أجرى عالم النفس برتراند فورر تجربة أصبحت من أشهر تجارب علم النفس في القرن العشرين. أعطى طلابه اختبار شخصية، ثم أعطى كل واحد منهم "تقريرًا شخصيًا" مكتوبًا خصيصًا له. طلب منهم تقييم دقة التقرير من صفر إلى خمسة.
+
+النتيجة؟ المتوسط كان 4.26 من 5 — دقة عالية جدًا.
+
+لكن المفاجأة: كل الطلاب تلقوا نفس التقرير بالضبط! نصًا واحدًا مكتوبًا بعبارات واسعة تنطبق على أي إنسان.
+
+الدرس هنا ليس أن الناس سذّج — بل أن الدماغ البشري مُبرمج بطبيعته على البحث عن الأنماط وإيجاد روابط بينها. نحن نرى وجوهًا في الغيوم، ونُشكّل قصصًا من نقاط عشوائية. هذه القدرة منحتنا تفوقًا تطوريًا هائلًا — لكنها تجعلنا أيضًا عرضة لقبول الأوصاف الغامضة على أنها دقيقة ومخصصة لنا.
+
+## لماذا تجذبنا التصنيفات؟
+
+الإنسان كائن يبحث عن المعنى. في عالم مليء بالغموض والتحولات، يمنح التصنيف شعورًا بالسيطرة والفهم. "أنا حمل" أو "أنا INFJ" أو "أنا دم A" — هذه التصنيفات تعطينا إطارًا لتفسير تصرفاتنا وتصرفات الآخرين.
+
+وهناك أربعة أسباب نفسية عميقة تجعل التصنيفات جذابة:
+
+**أولًا: الحاجة إلى الهوية**
+في مرحلة المراهقة خصوصًا — لكن أيضًا في كل مراحل الحياة — يبحث الإنسان عن إجابة لسؤال: من أنا؟ التصنيف يقدم إجابة جاهزة، واضحة، يمكن الاستناد إليها.
+
+**ثانيًا: التحقق الاجتماعي**
+حين تقول لصديقك "أنا عقرب، ولهذا أنا انتقامي أحيانًا" — أنت لا تبرر سلوكك فحسب، بل تطلب منه أيضًا قبوله. التصنيف يُضفي شرعية اجتماعية على سماتنا.
+
+**ثالثًا: التنبؤ بالعلاقات**
+"برجه وبرجها لا يتوافقان" — هذه الجملة تُختزل فيها رغبة عميقة في تجنب الألم. نريد أن نعرف مسبقًا ما إذا كانت العلاقة ستنجح أم لا.
+
+**رابعًا: الانتماء إلى مجتمع**
+متابعو كل برج يشكّلون نوعًا من المجتمع الرقمي. "نحن الحوت" — فيه شعور بالانتماء والهوية الجماعية.
+
+## الفرق بين الترفيه والحقيقة
+
+المشكلة ليست في قراءة الأبراج للترفيه — هذا أمر لا ضرر فيه. المشكلة تظهر حين نتخذ قرارات حياتية جوهرية بناءً على هذه التصنيفات. قرارات الزواج، والعمل، والصداقة — تستحق أدوات أدق وأعمق.
+
+✦ الإنسان أكثر تعقيدًا من أن يُختزل في اثني عشر قسمًا. كل فرد هو كون بذاته.
+
+## أدوات نفسية أكثر صدقًا
+
+علم النفس الحديث طوّر أدوات لقياس الشخصية تقوم على أسس علمية. من أشهرها:
+
+**نموذج الشخصية الخماسي (Big Five)**
+يقيس خمس سمات رئيسية: الانبساط، والموافقة، والضمير الحي، والاستقرار العاطفي، والانفتاح على التجارب. هذا النموذج نُسخ في ثقافات مختلفة وأثبت ثباتًا ملحوظًا.
+
+**مؤشر مايرز-بريغز (MBTI)**
+رغم انتشاره الواسع، فإن قيمته العلمية موضع جدل أكاديمي. لكنه أداة استكشافية مفيدة إذا قُرئ بتعمق وليس بحرفية.
+
+**الذكاءات المتعددة**
+نموذج هوارد غاردنر الذي يؤكد أن الذكاء ليس شيئًا واحدًا بل أنواع متعددة — موسيقي، ومكاني، وبيني شخصي، وطبيعي، وغيرها.
+
+## الميلاد والهوية في الإسلام
+
+في الفكر الإسلامي، يُعدّ تحديد الشخصية الإنسانية أمرًا أعمق من أي تصنيف. القرآن الكريم يُقدّم الإنسان بوصفه كائنًا مكرّمًا، حاملًا للأمانة، مخيّرًا في أفعاله — لا محكومًا بنجمة أو برج.
+
+"وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ" — هذه الكرامة لا تنتمي إلى برج بعينه، ولا تتوقف على يوم الميلاد. إنها كرامة إنسانية شاملة.
+
+معرفة يوم ميلادك الهجري وصلتك بالتاريخ والتراث هو مدخل جميل لفهم هويتك — لكنه مدخل، ليس إجابة نهائية.
+
+## خلاصة
+
+نبحث عن أنفسنا في الأبراج لأن الدماغ البشري مبرمج على البحث عن المعنى. هذا ليس عيبًا — بل هو ما جعلنا نكتشف الكون.
+
+لكن الإنسان الواعي يُميز بين متعة الاستكشاف وحكمة القرار. يقرأ لاكتشاف، لا ليُقيّد نفسه. ويعرف في نهاية المطاف أن أدق وصف له لن يجده في صفحات التنجيم — بل في تأمله العميق لتجاربه ونمط اختياراته.
+
+> التصنيف نقطة انطلاق، ليس وجهة نهائية.`,
+
+ b_en:`Sarah read her horoscope description one day and smiled: "This is exactly me!" Then she read another sign's description. "This also describes me!" She read three consecutive signs and felt each one was describing her personally. She paused and noticed: where does the truth lie?
+
+This phenomenon has a scientific name: the Barnum Effect, or the Forer Effect. Understanding it doesn't diminish our natural curiosity — it deepens our self-understanding.
+
+## The Barnum Effect: Seeing Ourselves in Every Mirror
+
+In 1948, psychologist Bertrand Forer conducted an experiment that became one of the most famous in twentieth-century psychology. He gave his students a personality test, then handed each one a "personal report" supposedly written specifically for them. He asked them to rate the report's accuracy from zero to five.
+
+The result? The average was 4.26 out of 5 — remarkably high.
+
+The surprise: every student received the exact same report. One text written with broad statements applicable to any human being.
+
+The lesson here isn't that people are naive — it's that the human brain is naturally programmed to seek patterns and find connections. We see faces in clouds and form stories from random dots. This capacity gave us enormous evolutionary advantage — but it also makes us susceptible to accepting vague descriptions as precisely tailored to us.
+
+## Why Do Classifications Attract Us?
+
+Humans are meaning-seeking creatures. In a world full of ambiguity and change, classification provides a sense of control and understanding. "I'm an Aries" or "I'm an INFJ" or "I'm blood type A" — these classifications give us a framework for interpreting our behavior and others'.
+
+Four deep psychological reasons make classifications appealing:
+
+**First: The Need for Identity**
+Especially in adolescence — but throughout all life stages — people search for an answer to: who am I? Classification offers a ready-made, clear answer to lean on.
+
+**Second: Social Validation**
+When you tell a friend "I'm a Scorpio, that's why I can be vengeful" — you're not just explaining your behavior, you're also asking them to accept it. Classification adds social legitimacy to our traits.
+
+**Third: Predicting Relationships**
+"Their signs aren't compatible" — this phrase contains a deep desire to avoid pain. We want to know in advance whether a relationship will work.
+
+**Fourth: Belonging to a Community**
+Followers of each zodiac sign form a kind of digital community. "We Pisces" — there's a sense of belonging and collective identity in that.
+
+## The Difference Between Entertainment and Truth
+
+The problem isn't reading horoscopes for fun — that's harmless. The problem emerges when we make major life decisions based on these classifications. Decisions about marriage, work, and friendship deserve more precise and deeper tools.
+
+✦ A person is too complex to be reduced to twelve categories. Every individual is a universe unto themselves.
+
+## More Honest Psychological Tools
+
+Modern psychology has developed scientifically-grounded personality assessment tools. Among the most well-known:
+
+**The Big Five Personality Model**
+Measures five core traits: extraversion, agreeableness, conscientiousness, emotional stability, and openness to experience. This model has been replicated across cultures and shown remarkable consistency.
+
+**The Myers-Briggs Type Indicator (MBTI)**
+Despite its widespread popularity, its scientific validity is academically debated. But it remains a useful exploratory tool when read thoughtfully rather than literally.
+
+**Multiple Intelligences**
+Howard Gardner's model affirming that intelligence isn't a single thing but multiple types — musical, spatial, interpersonal, naturalistic, and others.
+
+## Birth and Identity in Islam
+
+In Islamic thought, defining human personality goes far deeper than any classification. The Quran presents the human being as a dignified creature, bearing a great trust, and free in their actions — not governed by a star or a sign.
+
+"We have honored the children of Adam" — this dignity does not belong to any particular sign, nor does it depend on the day of birth. It is a universal human dignity.
+
+Knowing your Hijri birthday and your connection to history and heritage is a beautiful gateway to understanding your identity — but it is an entrance, not a final answer.
+
+## Summary
+
+We search for ourselves in horoscopes because the human brain is programmed to seek meaning. This isn't a flaw — it's what led us to discover the universe.
+
+But the aware person distinguishes between the joy of exploration and the wisdom of decision. They read to discover, not to constrain themselves. And they know ultimately that the most accurate description of themselves won't be found in astrology pages — but in deep reflection on their experiences and the pattern of their choices.
+
+> Classification is a starting point, not a final destination.`
+},
+
+// ═══ 3. السماء والثقافة | Sky & Culture ═══
+{id:'a3', cat:'sky',
+ cat_ar:'🌌 السماء والثقافة الإنسانية', cat_en:'🌌 Sky & Culture',
+ t_ar:'الفرق بين علم الفلك والتنجيم',
+ t_en:'The Difference Between Astronomy and Astrology',
+ s_ar:'رحلة في تاريخ نظرة الإنسان إلى السماء',
+ s_en:'A journey through humanity\'s gaze toward the heavens',
+ min:28,
+ b_ar:`في ليلة صافية من ليالي الصحراء العربية، يرصد عالمان السماء. أحدهما يُمسك بمنظار فلكي دقيق، ويُسجّل إحداثيات النجوم بحسابات رياضية صارمة. والآخر يتأمل المشهد ذاته ليستخلص منه دلالات على مصائر الناس.
+
+كلاهما ينظر إلى السماء. لكنهما يرون شيئين مختلفين تمامًا.
+
+## من أين بدأت القصة؟
+
+قبل خمسة آلاف عام، لم يكن الفلك والتنجيم شيئين منفصلين. في حضارة بابل، كان الكهنة-العلماء يرصدون حركة الكواكب لأغراض عملية — تحديد مواسم الزراعة، ورصد الفيضانات، وتحديد الاتجاهات في الصحراء والبحر. وفي الوقت نفسه، كانوا يعتقدون أن هذه الحركات تنطوي على رسائل من الآلهة.
+
+هذا الانصهار بين العلم والأسطورة استمر آلاف السنين. النجوم كانت ساعة وبوصلة وتقويمًا — وفي الوقت نفسه مرآةً لمشيئة السماء.
+
+## الحضارة الإسلامية: فصل بلا قطيعة
+
+في القرن التاسع الميلادي، شهد العالم الإسلامي ثورة علمية مدهشة. علماء كمحمد بن موسى الخوارزمي، والبتّاني، والبيروني، وابن الهيثم — طوّروا علم الفلك على أسس رياضية صارمة لم يسبق إليها.
+
+لكن الموقف الإسلامي من التنجيم كان واضحًا منذ البداية: الاعتقاد بأن النجوم تتحكم في مصائر الناس هو تعارض مع مبدأ التوحيد. علماء المسلمين ميّزوا بوضوح بين:
+
+**علم الفلك (Astronomy):** دراسة علمية مشروعة ومحمودة لحركة الأجرام السماوية، يستخدم للتوقيت وتحديد القبلة وأوقات الصلاة والصوم.
+
+**التنجيم (Astrology):** الاعتقاد بأن مواضع النجوم تؤثر في مصائر الناس وتكشف عن المستقبل — وهو ما نهى عنه الفقهاء.
+
+✦ هذا التمييز الدقيق يكشف عن رؤية إسلامية متوازنة: العلم مشروع ومحمود، والتفسير الغيبي للكون يصطدم مع مبادئ العقيدة.
+
+## ثورة كوبرنيكوس والانفصال الكبير
+
+في القرن السادس عشر، جاء نيكولاوس كوبرنيكوس بنظريته أن الأرض تدور حول الشمس لا العكس. أعقبه غاليليو وكبلر ونيوتن. وبحلول القرن التاسع عشر، أصبح علم الفلك قسمًا أكاديميًا مستقلًا، يعتمد الرياضيات والفيزياء ولا يقبل سوى ما يُثبته الرصد والقياس.
+
+التنجيم سلك طريقًا آخر — بقي في دائرة الموروث الثقافي والروحي، لكنه لم يعد يُدرَّس في الجامعات العلمية.
+
+## ماذا يقول العلم اليوم؟
+
+الدراسات المحكّمة التي اختبرت التنجيم بطرق علمية صارمة — بما فيها دراسة شهيرة تتبّعت آلاف الأشخاص وُلدوا في الوقت نفسه (ما يُسمى temporal twins) — لم تجد أي ارتباط إحصائي بين مواضع النجوم وقت الميلاد والشخصية أو المسار الحياتي.
+
+هذا لا يعني أن التنجيم "لا قيمة له" — بل يعني أن قيمته ليست علمية، بل ثقافية وأنثروبولوجية. إنه يكشف كيف فكّرت الحضارات القديمة، وكيف وجدت معنى في الكون.
+
+## جمال السماء بلا أوهام
+
+الفلك الحديث كشف عن حقائق أكثر إبهارًا من أي أسطورة. النجم الذي تراه الليلة قد يكون ضوءه انطلق منذ مليون سنة — أي أنك تنظر إلى الماضي البعيد. المجرة التي نعيش فيها تحتوي على مئتي مليار نجم. الكون يمتد لمسافات لا يستطيع العقل البشري استيعابها.
+
+هذا الجمال الفعلي لا يحتاج إلى أسطورة لتجميله.
+
+## التقويم الهجري والسماء
+
+مواقيت الإسلام مرتبطة ارتباطًا عضويًا بحركة القمر. رمضان يبدأ برؤية الهلال. العيد يُحدَّد برؤية هلال جديد. الحج له أوقات قمرية محددة. هذا الارتباط الراسخ يجعل المسلم يتوجه إلى السماء لا لقراءة مصيره، بل لتنسيق إيقاع حياته مع إيقاع الكون.
+
+معرفة ميلادك الهجري هو جزء من هذا الارتباط — ارتباط بالزمن الكوني كما صاغه الإسلام.
+
+## خلاصة
+
+الفرق الجوهري بين علم الفلك والتنجيم ليس في موضوع الدراسة — كلاهما يدرس السماء. الفرق في المنهج وفي طبيعة الادعاء:
+
+علم الفلك يقول: هذا ما نرصده وما نقيسه.
+
+التنجيم يقول: هذا ما تعنيه هذه الأرصاد بالنسبة لحياتك.
+
+الأول قابل للاختبار والتفنيد. الثاني يقع في مساحة أخرى تمامًا.
+
+> النظر إلى السماء بعينَي العلم لا يُفقدها جمالها — بل يُضيف إليها عمقًا آخر.`,
+
+ b_en:`On a clear desert night, two scholars observe the sky. One holds a precise telescope, recording star coordinates with rigorous mathematical calculations. The other contemplates the same scene to derive from it meanings about human destinies.
+
+Both gaze at the sky. But they see two entirely different things.
+
+## Where Did the Story Begin?
+
+Five thousand years ago, astronomy and astrology were not separate things. In Babylonian civilization, priest-scholars observed planetary movements for practical purposes — determining agricultural seasons, monitoring floods, finding directions in desert and sea. At the same time, they believed these movements contained messages from the gods.
+
+This fusion of science and myth persisted for thousands of years. Stars were clock, compass, and calendar — and simultaneously a mirror of heaven's will.
+
+## Islamic Civilization: Separation Without Rupture
+
+In the ninth century CE, the Islamic world witnessed a remarkable scientific revolution. Scholars like Al-Khwarizmi, Al-Battani, Al-Biruni, and Ibn al-Haytham developed astronomy on rigorous mathematical foundations unprecedented in history.
+
+But the Islamic position on astrology was clear from the beginning: believing that stars control human destinies conflicts with the principle of monotheism. Muslim scholars clearly distinguished between:
+
+**Astronomy:** A legitimate and praiseworthy scientific study of celestial body movements, used for timekeeping, determining the qibla direction, and prayer and fasting times.
+
+**Astrology:** The belief that star positions influence human destinies and reveal the future — which Islamic scholars prohibited.
+
+✦ This precise distinction reveals a balanced Islamic vision: science is legitimate and praiseworthy, while supernatural interpretation of the cosmos conflicts with principles of faith.
+
+## The Copernican Revolution and the Great Separation
+
+In the sixteenth century, Nicolaus Copernicus proposed that the Earth orbits the Sun, not vice versa. Galileo, Kepler, and Newton followed. By the nineteenth century, astronomy had become an independent academic discipline, relying on mathematics and physics and accepting only what observation and measurement could prove.
+
+Astrology took a different path — remaining in the sphere of cultural and spiritual heritage, but no longer taught in scientific universities.
+
+## What Does Science Say Today?
+
+Peer-reviewed studies that tested astrology with rigorous scientific methods — including a famous study tracking thousands of people born at the same time (so-called temporal twins) — found no statistical correlation between star positions at birth and personality or life trajectory.
+
+This doesn't mean astrology has "no value" — it means its value is cultural and anthropological, not scientific. It reveals how ancient civilizations thought and how they found meaning in the cosmos.
+
+## The Beauty of the Sky Without Illusions
+
+Modern astronomy has revealed facts more astonishing than any myth. The star you see tonight may have emitted its light a million years ago — meaning you're looking into the distant past. Our galaxy contains two hundred billion stars. The universe extends to distances the human mind cannot fully grasp.
+
+This actual beauty requires no myth to enhance it.
+
+## The Hijri Calendar and the Sky
+
+Islamic timekeeping is organically tied to the moon's movement. Ramadan begins with the crescent moon sighting. Eid is determined by a new crescent. Hajj has specific lunar timings. This deep connection means Muslims look to the sky not to read their destiny, but to synchronize the rhythm of their lives with the rhythm of the cosmos.
+
+Knowing your Hijri birthday is part of this connection — a link to cosmic time as shaped by Islam.
+
+## Summary
+
+The fundamental difference between astronomy and astrology isn't in the subject of study — both study the sky. The difference lies in methodology and the nature of the claim:
+
+Astronomy says: this is what we observe and measure.
+
+Astrology says: this is what these observations mean for your life.
+
+The first is testable and falsifiable. The second occupies an entirely different space.
+
+> Looking at the sky through the eyes of science doesn't strip it of beauty — it adds another dimension of depth.`
+},
+
+// ═══ 4. الأبراج الفلكية | Zodiac Signs ═══
+{id:'a4', cat:'zodiac',
+ cat_ar:'♈ الأبراج الفلكية', cat_en:'♈ Zodiac Signs',
+ t_ar:'الحمل — حين تكون القيادة غريزة لا خياراً',
+ t_en:'Aries — When Leadership Is Instinct, Not Choice',
+ s_ar:'تأمل ثقافي في أسطورة القائد المولود',
+ s_en:'A cultural reflection on the myth of the born leader',
+ min:25,
+ b_ar:`وقف شاب أمام لجنة تحكيم ليعرض فكرته. رفضوها. لم يذهب باكيًا، ولم يقنع نفسه بالتراجع — بل خرج وأسس شركته الخاصة.
+
+هذا النمط — الإصرار في مواجهة الرفض — يُنسب في الأدب الشعبي لمواليد برج الحمل. ولكن التساؤل الحقيقي ليس "هل هذا صحيح؟" — بل "ماذا نتعلم من هذا النمط، من أي إنسان صدر؟"
+
+## الحمل في الموروث الثقافي
+
+في الأساطير اليونانية، الكبش الذهبي رمز إلى القوة والمغامرة والبداية الجديدة. المرتبة الأولى في دائرة الأبراج أعطت برج الحمل صفة "البداية" — بداية الربيع، بداية الدورة، بداية الطاقة.
+
+في كثير من الثقافات — من الهندية إلى الفارسية إلى العربية — أُسندت إلى هذه الفترة من السنة صفات الحيوية والإقبال على الحياة.
+
+لكن هل يعني هذا أن كل مواليد الحمل قادة؟ وهل القيادة غريزة فعلًا؟
+
+## القيادة: بين الفطرة والتكوين
+
+علم النفس الحديث يؤكد أن القيادة ليست صفة ثنائية (موجودة أو غائبة) — بل هي مجموعة متشعبة من المهارات والمواقف والسياقات.
+
+**مهارات القيادة التي يمكن تعلمها:**
+رؤية واضحة، والتواصل الفعّال، والقدرة على اتخاذ قرار تحت الضغط، والاستماع الحقيقي.
+
+**سمات الشخصية المرتبطة بالقيادة:**
+الانبساط، والضمير الحي، والاستقرار العاطفي — وهذه كلها توزّعات تقع على متصل، لا إما-أو.
+
+**السياق:**
+القائد في بيئة الأزمات ليس بالضرورة قائدًا في بيئة الإبداع. القائد العسكري قد يفشل في إدارة مؤسسة ثقافية.
+
+✦ القيادة إذن ليست هبة برجية — بل ظاهرة إنسانية معقدة، تتفاعل فيها الطبيعة والتدريب والظروف.
+
+## حين تصبح الأسطورة مرآة
+
+ما يُفيدنا في قراءة توصيفات الأبراج — ليس الاعتقاد بها حرفيًا — بل استخدامها كمرآة للتأمل. "هل أنا حقًا اندفاعي أحيانًا؟ وهل هذا يفيدني؟"
+
+هذا النوع من التأمل مفيد سواء كنت من مواليد الحمل أو الجدي أو أي برج آخر. الأوصاف الواسعة تُطرح مثل أسئلة، لا كحقائق.
+
+## الزمن الهجري وصفة المولود
+
+في التراث الإسلامي، لا يرتبط تحديد الشخصية بالتوقيت الفلكي. لكن هناك اهتمام تاريخي بالأيام والأشهر المباركة، وما تحمله من ذكريات وأحداث. المولود في شهر رمضان، أو في أيام الحج، أو في أيام ذات تاريخ إسلامي عميق — ينشأ في أسرة تحتفي بهذه الأوقات وتُضفي عليها معنى.
+
+هذا الاحتفاء الثقافي — لا التحديد الفلكي — هو ما يصنع جزءًا من هوية الإنسان.
+
+## خلاصة
+
+برج الحمل، كأسطورة ثقافية، يحمل نمطًا جميلًا: الإنسان الذي لا يستسلم للرفض، الذي يرى في كل بداية إمكانية، الذي يتصدر الصفوف حين يتراجع الآخرون.
+
+هذا النمط موجود في البشرية — في كل إنسان وُلد في أي يوم من أيام السنة. لكنه يتكشّف أو لا يتكشّف بحسب التجارب والاختيارات والبيئة.
+
+> القائد لا يُصنعه نجم — بل تصنعه اللحظات التي اختار فيها ألا يتراجع.`,
+
+ b_en:`A young man stood before a judging committee to present his idea. They rejected it. He didn't leave in tears, didn't convince himself to retreat — he walked out and founded his own company.
+
+This pattern — persistence in the face of rejection — is attributed in popular literature to those born under Aries. But the real question isn't "is this true?" — it's "what do we learn from this pattern, regardless of who exhibits it?"
+
+## Aries in Cultural Heritage
+
+In Greek mythology, the golden ram symbolized power, adventure, and new beginnings. First in the zodiac cycle, Aries was given the quality of "beginning" — start of spring, start of the cycle, start of energy.
+
+In many cultures — Indian, Persian, Arab — this time of year was associated with vitality and eagerness for life.
+
+But does this mean every Aries-born person is a leader? And is leadership truly instinct?
+
+## Leadership: Between Nature and Nurture
+
+Modern psychology affirms that leadership isn't a binary quality (present or absent) — it's a complex set of skills, attitudes, and contexts.
+
+**Learnable leadership skills:**
+Clear vision, effective communication, decision-making under pressure, genuine listening.
+
+**Personality traits associated with leadership:**
+Extraversion, conscientiousness, emotional stability — all of which fall on a spectrum, not an either-or.
+
+**Context:**
+A leader in crisis isn't necessarily a leader in creativity. A military leader may fail managing a cultural institution.
+
+✦ Leadership, then, is not a zodiac gift — but a complex human phenomenon in which nature, training, and circumstances all interact.
+
+## When Myth Becomes a Mirror
+
+What serves us in reading zodiac descriptions — not believing them literally — is using them as a mirror for reflection. "Am I truly impulsive sometimes? And does that serve me?"
+
+This type of reflection is useful whether you're born under Aries, Capricorn, or any other sign. Broad descriptions are offered as questions, not facts.
+
+## Summary
+
+Aries, as a cultural myth, carries a beautiful pattern: the person who doesn't yield to rejection, who sees possibility in every beginning, who steps forward when others step back.
+
+This pattern exists in humanity — in every person born on any day of the year. But it emerges or doesn't emerge according to experiences, choices, and environment.
+
+> A leader isn't made by a star — but by the moments they chose not to retreat.`
+},
+
+// ═══ 5. التقويم الهجري | Hijri Calendar ═══
+{id:'a5', cat:'hijri',
+ cat_ar:'📅 التقويم الهجري', cat_en:'📅 Hijri Calendar',
+ t_ar:'لماذا التقويم الهجري أكثر من مجرد تاريخ؟',
+ t_en:'Why the Hijri Calendar Is More Than Just a Date',
+ s_ar:'قصة القمر والزمن والهوية في الحضارة الإسلامية',
+ s_en:'The story of the moon, time, and identity in Islamic civilization',
+ min:32,
+ b_ar:`في اللحظة التي يبدأ فيها الهلال رحلته الشهرية، تتحرك معه ملايين القلوب في أنحاء العالم. رمضان يبدأ، أو ينتهي. الحج يقترب، أو يمر. العيد يُعلَن.
+
+التقويم الهجري ليس مجرد نظام لعدّ الأيام — إنه نبض حضارة بأكملها.
+
+## البداية: هجرة غيّرت التاريخ
+
+لم يبدأ التقويم الهجري من لحظة الخلق، ولا من ميلاد النبي محمد ﷺ. اختار الخليفة عمر بن الخطاب رضي الله عنه — بعد مشاورات مع الصحابة — أن يكون مبدأ التقويم الهجرة: اللحظة التي انتقل فيها المسلمون من مكة إلى المدينة عام 622 ميلادي.
+
+هذا الاختيار ليس اعتباطيًا. الهجرة لم تكن مجرد انتقال جغرافي — كانت نقطة تحول حضاري. كانت اللحظة التي بدأ فيها بناء المجتمع الإسلامي بشكل منظم.
+
+في هذا الاختيار رسالة عميقة: الزمن لا يُقاس بالأحداث الكونية فحسب، بل بلحظات التحول الإنساني الكبرى.
+
+## القمر والإنسان: رابط قديم
+
+التقويم الهجري قمري بامتياز — يعتمد على دورة القمر التي تمتد اثنين وعشرين إلى ثلاثين يومًا، مما يجعل السنة الهجرية أحد عشر يومًا أقصر من السنة الشمسية.
+
+هذا يعني أن الأشهر الإسلامية تتنقل عبر فصول السنة على مدى ثلاثة وثلاثين عامًا. رمضان الذي عشته في طفولتك في الشتاء سيكون في الصيف بعد سنوات، وسيعود إلى الشتاء في آخر عمرك.
+
+✦ هذه الدورة الكونية تُذكّر المسلم باستمرار أن الزمن ليس خطًا مستقيمًا — بل دورة متكررة تحمل كل مرة معاني جديدة.
+
+## الأشهر الهجرية: أسماء ذات معنى
+
+أسماء الأشهر الهجرية ليست تسميات اعتباطية:
+
+**المحرم** — الشهر المحرّم (الحرام). كان العرب يُعظّمونه قبل الإسلام.
+
+**صفر** — قيل إنه من "صفرت" أي خلت البيوت حين خرج العرب للغزو فيه.
+
+**ربيع الأول وربيع الثاني** — ربيع الطبيعة حين وُلد النبي محمد ﷺ.
+
+**جمادى الأولى والثانية** — من الجمود، حين كانت المياه تتجمد.
+
+**رجب** — من الترجيب أي التعظيم.
+
+**شعبان** — حين كانت القبائل تتشعّب للبحث عن الماء.
+
+**رمضان** — من الرمضاء، الحرارة الشديدة.
+
+**شوال** — حين كانت الإبل ترفع أذنابها.
+
+**ذو القعدة** — حين يقعدون عن السفر.
+
+**ذو الحجة** — شهر الحج.
+
+كل اسم قصة، وكل قصة نافذة على حضارة.
+
+## التقويم والهوية
+
+الإنسان الذي يعرف تاريخ ميلاده الهجري لا يعرف رقمًا فحسب — بل يعرف في أي فصل من فصول التاريخ الإسلامي وُلد. وُلد في محرم؟ في شهر البداية والتعظيم. في رمضان؟ في شهر الإيمان والعبادة والقرآن. في ذي الحجة؟ في شهر الحج والأيام المباركة العشر.
+
+هذا الوعي يُضيف بُعدًا روحيًا وثقافيًا لفكرة "يوم الميلاد" التي تحوّلت في العصر الحديث إلى مجرد احتفال.
+
+## الحساب الهجري: دقة وتحديات
+
+الحساب الهجري الدقيق معقد لأسباب عدة:
+الشهر القمري لا يساوي عددًا صحيحًا من الأيام — بل 29.53 يومًا تقريبًا.
+رؤية الهلال تختلف من مكان لآخر.
+التقويمات المحسوبة قد تختلف بيوم واحد عن الرؤية الفعلية.
+
+لهذا تظل الكلمة الفصل في بداية الأشهر المهمة لرؤية الهلال، لا للحساب وحده.
+
+## خلاصة
+
+التقويم الهجري ليس بديلًا عن التقويم الميلادي — كلاهما أدوات لضبط الزمن. لكن الهجري يحمل بُعدًا إضافيًا: إنه تقويم الهوية، ومرجع الذاكرة الجماعية، وإيقاع العبادة.
+
+حين تعرف ميلادك الهجري، لا تتعلم تاريخًا — تتصل بنهر حضارة.
+
+> القمر لا يُشير إلى مصيرك — لكنه يربطك بزمن أكبر من زمنك.`,
+
+ b_en:`In the moment a crescent moon begins its monthly journey, millions of hearts move with it around the world. Ramadan begins, or ends. Hajj approaches, or passes. Eid is announced.
+
+The Hijri calendar is not merely a system for counting days — it is the pulse of an entire civilization.
+
+## The Beginning: A Migration That Changed History
+
+The Hijri calendar didn't begin from the moment of creation, nor from the birth of the Prophet Muhammad ﷺ. Caliph Umar ibn al-Khattab — after consulting the Companions — chose that the calendar's starting point would be the Hijra: the moment Muslims moved from Mecca to Medina in 622 CE.
+
+This choice was not arbitrary. The Hijra was not merely a geographical relocation — it was a civilizational turning point. It was the moment when organized construction of the Islamic community began.
+
+In this choice lies a profound message: time is measured not only by cosmic events, but by the great moments of human transformation.
+
+## The Moon and Humanity: An Ancient Bond
+
+The Hijri calendar is distinctly lunar — based on the moon's cycle of twenty-nine to thirty days, making the Hijri year eleven days shorter than the solar year.
+
+This means Islamic months travel through the seasons over thirty-three years. Ramadan you lived in winter as a child will be in summer years later, and will return to winter in your old age.
+
+✦ This cosmic cycle constantly reminds the Muslim that time is not a straight line — but a recurring cycle that carries new meanings each time.
+
+## Summary
+
+The Hijri calendar is not a replacement for the Gregorian calendar — both are tools for organizing time. But the Hijri carries an additional dimension: it is the calendar of identity, the reference of collective memory, and the rhythm of worship.
+
+When you know your Hijri birthday, you don't just learn a date — you connect with the river of a civilization.
+
+> The moon doesn't point to your destiny — but it connects you to a time greater than your own time.`
+},
+
+// ═══ 6. الثقافات والميلاد | Birth Across Cultures ═══
+{id:'a6', cat:'cultures',
+ cat_ar:'🌍 الثقافات والميلاد', cat_en:'🌍 Birth Across Cultures',
+ t_ar:'كيف تحتفل الحضارات بيوم الميلاد؟',
+ t_en:'How Do Civilizations Celebrate Birthdays?',
+ s_ar:'رحلة حول العالم في معنى اليوم الأول',
+ s_en:'A journey around the world through the meaning of the first day',
+ min:27,
+ b_ar:`في بعض المجتمعات، يوم الميلاد يُحتفل به بهدوء وامتنان. في مجتمعات أخرى، هو مناسبة للضجة والاحتفال الصاخب. وفي بعض الثقافات، لا يُحتفل به أصلًا.
+
+هذا التنوع يُخبرنا شيئًا عميقًا: معنى الميلاد ليس ثابتًا — إنه تفسير ثقافي يختلف باختلاف المجتمع.
+
+## الغرب الحديث: عيد ميلاد كتجربة فردية
+
+في الحضارة الغربية الحديثة، تحوّل عيد الميلاد إلى احتفال شخصي يمجّد الفرد. الكعكة والشموع والأغنية الشهيرة "Happy Birthday" — كلها اختراعات حديثة نسبيًا. أغنية Happy Birthday نفسها حُسمت ملكيتها الفكرية قانونيًا فقط عام 2016.
+
+لكن وراء هذا الاحتفال رسالة ثقافية: "أنت مهم. وجودك يُحتفى به. أنت تستحق لحظة خاصة بك."
+
+## الصين: السنة العمرية لا اليوم
+
+في الثقافة الصينية التقليدية، لا تُحتسب الأعمار بنفس الطريقة. يُعتبر الطفل عمره سنة حين يُولد (لأنه أمضى تسعة أشهر في الرحم). وتُحتفل بأعياد ميلاد السنوات المئوية (خصوصًا الستين والسبعين والثمانين) بشكل خاص.
+
+هذه النظرة تحمل فلسفة مختلفة: الحياة ليست تراكمًا لأيام فردية، بل دورات ذات معنى جماعي.
+
+## الهند: الجانتاري والتنجيم الهندي
+
+في الثقافة الهندية، الجانتاري — وهو الرسم الفلكي للحظة الميلاد — يُستخدم في اتخاذ قرارات الزواج والأعمال والأسماء. هذا الاهتمام بلحظة الميلاد الدقيقة يعكس اعتقادًا عميقًا بأن التوقيت الكوني يؤثر في المسار.
+
+✦ هذا يختلف عن الموقف الإسلامي الذي يرفض التحديد الفلكي للمصائر، لكنه يُقدّر التوقيت والزمن كبُعد روحي.
+
+## إفريقيا: الميلاد كحدث جماعي
+
+في كثير من المجتمعات الأفريقية التقليدية، الميلاد حدث يخص القبيلة أو المجتمع بأكمله. الطفل لا يُولد لوالديه فقط — بل يُولد للمجتمع. الاحتفال يتضمن طقوسًا جماعية، وأغاني، وعطاء، وإعلانًا رمزيًا عن انضمام روح جديدة إلى المجتمع.
+
+## التراث الإسلامي: العقيقة والتسمية
+
+في الإسلام، السابع من الميلاد يوم مميز. العقيقة — ذبح شاة أو شاتين، والتصدق، وتسمية المولود — طقس ديني وثقافي يربط الطفل بمجتمعه منذ اللحظة الأولى.
+
+التسمية في الإسلام ليست مجرد اختيار جمالي — بل اختيار هوية. الاسم الحسن بداية كريمة للمسيرة.
+
+والأذان في أذن المولود اليمنى والإقامة في اليسرى — أول ما يُسمع هو اسم الله وكلمة التوحيد. هذه هي "بطاقة هوية" الطفل في الحضارة الإسلامية.
+
+## خلاصة
+
+كل ثقافة تحتفل بالميلاد بطريقتها، لأن كل ثقافة لها إجابة مختلفة على السؤال: ما هو الإنسان، وما قيمة وجوده؟
+
+معرفة كيف تحتفل الحضارات الأخرى تُوسّع أفقنا، وتجعلنا أكثر تقديرًا لعمق موروثنا الخاص.
+
+> يوم الميلاد ليس يومًا — بل هو سؤال تجيب عنه ثقافتك.`,
+
+ b_en:`In some societies, birthdays are celebrated quietly with gratitude. In others, they're occasions for noise and festivity. And in some cultures, they're not celebrated at all.
+
+This diversity tells us something profound: the meaning of birth is not fixed — it's a cultural interpretation that differs by society.
+
+Every culture celebrates birth in its own way because every culture has a different answer to the question: what is a human being, and what is the value of their existence?
+
+Knowing how other civilizations celebrate expands our horizons and deepens our appreciation for our own heritage.
+
+> A birthday is not a day — it is a question that your culture answers.`
+},
+
+// ═══ 7. علم النفس والميلاد | Psychology & Birth ═══
+{id:'a7', cat:'psychology',
+ cat_ar:'🔬 علم النفس والميلاد', cat_en:'🔬 Psychology & Birth',
+ t_ar:'تأثير ترتيب الميلاد على الشخصية: حقيقة أم خرافة؟',
+ t_en:'Birth Order and Personality: Fact or Myth?',
+ s_ar:'ما يقوله العلم الحديث عن الأبناء الأوائل والأواخر',
+ s_en:'What modern science says about firstborns and last-borns',
+ min:30,
+ b_ar:`"هو الأكبر، لذا هو مسؤول ومنظّم." "هي الأصغر، لذا هي مدللة ومرحة." هذه الأحكام تسمعها في كل ثقافة تقريبًا. لكن ما الذي يقوله علم النفس فعلًا؟
+
+## الفرضية الكلاسيكية: آدلر وترتيب الولادة
+
+ألفريد آدلر، أحد مؤسسي علم النفس الفردي، كان من أوائل من نظّروا لتأثير ترتيب الميلاد. وصف الطفل الأول بأنه يميل للمسؤولية والانضباط، والطفل الأوسط بالدبلوماسية والتكيف، والطفل الأصغر بالحيوية والاعتماد على الآخرين.
+
+هذا النموذج كان جذابًا، ومنتشرًا، ومؤثرًا. لكنه واجه تحديًا علميًا جديًا في العقود الأخيرة.
+
+## ماذا تقول الدراسات الكبيرة؟
+
+في عام 2015، نُشرت دراسة استثنائية في مجلة PNAS تتبّعت أكثر من عشرين ألف شخص في ثلاث دول (الولايات المتحدة، المملكة المتحدة، ألمانيا). النتائج كانت مفاجئة:
+
+وجدت الدراسة تأثيرًا صغيرًا لكنه حقيقي على الذكاء اللفظي — الأبناء الأوائل سجّلوا نتائج أعلى قليلًا. لكن لم تجد أي تأثير ذي دلالة إحصائية على سمات الشخصية الخمس الكبرى.
+
+بمعنى آخر: الابن الأكبر قد يكون أكثر قدرة لفظية نسبيًا — لكن ليس بالضرورة أكثر مسؤولية أو أقل إبداعًا.
+
+## لماذا نؤمن بهذه الأنماط؟
+
+ثلاثة أسباب تجعلنا نرى ما نريد رؤيته:
+
+**أولًا: التأكيد الانتقائي**
+نُلاحظ الحالات التي تؤكد معتقدنا ونتجاهل تلك التي تناقضه.
+
+**ثانيًا: التنبؤ الذاتي التحقيق**
+حين يُقال للطفل الأكبر باستمرار "أنت الأكبر، يجب أن تكون مسؤولًا" — فهو يتشرب هذه التوقعات ويتصرف وفقًا لها.
+
+**ثالثًا: الاختلافات الحقيقية في البيئة**
+الأبناء الأوائل يتلقون اهتمامًا أكبر في السنوات الأولى. الأبناء الأواخر ينشؤون في بيئة أكثر ازدحامًا وتنافسًا. هذه اختلافات بيئية حقيقية — لكنها تؤثر بطرق غير متوقعة.
+
+✦ ترتيب الميلاد يؤثر — لكن ليس كما تتوقع، وليس بالقدر الذي تظن.
+
+## الخلاصة العلمية
+
+ترتيب الميلاد يمكن أن يؤثر في بعض الجوانب المعرفية — كالذكاء اللفظي. لكن تأثيره على الشخصية أضعف بكثير مما يعتقد الناس، ومشروط بعوامل أخرى كثيرة.
+
+الخطأ الحقيقي هو اختزال الإنسان في ترتيب ولادته — تمامًا كما الخطأ في اختزاله في برجه أو دم فصيلته.
+
+> أنت لست "الأكبر" أو "الأصغر" — أنت أنت، بكل تعقيدك الفريد.`,
+
+ b_en:`"He's the oldest, so he's responsible and organized." "She's the youngest, so she's spoiled and fun." These judgments are heard in nearly every culture. But what does psychology actually say?
+
+Modern research shows that birth order can influence some cognitive aspects — like verbal intelligence. But its effect on personality is far weaker than people believe, and is conditioned by many other factors.
+
+The real error is reducing a person to their birth order — just as it's an error to reduce them to their zodiac sign or blood type.
+
+> You are not "the oldest" or "the youngest" — you are yourself, with all your unique complexity.`
+},
+
+// ═══ 8. التاريخ والميلاد | History & Birth ═══
+{id:'a8', cat:'history',
+ cat_ar:'📜 التاريخ والميلاد', cat_en:'📜 History & Birth',
+ t_ar:'مواليد غيّروا التاريخ: ما الذي جعلهم مختلفين؟',
+ t_en:'Births That Changed History: What Made Them Different?',
+ s_ar:'تأمل في قصص أعظم العقول عبر الزمن',
+ s_en:'Reflecting on the stories of history\'s greatest minds',
+ min:33,
+ b_ar:`وُلد ابن سينا عام 980 ميلادي في قرية صغيرة قرب بخارى. لم تكن هناك علامات كونية تُبشّر بعبقريته. لم يُولد في قصر. لم يُرافق ميلاده كسوف أو زلزال. وُلد طفلًا كغيره من الأطفال.
+
+لكن ما الذي جعله ابن سينا؟
+
+## الموهبة والظروف والإرادة: المثلث الخالد
+
+قصص العظماء تُغرينا بالبحث عن سمة واحدة تُفسّر كل شيء. "كان عبقريًا بالفطرة." "كان في المكان المناسب في الوقت المناسب." "كان يعمل بجد لا يصدّق."
+
+الحقيقة أن كل هؤلاء العظماء كانوا حصيلة مثلث متكامل: موهبة فطرية، وظروف مواتية، وإرادة غير عادية.
+
+## ابن سينا: حين يلتقي الفضول بالانضباط
+
+حفظ ابن سينا القرآن الكريم في العاشرة من عمره. درس الفلسفة والطب والرياضيات في آنٍ واحد. كتب القانون في الطب في وقت كان يُعدّ فيه في منتصف عمره. واصل الكتابة حتى وفاته.
+
+لكن ما أهّل ابن سينا لإنجازاته لم يكن فقط الموهبة — بل العيش في بيئة حضارية اسلامية كانت تُقدّر العلم وتُموّله وتُشجّع عليه. الدولة الساسانية، ثم الخلافة العباسية، ثم الأمارات المستقلة — كانت كلها تنظر للعالِم نظرة تبجيل.
+
+✦ العبقرية تحتاج تربة خصبة لتنمو. ابن سينا في بيئة مختلفة ربما أصبح فلاحًا ذكيًا — لا شيخ الرئيس.
+
+## ابن خلدون: العبقرية التي وُلدت من الصدمة
+
+وُلد ابن خلدون عام 1332 في تونس، وعاش حياة مضطربة مليئة بالسجن والمنفى والخسائر. فقد والديه في الطاعون وهو في السادسة عشرة. عاش في بلاطات مختلفة، وسقط مرات، ونهض مرات.
+
+من هذا الاضطراب وُلدت المقدمة — ربما أعمق نص في علم الاجتماع أنتجه التاريخ. الصدمات التي عاشها أعطته نظرة على الحضارات من زاوية لم يرها غيره.
+
+## لماذا نولد في لحظات مختلفة؟
+
+لا إجابة ميتافيزيقية قاطعة على هذا السؤال. لكن من منظور ثقافي ومعرفي، اللحظة التي نولد فيها تُحدد:
+
+الأسئلة التي سنرثها — ما الذي يحتاج الناس لفهمه في هذا العصر؟
+
+التحديات التي سنواجهها — الحروب، الأوبئة، الثورات الفكرية.
+
+الأدوات التي ستكون متاحة لنا — التقنية، المعرفة، الشبكات الاجتماعية.
+
+## ميلادك في السياق التاريخي
+
+حين تعرف تاريخ ميلادك الهجري، يمكنك ربطه بأحداث تاريخية مهمة. وُلدت في عام تحوّل فيه شيء ما في العالم الإسلامي؟ في شهر اتسم بأحداث كبرى؟
+
+هذا التأمل ليس للتنبؤ — بل لزرع الوعي بأن وجودك ليس معزولًا، بل جزء من نسيج تاريخي متواصل.
+
+## خلاصة
+
+الذين غيّروا التاريخ لم يكونوا استثناءات كونية — كانوا بشرًا وُلدوا في لحظات معينة، وصادفوا ظروفًا معينة، وامتلكوا شجاعة خاصة لمواجهة ما لم يواجهه غيرهم.
+
+ما يجعل الإنسان عظيمًا ليس نجمه ولا تاريخه — بل السؤال الذي اختار أن يطرحه، والإجابة التي أصرّ على إيجادها.
+
+> لا أحد يولد عظيمًا — الجميع يختار مدى جرأته على الصدق مع نفسه.`,
+
+ b_en:`Ibn Sina was born in 980 CE in a small village near Bukhara. There were no cosmic signs heralding his genius. He wasn't born in a palace. His birth wasn't accompanied by an eclipse or earthquake. He was born a child like other children.
+
+But what made him Ibn Sina?
+
+The stories of great people tempt us to search for one trait that explains everything. The truth is that all these great figures were the product of a complete triangle: natural talent, favorable circumstances, and extraordinary will.
+
+What made Ibn Sina capable of his achievements wasn't just talent — it was living in an Islamic civilizational environment that valued, funded, and encouraged science.
+
+✦ Genius needs fertile soil to grow.
+
+Those who changed history weren't cosmic exceptions — they were human beings born in certain moments, who encountered certain circumstances, and possessed the special courage to face what others didn't.
+
+What makes a person great isn't their star or their date — but the question they chose to ask, and the answer they insisted on finding.
+
+> No one is born great — everyone chooses how bold they dare to be with themselves.`
+},
+
+// ═══ 9. الأبراج والعلاقات | Zodiac & Relationships ═══
+{id:'a9', cat:'zodiac',
+ cat_ar:'💑 الأبراج والعلاقات', cat_en:'💑 Zodiac & Relationships',
+ t_ar:'هل التوافق الفلكي يصنع زواجًا ناجحًا؟',
+ t_en:'Can Astrological Compatibility Build a Successful Marriage?',
+ s_ar:'ما يقوله العلم والإسلام عن اختيار الشريك',
+ s_en:'What science and Islam say about choosing a partner',
+ min:28,
+ b_ar:`في بعض الأسر العربية والآسيوية، لا يتقدم الشاب للزواج قبل التأكد من "توافق الأبراج." وفي بعض الأحيان، تُرفض علاقات واعدة لأن "البرجين لا يتوافقان."
+
+هذا الواقع يستحق تأملًا جادًا: هل يُمكن للتوافق الفلكي أن يتنبأ بنجاح الزواج؟
+
+## ما يقوله العلم
+
+في عام 2007، حلّل باحثون بريطانيون بيانات أكثر من عشرة ملايين زوج في المملكة المتحدة. السؤال: هل هناك أنماط في الأبراج للأزواج الذين يدوم زواجهم مقارنة بالذين ينفصلون؟
+
+النتيجة: لا فرق إحصائي ذي دلالة. الأزواج "المتوافقون فلكيًا" لا ينفصلون بمعدل أقل من غيرهم، ولا يُقرّون بسعادة أكبر.
+
+هذه النتيجة ليست استثنائية — بل تتكرر في كل دراسة جادة تختبر التوافق الفلكي في العلاقات.
+
+## ما الذي يصنع الزواج الناجح فعلًا؟
+
+العلم يُجيب بوضوح:
+
+**القيم المشتركة** — الاتفاق على الأولويات الكبرى في الحياة: الدين، الأسرة، العمل، الترفيه.
+
+**أسلوب التواصل** — القدرة على التعبير عن المشاعر والاحتياجات بصدق ودون عنف لفظي.
+
+**مهارة حل النزاع** — كل العلاقات فيها خلاف. الفرق بين علاقة ناجحة وفاشلة ليس غياب الخلاف، بل طريقة التعامل معه.
+
+**التوقعات الواقعية** — الرومانسية وحدها لا تبني بيتًا. المشاعر تتقلب. الالتزام هو ما يبقى.
+
+✦ لا توجد خارطة فلكية تُضمن نجاح الزواج. لكن توجد مهارات يمكن تعلمها.
+
+## الإسلام وأسس اختيار الشريك
+
+النبي محمد ﷺ حدّد أربعة معايير يعتبرها الناس في اختيار شريك الحياة: المال، والنسب، والجمال، والدين. ثم قال: "فاظفر بذات الدين تربت يداك."
+
+هذا التوجيه النبوي يُقدّم سلّمًا واضحًا للأولويات — ليس مبنيًا على توافق كوني، بل على توافق قيمي وروحي.
+
+الفقه الإسلامي يُضيف أيضًا مفهوم الكفاءة — التقارب في المستوى الاجتماعي والثقافي والاقتصادي، لأن الفجوة الكبيرة في هذه الجوانب تُشكّل عائقًا عمليًا.
+
+## خلاصة
+
+يوم ميلادك الهجري والميلادي يمنحانك فهمًا لماضيك وهويتك. لكنهما لا يمنحانك ضمانة في علاقاتك.
+
+الزواج الناجح يُبنى كل يوم — بالصدق والتسامح والعمل المشترك. لا نجم يمكنه أن يصنع هذا عنك.
+
+> أفضل توافق هو الذي يُبنى بالاختيار الواعي والالتزام اليومي.`,
+
+ b_en:`In some Arab and Asian families, a young man won't propose without verifying "astrological compatibility." And sometimes promising relationships are rejected because "the signs don't match."
+
+This reality deserves serious reflection: can astrological compatibility predict marital success?
+
+Science says no. Multiple large-scale studies have found no statistically significant pattern connecting zodiac compatibility with relationship longevity or happiness.
+
+Islam offers clear guidance: the Prophet Muhammad ﷺ identified four criteria people consider in choosing a life partner — wealth, lineage, beauty, and religion — then said: "Choose the one with religion, may your hands prosper."
+
+This prophetic guidance presents a clear hierarchy of priorities — not built on cosmic compatibility, but on value and spiritual alignment.
+
+Your Hijri and Gregorian birthdays give you understanding of your past and identity. But they don't give you a guarantee in your relationships.
+
+A successful marriage is built every day — through honesty, forgiveness, and shared effort. No star can build that for you.
+
+> The best compatibility is built through conscious choice and daily commitment.`
+},
+
+// ═══ 10. الزمن والفلسفة | Time & Philosophy ═══
+{id:'a10', cat:'philosophy',
+ cat_ar:'⏳ الزمن والفلسفة', cat_en:'⏳ Time & Philosophy',
+ t_ar:'ما معنى أن تحسب عمرك؟',
+ t_en:'What Does It Mean to Count Your Years?',
+ s_ar:'تأمل فلسفي في الزمن والوجود والحياة',
+ s_en:'A philosophical reflection on time, existence, and life',
+ min:29,
+ b_ar:`كل عام في يوم ميلادك، تزداد سنة. لكن هل تعرف ما الذي تزداد منه حقًا؟
+
+السؤال يبدو بسيطًا — لكنه يفتح على واحدة من أعمق المسائل التي شغلت الفلاسفة والعلماء والمتصوفين عبر الأزمنة: ما هو الزمن؟
+
+## الزمن في الفلسفة
+
+أرسطو عرّف الزمن بأنه "عدد الحركة وفق المتقدم والمتأخر." بمعنى: الزمن ليس شيئًا موجودًا بذاته، بل هو الطريقة التي ندرك بها التغيير.
+
+أما أوغسطينوس، فكتب الجملة الشهيرة: "ما هو الزمن؟ إذا لم يسألني أحد، أعرف. إذا أردت أن أشرحه، لا أعرف."
+
+وفي الفيزياء الحديثة، أثبت أينشتاين أن الزمن نسبي — يتباطأ مع التسارع ومع الجاذبية. ما تشعر بأنه "ساعة" لا يتطابق تمامًا مع ما تقيسه الساعة في مكان آخر.
+
+لكن هذا الزمن الفيزيائي ليس الزمن الذي نعيشه كبشر.
+
+## الزمن المُعاش: الذاكرة والتوقع
+
+نحن نعيش في ثلاثة أزمنة في آنٍ واحد:
+
+**الماضي** — ليس الماضي "كما كان" بل الماضي "كما نتذكره." والذاكرة ليست سجلًا دقيقًا، بل بناء إبداعي يتغير مع كل استدعاء.
+
+**الحاضر** — اللحظة التي لا يمكن الإمساك بها. حين تقول "الآن" تكون قد انتهت بالفعل.
+
+**المستقبل** — الذي لا وجود له إلا في تخيلنا وتوقعنا.
+
+✦ نحن كائنات زمنية بامتياز — نحمل ماضينا، ونعيش حاضرنا، ونتطلع لمستقبلنا. هذه القدرة الزمنية هي ما يُميّزنا عن سائر المخلوقات.
+
+## الإسلام والزمن: أمانة ومسؤولية
+
+في الإسلام، الزمن أمانة. يقول الله سبحانه في القرآن: "وَالْعَصْرِ إِنَّ الْإِنسَانَ لَفِي خُسْرٍ" — أقسم الله بالزمن نفسه، لأهميته.
+
+العمر هو الرأسمال الحقيقي للإنسان. ليس المال، ليس المنصب — بل الزمن المتاح قبل أن تنتهي الرحلة.
+
+"اغتنم خمسًا قبل خمس: شبابك قبل هرمك، وصحتك قبل سقمك، وغناك قبل فقرك، وفراغك قبل شغلك، وحياتك قبل موتك." — حديث نبوي شريف.
+
+## حساب العمر الهجري: بُعد روحي
+
+حين تحسب عمرك بالتقويم الهجري، تكتشف شيئًا مثيرًا: عمرك الهجري أكبر من عمرك الميلادي بنسبة 3% تقريبًا. هذا يعني أن الإنسان الذي يبلغ ستين سنة ميلادية، قد عاش في الواقع ما يعادل 61.8 سنة هجرية.
+
+هذا الفارق البسيط يحمل تذكيرًا: الزمن الذي تملكه أكثر مما تتخيل — إذا عرفت كيف تُحسن استثماره.
+
+## خلاصة
+
+عدّ الأعوام ليس مجرد رصد رقمي للعمر. إنه دعوة للتأمل:
+
+كيف استثمرت الأعوام الماضية؟ ما الذي أضفته؟ وما الذي تريد أن تُضيفه؟
+
+التقويمان — الميلادي والهجري — يُعطيانك وجهَي نظر مختلفَين على نفس المسيرة. استخدمهما معًا لقراءة حياتك بعمق أكبر.
+
+> لا تعدّ الأعوام — اجعل كل عام يعدّ.`,
+
+ b_en:`Every year on your birthday, you gain a year. But do you know what exactly you're gaining?
+
+The question seems simple — but it opens onto one of the deepest issues that has occupied philosophers, scientists, and mystics across the ages: what is time?
+
+In Islam, time is a trust. God swears by time itself in the Quran — "By time, indeed mankind is in loss" — because of its paramount importance.
+
+Age is humanity's true capital. Not money, not position — but the time available before the journey ends.
+
+When you calculate your Hijri age, you discover something interesting: your Hijri age is about 3% greater than your Gregorian age. This simple difference carries a reminder: the time you have is more than you imagine — if you know how to invest it well.
+
+Counting years is not merely a numerical record of age. It's an invitation to reflect:
+
+How did I invest the past years? What did I contribute? And what do I want to contribute?
+
+The two calendars — Gregorian and Hijri — give you two different perspectives on the same journey. Use them together to read your life with greater depth.
+
+> Don't count the years — make every year count.`
+},
+
+// ═══ 11. القمر والإنسان | Moon & Humanity ═══
+{id:'a11', cat:'moon',
+ cat_ar:'🌙 القمر والإنسان', cat_en:'🌙 Moon & Humanity',
+ t_ar:'القمر في الثقافة الإسلامية: رمز لا حاكم',
+ t_en:'The Moon in Islamic Culture: A Symbol, Not a Ruler',
+ s_ar:'رحلة في علاقة الإنسان المسلم بالقمر عبر القرون',
+ s_en:'The Muslim\'s relationship with the moon through the centuries',
+ min:26,
+ b_ar:`لا جرم سماوي حضر في التاريخ الإنساني بحضور القمر. في كل حضارة، وفي كل عصر، نظر الإنسان إلى القمر ورأى فيه شيئًا: مرآة، وساعة، ورمزًا، وقصة.
+
+في الحضارة الإسلامية، القمر أكثر من رمز — إنه جزء من بنية العبادة ذاتها.
+
+## القمر في القرآن والسنة
+
+ورد القمر في القرآن الكريم صراحةً في مواضع عدة. سورة القمر تبدأ بواحدة من أعظم الآيات الكونية: "اقْتَرَبَتِ السَّاعَةُ وَانشَقَّ الْقَمَرُ."
+
+وفي سورة يونس: "هُوَ الَّذِي جَعَلَ الشَّمْسَ ضِيَاءً وَالْقَمَرَ نُورًا وَقَدَّرَهُ مَنَازِلَ لِتَعْلَمُوا عَدَدَ السِّنِينَ وَالْحِسَابَ." — هنا يُصرّح القرآن بوظيفة القمر: التقويم والحساب، لا التحكم في المصائر.
+
+## الهلال: رمز البداية
+
+الهلال في الإسلام رمز البداية — بداية الشهر، وبداية رمضان، وبداية الحج. حين يرى المسلم الهلال، يقرأ دعاء مأثورًا: "اللهم أهلّه علينا بالأمن والإيمان والسلامة والإسلام."
+
+هذا الدعاء يكشف الموقف الإسلامي: القمر مخلوق كغيره من المخلوقات، والمسلم يتوجه إلى الله — الخالق — لا إلى القمر ذاته.
+
+✦ الهلال رمز جميل لبدايات جديدة — لكنه لا يملك قدرة على التأثير في حياتك. ما يُبارك بداياتك هو الله وحده.
+
+## القمر في الشعر العربي
+
+لا يمكن الحديث عن القمر في الثقافة العربية دون التوقف عند حضوره الطاغي في الشعر. من جاهلية العرب إلى عصرنا، القمر في الشعر العربي هو:
+
+رمز الجمال المثالي — "وجهها كالقمر."
+
+رمز الوحدة والحنين — القمر يرى ما لا يراه سواه.
+
+رمز الثبات في متغيّر — القمر يعود كل ليلة رغم كل شيء.
+
+## رؤية الهلال: سنة جماعية
+
+رؤية هلال رمضان في الإسلام ليست فردية — بل جماعية. السنة النبوية تحث على تحري الهلال جماعيًا، والفرح الجماعي بإعلانه. هذا البُعد الجماعي يُذكّر بأن المسلم فرد في أمة — لا كيان منعزل.
+
+## خلاصة
+
+القمر في الثقافة الإسلامية ليس حاكمًا ولا متنبئًا ولا إلهًا. إنه مخلوق جميل يُؤدي وظيفته الكونية بدقة مذهلة. يُنير الليل، ويُوقّت العبادة، ويُنظّم الحياة.
+
+وحين تعرف يوم ميلادك الهجري، فأنت تتصل بهذه الوظيفة الكونية الجميلة — لا للتنبؤ، بل للانتماء.
+
+> القمر يُضيء الطريق — لكن أنت من يمشي.`,
+
+ b_en:`No celestial body has been present in human history like the moon. In every civilization, in every era, people looked at the moon and saw something in it: a mirror, a clock, a symbol, a story.
+
+In Islamic civilization, the moon is more than a symbol — it is part of the very structure of worship itself.
+
+The Quran explicitly mentions the moon's function: "He it is who made the sun a radiance and the moon a light, and determined it by stations so that you might know the number of the years and the reckoning." — Here the Quran explicitly states the moon's purpose: calendar and reckoning, not control of destinies.
+
+The crescent moon in Islam is a symbol of beginnings — the beginning of the month, Ramadan, and Hajj. When a Muslim sees the crescent, they recite a traditional prayer asking God for blessing. This prayer reveals the Islamic stance: the moon is a creature like others, and the Muslim turns to God — the Creator — not to the moon itself.
+
+✦ The crescent is a beautiful symbol of new beginnings — but it has no power to influence your life. What blesses your beginnings is God alone.
+
+When you know your Hijri birthday, you connect to this beautiful cosmic function — not for prediction, but for belonging.
+
+> The moon illuminates the path — but you are the one who walks.`
+},
+
+// ═══ 12. المستقبل والتطلعات | Future & Aspirations ═══
+{id:'a12', cat:'future',
+ cat_ar:'🚀 المستقبل والتطلعات', cat_en:'🚀 Future & Aspirations',
+ t_ar:'من أين تبدأ رحلة معرفة الذات؟',
+ t_en:'Where Does the Journey of Self-Knowledge Begin?',
+ s_ar:'دليل عملي لمن يريد أن يفهم نفسه بعمق',
+ s_en:'A practical guide for those who want to understand themselves deeply',
+ min:31,
+ b_ar:`معرفة الذات — ربما تكون أصعب رحلة يشرع فيها إنسان. أصعب من تعلم لغة جديدة، وأصعب من اكتساب مهارة تقنية. لأنها رحلة لا خارطة قاطعة لها، ولا وجهة محددة تعلن عنها.
+
+لكنها أيضًا الرحلة الأكثر مردودًا — لأن كل خطوة فيها تُحسّن علاقتك بنفسك وبالآخرين وبالحياة.
+
+## الخطوة الأولى: التوقف
+
+معرفة الذات تبدأ بالتوقف. في عالم لا يُشجّع التوقف — الإنتاجية الدائمة، الإشباع الفوري، الإلهاء المستمر — اختيار التوقف هو فعل ثوري.
+
+التوقف لا يعني الخمول. يعني إعطاء النفس فرصة للتأمل: من أنا؟ ماذا أريد حقًا؟ ما الذي أخشاه؟ ما الذي يجعلني أشعر بالحياة؟
+
+## الخطوة الثانية: الملاحظة دون حكم
+
+الكثيرون حين يبدؤون رحلة معرفة الذات يقعون في فخ الحكم الذاتي السريع. يلاحظون نمطًا في سلوكهم فيُصنّفونه فورًا: "هذا عيب" أو "هذه مشكلة."
+
+معرفة الذات الحقيقية تبدأ بالملاحظة الموضوعية — كما تراقب ظاهرة طبيعية دون أن تحكم عليها. "أنا ألاحظ أنني أتراجع في مواجهة النقد." هذا ملاحظة. "أنا جبان وضعيف" — هذا حكم يُعطّل التغيير.
+
+✦ الفرق بين الملاحظة والحكم هو الفرق بين التعلم والجلد الذاتي.
+
+## الخطوة الثالثة: الصدق مع النفس
+
+ربما أصعب جزء في معرفة الذات هو مواجهة الأجزاء التي لا نُحبها فينا. الميول التي نُخفيها حتى عن أنفسنا. الأنماط التي نعرف وجودها لكننا نرفض الإقرار بها.
+
+العلم النفسي يُسمّي هذا الظاهرة "الدفاعية النفسية." والتراث الإسلامي يسميها أيضًا بمفهوم "الغفلة" — وهي أن تعيش دون وعي بحقيقة نفسك.
+
+محاسبة النفس — وهو مفهوم إسلامي عريق — هو في جوهره دعوة إلى هذا الصدق الدائم.
+
+## الخطوة الرابعة: التعلم من القصص والتجارب
+
+لا تحتاج لاختراع كل شيء من الصفر. البشرية تراكمت تجارب معرفة الذات لآلاف السنين — في الفلسفة، والأدب، والتراث الروحي، وعلم النفس.
+
+قرأ شخص ما قصتك قبل أن تعيشها، وكتب عنها.
+
+**مصادر قيّمة لمعرفة الذات:**
+
+الكتاب العزيز والسنة النبوية — أعمق خارطة للنفس الإنسانية في الموروث الإسلامي.
+
+الفلسفة الرواقية — ماركوس أوريليوس وإبكتيتوس وسينيكا.
+
+علم النفس الإيجابي — ما الذي يجعل الإنسان يزدهر؟
+
+التأمل والمذكرات الشخصية — أدوات بسيطة وفعّالة.
+
+## دور تاريخ الميلاد في معرفة الذات
+
+تاريخ ميلادك — هجريًا وميلاديًا — هو نقطة انطلاق، لا نهاية. إنه يُخبرك:
+
+في أي لحظة تاريخية وُلدت؟
+
+ما التراث الذي ورثته بسبب هذا التوقيت؟
+
+ما الفرص والتحديات التي شكّلت طفولتك ومراهقتك؟
+
+لكنه لا يُخبرك من ستكون. ذلك لا يزال في يدك.
+
+## خلاصة: الرحلة لا تنتهي
+
+معرفة الذات ليست وجهة تصل إليها يومًا ما وتقول: "وصلت." إنها حالة مستمرة من اليقظة والتساؤل والتكيف.
+
+الإنسان الذي يقول "أعرف نفسي تمامًا" هو أكثر من يحتاج لمراجعة هذا الاعتقاد.
+
+لكن الإنسان الذي يُواصل رحلة معرفة الذات — رغم صعوبتها ورغم ما يكتشفه فيها من مفاجآت — هو إنسان يُضيء طريقه بيديه.
+
+> أعمق معرفة هي أن تعرف ما لا تعرفه عن نفسك.`,
+
+ b_en:`Self-knowledge may be the most difficult journey a person undertakes. More difficult than learning a new language, more difficult than acquiring a technical skill. Because it's a journey with no definitive map and no fixed destination.
+
+But it's also the most rewarding journey — because every step in it improves your relationship with yourself, with others, and with life.
+
+**The journey has four key steps:**
+
+First: Stop. In a world that doesn't encourage stopping — constant productivity, instant gratification, perpetual distraction — choosing to stop is a revolutionary act.
+
+Second: Observe without judgment. Many who begin self-knowledge fall into the trap of quick self-judgment. True self-knowledge begins with objective observation.
+
+Third: Be honest with yourself. Perhaps the hardest part — facing the parts of ourselves we don't like.
+
+Fourth: Learn from stories and experiences. The humanity before you accumulated thousands of years of self-knowledge experience — in philosophy, literature, spiritual heritage, and psychology.
+
+✦ The difference between observation and judgment is the difference between learning and self-flagellation.
+
+Your birth date — in Hijri and Gregorian — is a starting point, not an endpoint. It tells you in what historical moment you were born, what heritage you inherited because of that timing. But it doesn't tell you who you will become. That remains in your hands.
+
+Self-knowledge is not a destination you reach one day. It is a continuous state of alertness, questioning, and adaptation.
+
+> The deepest knowledge is knowing what you don't know about yourself.`
+},
+
+];
+
+
+// ═══════════════════════════════════
+// MAWLIDI NAMESPACE
+// ═══════════════════════════════════
+const MW = {
+  renderArts(cat='all') {
+    MW._currentCat = cat;
+    const L = typeof curLang !== 'undefined' ? curLang : 'ar';
+    const ar = L === 'ar';
+    const grid = document.getElementById('arts-grid');
+    if(!grid) return;
+
+    const filtered = cat==='all' ? ARTS : ARTS.filter(a=>a.cat===cat);
+    grid.innerHTML = filtered.map(a => `
+      <div class="art-card" onclick="SS.openRead('${a.id}')">
+        <div class="art-card-cat">${ar?a.cat_ar:a.cat_en}</div>
+        <div class="art-card-title">${ar?a.t_ar:a.t_en}</div>
+        <div class="art-card-sub">${ar?a.s_ar:a.s_en}</div>
+        <div class="art-card-meta">⏱ ${a.min} ${ar?'دقائق':'min'}</div>
+      </div>`).join('');
+
+    // Filter buttons
+    const filt = document.getElementById('arts-filter');
+    if(filt) {
+      const cats = [
+        {v:'all',ar:'الكل',en:'All'},
+        {v:'birth',ar:'🌱 الميلاد',en:'🌱 Birth'},
+        {v:'personality',ar:'🧠 الشخصية',en:'🧠 Personality'},
+        {v:'sky',ar:'🌌 السماء',en:'🌌 Sky'},
+        {v:'zodiac',ar:'♈ الأبراج',en:'♈ Zodiac'},
+        {v:'hijri',ar:'📅 الهجري',en:'📅 Hijri'},
+        {v:'cultures',ar:'🌍 الثقافات',en:'🌍 Cultures'},
+        {v:'psychology',ar:'🔬 علم النفس',en:'🔬 Psychology'},
+        {v:'history',ar:'📜 التاريخ',en:'📜 History'},
+        {v:'philosophy',ar:'⏳ الفلسفة',en:'⏳ Philosophy'},
+        {v:'moon',ar:'🌙 القمر',en:'🌙 Moon'},
+        {v:'future',ar:'🚀 المستقبل',en:'🚀 Future'},
+      ];
+      filt.innerHTML = cats.map(c=>`<button onclick="MW.renderArts('${c.v}')" style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 14px;color:rgba(240,237,232,0.45);font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:12px;cursor:pointer;white-space:nowrap">${ar?c.ar:c.en}</button>`).join('');
+    }
+  },
+
+  renderRead(id) {
+    const L = typeof curLang !== 'undefined' ? curLang : 'ar';
+    const ar = L === 'ar';
+    const a = ARTS.find(x=>x.id===id);
+    if(!a) return;
+
+    const titleEl = document.getElementById('sc-read-t');
+    if(titleEl) titleEl.textContent = ar?a.t_ar:a.t_en;
+
+    const body = document.getElementById('sc-read-body');
+    if(!body) return;
+
+    body.innerHTML = `
+      <div style="padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,0.2);margin-bottom:20px">
+        <div style="font-size:10px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">${ar?a.cat_ar:a.cat_en}</div>
+        <div style="font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:clamp(20px,5vw,30px);color:#F0EDE8;font-weight:700;line-height:1.5;margin-bottom:8px">${ar?a.t_ar:a.t_en}</div>
+        <div style="font-size:13px;color:#C9A84C;font-style:italic;margin-bottom:10px">${ar?a.s_ar:a.s_en}</div>
+        <div style="font-size:11px;color:rgba(240,237,232,0.45)">⏱ ${a.min} ${ar?'دقائق':'min'} · ✍️ ${ar?'الفنان الطيب عامر':'Artist Altayeb Amer'}</div>
+      </div>
+      <div class="disc"><strong>${ar?'✦ ميثاق المرصد':'✦ CHARTER'}</strong>${ar?'هذا المقال للثقافة والتأمل فقط — الغيب لا يعلمه إلا الله سبحانه وتعالى':'For cultural reflection only — no predictions, no claims of unseen knowledge'}</div>
+      <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.1);border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:11px;color:rgba(201,168,76,0.55)">🔒 ${ar?'هذا المحتوى محمي — الفنان الطيب عامر — Mawlidi.com':'Protected — Artist Altayeb Amer — Mawlidi.com'}</div>
+      ${this.md(ar?a.b_ar:a.b_en)}
+      <div style="border-top:1px solid rgba(201,168,76,0.2);padding-top:18px;margin-top:10px;text-align:center">
+        <div style="font-size:11px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700">💬 ${ar?'هل أعجبتك المقالة؟':'Did you enjoy this article?'}</div>
+        <div style="display:flex;gap:12px;justify-content:center;margin-bottom:18px">
+          <button onclick="MW.rate(this)" data-emoji="❤️" style="background:none;border:none;cursor:pointer;font-size:28px">❤️</button>
+          <button onclick="MW.rate(this)" data-emoji="🌟" style="background:none;border:none;cursor:pointer;font-size:28px">🌟</button>
+          <button onclick="MW.rate(this)" data-emoji="🤔" style="background:none;border:none;cursor:pointer;font-size:28px">🤔</button>
+          <button onclick="MW.rate(this)" data-emoji="👏" style="background:none;border:none;cursor:pointer;font-size:28px">👏</button>
+        </div>
+        <div style="font-size:11px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">🌟 ${ar?'شارك المقالة':'Share Article'}</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <button onclick="MW.share('wa',ar?a.t_ar:a.t_en)" style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:20px;padding:8px 18px;color:#25D366;font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:13px;cursor:pointer;font-weight:700">📱 ${ar?'واتساب':'WhatsApp'}</button>
+          <button onclick="MW.share('copy',ar?a.t_ar:a.t_en)" style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:8px 18px;color:#C9A84C;font-family:'Geeza Pro',-apple-system,Arial,sans-serif;font-size:13px;cursor:pointer;font-weight:700">🔗 ${ar?'نسخ رابط المقالة':'Copy Article Link'}</button>
+        </div>
+      </div>
+      <div class="sig"><div class="sig-ar">الفنان الطيب عامر</div><div class="sig-en">Artist Altayeb Amer</div><div class="sig-url">Mawlidi.com</div></div>`;
+
+    // Protect content
+    body.addEventListener('contextmenu', e=>e.preventDefault());
+    body.addEventListener('copy', e=>{e.preventDefault();});
+  },
+
+  md(text) {
+    if(!text) return '';
+    return text.split('\n\n').filter(p=>p.trim()).map(p=>{
+      const t=p.trim();
+      if(t.startsWith('## ')) return `<h2>${t.slice(3)}</h2>`;
+      if(t.startsWith('> ')) return `<blockquote>${t.slice(2)}</blockquote>`;
+      if(t.startsWith('✦ ')) return `<div style="background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.03));border:1px solid rgba(201,168,76,0.25);border-radius:14px;padding:16px;margin:18px 0"><div style="font-size:10px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:700">✦ فكرة</div><div style="font-size:13px;color:rgba(240,237,232,0.8);line-height:1.8">${t}</div></div>`;
+      return `<p>${t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</p>`;
+    }).join('');
+  },
+
+  share(type, title) {
+    const url = 'https://mawlidi.com';
+    const text = title ? title + '\n' + url : url;
+    if(type==='wa') window.open('https://wa.me/?text='+encodeURIComponent(text));
+    else navigator.clipboard.writeText(text).then(()=>showToast('✓ تم نسخ رابط المقالة!')).catch(()=>showToast('✓'));
+  },
+  rate(btn) {
+    const emoji = btn.dataset ? btn.getAttribute('data-emoji') : '❤️';
+    btn.style.transform = 'scale(1.5)';
+    setTimeout(()=>{ btn.style.transform = 'scale(1)'; }, 300);
+  },
+
+  updateLang() {
+    const L = typeof curLang !== 'undefined' ? curLang : 'ar';
+    const ar = L === 'ar';
+    const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+
+    // Nav labels
+    set('bn-home-l', ar?'مَوْلِدي':'Mawlidi');
+    set('bn-obs-l',  ar?'المرصد':'Observatory');
+    set('bn-arts-l', ar?'مقالات':'Articles');
+    set('bn-adv-l',  ar?'أعلن':'Advertise');
+    set('bn-about-l',ar?'من نحن':'About');
+
+    // Observatory
+    set('sc-obs-t',  ar?'🔭 مرصد المواليد':'🔭 Birth Observatory');
+    set('obs-title', ar?'مرصد المواليد':'Birth Observatory');
+    set('obs-sub',   ar?'حيث يلتقي الإنسان والزمن والسماء':'Where Humanity, Time and the Sky Meet');
+    set('obs-disc-t',ar?'✦ ميثاق المرصد':'✦ Observatory Charter');
+    set('obs-disc-b',ar?'مساحة ثقافية ومعرفية — لا توقعات ولا ادعاء بمعرفة الغيب الذي لا يعلمه إلا الله سبحانه وتعالى':'A cultural and educational space — no predictions, no claims of unseen knowledge');
+    set('obs-c1t',   ar?'الإنسان والميلاد':'Humanity & Birth');
+    set('obs-c1d',   ar?'استكشاف معنى يوم الميلاد عبر الثقافات والتاريخ والعلم':'Exploring the meaning of birthdays across cultures, history and science');
+    set('obs-c2t',   ar?'الشخصية والاختلاف الإنساني':'Personality & Differences');
+    set('obs-c2d',   ar?'علم النفس والفروق الفردية وأسرار تشكّل الشخصية':'Psychology, individual differences, and the secrets of personality');
+    set('obs-c3t',   ar?'السماء والثقافة الإنسانية':'Sky & Culture');
+    set('obs-c3d',   ar?'الأبراج والتقاويم والفلك في تراث الحضارات':'Zodiac signs, calendars and astronomy in human civilization');
+    set('obs-c4t',   ar?'الثقافات والميلاد':'Birth Across Cultures');
+    set('obs-c4d',   ar?'كيف تحتفل الحضارات بيوم الميلاد':'How civilizations celebrate birthdays');
+    set('obs-c5t',   ar?'التقويم الهجري':'Hijri Calendar');
+    set('obs-c5d',   ar?'قصة القمر والزمن والهوية في الحضارة الإسلامية':'The moon, time and identity in Islamic civilization');
+    set('obs-c6t',   ar?'علم النفس والميلاد':'Psychology & Birth');
+    set('obs-c6d',   ar?'ما يقوله العلم عن ترتيب الميلاد والشخصية':'What science says about birth order and personality');
+    set('obs-c7t',   ar?'التاريخ والميلاد':'History & Birth');
+    set('obs-c7d',   ar?'مواليد غيّروا مسار التاريخ الإنساني':'Births that changed the course of human history');
+    set('obs-c8t',   ar?'الأبراج الفلكية':'Zodiac Signs');
+    set('obs-c8d',   ar?'تأملات ثقافية في رموز الأبراج':'Cultural reflections on zodiac symbols');
+    set('obs-c9t',   ar?'الزمن والفلسفة':'Time & Philosophy');
+    set('obs-c9d',   ar?'تأمل فلسفي في معنى الزمن والوجود':'A philosophical reflection on time and existence');
+    set('obs-c10t',  ar?'القمر والإنسان':'Moon & Humanity');
+    set('obs-c10d',  ar?'القمر في الثقافة الإسلامية والشعر العربي':'The moon in Islamic culture and Arabic poetry');
+    set('obs-c11t',  ar?'المستقبل والتطلعات':'Future & Aspirations');
+    set('obs-c11d',  ar?'دليل عملي لرحلة معرفة الذات':'A practical guide for the journey of self-knowledge');
+    set('obs-c12t',  ar?'جميع المقالات':'All Articles');
+    set('obs-c12d',  ar?'استعرض كل المقالات من جميع الأقسام':'Browse all articles from all categories');
+
+    // Articles
+    set('sc-arts-t', ar?'📖 المقالات':'📖 Articles');
+    MW.renderArts();
+
+    // Ads
+    set('sc-adv-t',  ar?'💎 أعلن معنا':'💎 Advertise');
+    set('adv-title', ar?'أعلن معنا في مَوْلِدي':'Advertise on Mawlidi');
+    set('adv-cur',   ar?'درهم / شهر':'AED / month');
+    set('adv-pt-t',  ar?'الباقة البلاتينية':'Platinum Package');
+    set('adv-pt-f1', ar?'أعلى ظهور — أول بطاقة بعد النتائج':'Top visibility — first card after results');
+    set('adv-pt-f2', ar?'حجم كبير مع صورة ونص وزر':'Large format with image, text & button');
+    set('adv-pt-f3', ar?'ظهور في المقالات':'Featured in articles');
+    set('adv-gd-f1', ar?'ظهور بعد الإحصائيات':'Displayed after statistics');
+    set('adv-gd-f2', ar?'حجم متوسط مع صورة ونص':'Medium format with image & text');
+    set('adv-sv-f1', ar?'بطاقة داخل جدول النتائج':'Card inside results table');
+    set('adv-bz-f1', ar?'بطاقة أسفل الصفحة':'Card at bottom of page');
+    set('adv-pay-t', ar?'💳 طريقة الدفع':'💳 Payment Method');
+    set('adv-pay-d', ar?'الدفع عبر PayPal · يتم التواصل لتأكيد التفاصيل قبل الدفع':'Payment via PayPal · We will contact you to confirm details before payment');
+    set('adv-gd-t',  ar?'الباقة الذهبية':'Gold Package');
+    set('adv-sv-t',  ar?'الباقة الفضية':'Silver Package');
+    set('adv-bz-t',  ar?'الباقة البرونزية':'Bronze Package');
+    ['pt','gd','sv','bz'].forEach(t=>{set('adv-'+t+'-btn', ar?'تواصل للحجز':'Contact to Book');});
+
+    // About
+    set('sc-about-t',   ar?'ℹ️ من نحن':'ℹ️ About');
+    set('about-main-t', ar?'من نحن':'About Us');
+    set('about-main-s', ar?'مشروع عربي مستقل':'Independent Arab Project');
+    set('about-p1',     ar?'مَوْلِدي مشروع عربي مستقل يهدف إلى تقديم أدوات دقيقة لحساب العمر الهجري.':'Mawlidi is an independent Arab project providing accurate Hijri age tools.');
+    set('about-p2',     ar?'نؤمن أن الإنسان أعقد من أن يُختزل في تاريخ ميلاد.':'We believe a person is more than a birthdate.');
+    set('about-p3',     ar?'لا يقدم الموقع تنبؤات — الغيب لا يعلمه إلا الله سبحانه وتعالى.':'We make no predictions — only God knows the unseen.');
+    set('v1t', ar?'الدقة':'Accuracy'); set('v2t', ar?'المعرفة':'Knowledge');
+    set('v3t', ar?'الأمانة':'Integrity'); set('v4t', ar?'الخصوصية':'Privacy');
+    set('v1d', ar?'خوارزميات حساب مبنية على التقويم الهجري الرسمي':'Calculation algorithms built on the official Hijri calendar');
+    set('v2d', ar?'محتوى ثقافي وتاريخي يحترم العقل ويغني الفكر':'Cultural and historical content that enriches the mind');
+    set('v3d', ar?'لا توقعات ولا ادعاء بمعرفة الغيب':'No predictions, no claims of unseen knowledge');
+    set('v4d', ar?'لا يتم حفظ أو إرسال أي بيانات':'No data is stored or transmitted');
+    set('about-s1t', ar?'عن مَوْلِدي':'About Mawlidi');
+    set('about-s2t', ar?'قيمنا':'Our Values');
+    set('about-role', ar?'مؤسس مَوْلِدي · Founder':'Founder of Mawlidi');
+    set('about-contact-t', ar?'تواصل معنا':'Contact Us');
+    set('about-ad-t',   ar?'الإعلان في مَوْلِدي':'Advertise on Mawlidi');
+    set('about-ad-p',   ar?'لحجز مساحة إعلانية، تواصل معنا عبر البريد الإلكتروني. سنرد خلال 24-48 ساعة لتأكيد التفاصيل وإرسال رابط الدفع عبر PayPal.':'To book an ad space, contact us by email. We will reply within 24–48 hours to confirm details and send a PayPal payment link.');
+    set('about-ad-steps', ar?'١ — تواصل وحدد الباقة المطلوبة<br>٢ — نرسل لك تفاصيل الإعلان وتكلفته<br>٣ — الدفع يتم عبر PayPal بشكل آمن<br>٤ — ينشر إعلانك خلال 24 ساعة':'1 — Contact us and choose your package<br>2 — We send you ad details and cost<br>3 — Payment is made securely via PayPal<br>4 — Your ad goes live within 24 hours');
+    set('about-ad-btn',  ar?'تواصل للإعلان':'Contact to Advertise');
+    // Obs new cats
+    set('obs-c4t',  ar?'التاريخ والحضارات':'History & Civilizations');
+    set('obs-c4d',  ar?'كيف احتفت الحضارات العظيمة بالمواليد عبر التاريخ':'How great civilizations celebrated births throughout history');
+    set('obs-c5t',  ar?'التقويم الهجري':'The Hijri Calendar');
+    set('obs-c5d',  ar?'أسرار التقويم القمري وعلاقته بحياة الإنسان':'Secrets of the lunar calendar and its relationship to human life');
+    set('obs-c6t',  ar?'العلوم والإنسان':'Science & Humanity');
+    set('obs-c6d',  ar?'ما يقوله العلم عن الميلاد والجينات والتطور':'What science says about birth, genetics and development');
+    set('obs-c7t',  ar?'الإسلام والميلاد':'Islam & Birth');
+    set('obs-c7d',  ar?'الرؤية الإسلامية للمولد والزمن والتكريم الإنساني':'The Islamic view of birth, time and human dignity');
+    set('obs-c8t',  ar?'الفلسفة والوجود':'Philosophy & Existence');
+    set('obs-c8d',  ar?'تأملات فلسفية في معنى الولادة والوجود':'Philosophical reflections on the meaning of birth and existence');
+    set('obs-c9t',  ar?'التنوع الثقافي':'Cultural Diversity');
+    set('obs-c9d',  ar?'كيف تختلف ثقافات العالم في النظرة إلى الميلاد':'How world cultures differ in their view of birth');
+    set('obs-c10t', ar?'الأعداد والرموز':'Numbers & Symbols');
+    set('obs-c10d', ar?'الأرقام والرموز في الثقافات وعلاقتها بتاريخ الميلاد':'Numbers and symbols in cultures and their relation to birthdate');
+    set('obs-c11t', ar?'علم النفس والسلوك':'Psychology & Behavior');
+    set('obs-c11d', ar?'كيف يؤثر تاريخ الميلاد على النفس والسلوك':'How birthdate influences psychology and behavior');
+    set('obs-c12t', ar?'الإبداع والفن':'Creativity & Art');
+    set('obs-c12d', ar?'الميلاد كمصدر إلهام في الأدب والشعر والفن':'Birth as inspiration in literature, poetry and art');
+    // Ads
+    set('adv-pay-t', ar?'💳 طريقة الدفع':'💳 Payment Method');
+    set('adv-pay-d', ar?'الدفع عبر PayPal · يتم التواصل لتأكيد التفاصيل قبل الدفع':'Payment via PayPal · We confirm details before payment');
+    set('adv-audience', ar?'🎉 جمهور مَوْلِدي الأعزاء: محبي الحفلات وأعياد الميلاد من السعودية والإمارات والخليج العربي، دامت دياركم عامرة بالفرح':'📊 Mawlidi Audience: Users searching for Hijri birthdays from Saudi Arabia, UAE and the Arab Gulf');
+    set('adv-sub', ar?'وصول مباشر لجمهور يبحث عن أعياد الميلاد الهجرية':'Direct reach to an audience searching for Hijri birthdays');
+    // Update ad link
+    const adLink = document.getElementById('about-ad-link');
+    if(adLink) adLink.href = 'mailto:info@mawlidi.com?subject=' + encodeURIComponent(ar?'طلب إعلان في مَوْلِدي':'Ad Request — Mawlidi');
+  }
+};
+
+function contactAd(tier){
+  window._adTier = tier;
+  SS.go('about');
+  setTimeout(()=>{
+    const el = document.getElementById('about-ad-section');
+    if(el) el.scrollIntoView({behavior:'smooth'});
+    const arNames={platinum:'البلاتيني',gold:'الذهبي',silver:'الفضي',bronze:'البرونزي'};
+    const enNames={platinum:'Platinum',gold:'Gold',silver:'Silver',bronze:'Bronze'};
+    const ar = typeof curLang !== 'undefined' && curLang === 'ar';
+    const tierName = (ar ? arNames : enNames)[tier] || tier;
+    const link = document.getElementById('about-ad-link');
+    if(link) link.href = 'mailto:info@mawlidi.com?subject=' + encodeURIComponent((ar?'طلب إعلان — الباقة ':'Ad Request — ') + tierName);
+  }, 400);
+}
+
+// Protection
+document.addEventListener('contextmenu', e => {
+  if(e.target.closest('.protect')) e.preventDefault();
+});
+document.addEventListener('copy', e => {
+  if(e.target.closest('.protect')) e.preventDefault();
+});
+document.addEventListener('keydown', e => {
+  if(document.getElementById('sc-read').classList.contains('open')) {
+    if((e.ctrlKey||e.metaKey)&&['c','a','p','s'].includes(e.key.toLowerCase())) e.preventDefault();
+  }
+});
+
+// Patch setLang to update nav labels + re-render open content
+const _SL = typeof setLang === 'function' ? setLang : null;
+if(_SL) {
+  window.setLang = function(l) {
+    _SL(l);
+    MW.updateLang();
+    // Re-render article if open
+    if(MW._currentArticleId && document.getElementById('sc-read').classList.contains('open')) {
+      MW.renderRead(MW._currentArticleId);
+    }
+    // Re-render arts list if open
+    if(document.getElementById('sc-arts').classList.contains('open')) {
+      MW.renderArts(MW._currentCat || 'all');
+    }
+    // Re-render obs if open - update direction
+    const obsOpen = document.getElementById('sc-obs').classList.contains('open');
+    if(obsOpen) {
+      const isAr = l === 'ar';
+      document.querySelectorAll('.obs-cat-d').forEach(el => {
+        // Already handled by set() in updateLang
+      });
+    }
+  };
+}
+
+// Init
+MW.updateLang();
+
+</script>
+</body>
+</html>
