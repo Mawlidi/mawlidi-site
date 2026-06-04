@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#07071A">
+<title>مَوْلِدي — ميلادك هذا العام في التقويم القمري | Mawlidi</title>
+<meta name="description" content="اكتشف ميلادك في التقويم القمري بدقة عالية. احسب عمرك القمري، موعد ميلادك القادم، وتعرّف على الأشهر الهجرية وتاريخها العريق.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="الفنان الطيب عامر">
+<link rel="canonical" href="https://mawlidi.com/arb/">
+<meta property="og:title" content="مَوْلِدي — ميلادك هذا العام في التقويم القمري">
+<meta property="og:url" content="https://mawlidi.com/arb/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"مَوْلِدي","description":"حاسبة تاريخ الميلاد الهجري","url":"https://mawlidi.com/arb/","applicationCategory":"UtilityApplication","inLanguage":"ar","author":{"@type":"Person","name":"الفنان الطيب عامر"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--bg:#07071A;--bg2:#0C0C22;
+  --card:rgba(255,255,255,0.04);--border:rgba(201,168,76,0.18);--border2:rgba(255,255,255,0.07);
+  --text:#F0EDE8;--muted:rgba(240,237,232,0.5);--green:#4CAF7D;--red:#E94560;
+  --platinum:#E8E8F0;--safe:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+#sc{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* LANG — يسار لا يغطي النصوص */
+.ls{position:fixed;top:max(14px,env(safe-area-inset-top,14px));left:16px;z-index:99999;
+  background:rgba(7,7,26,0.92);border:1px solid var(--border);border-radius:24px;
+  padding:4px 5px;backdrop-filter:blur(16px);display:flex;gap:3px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5);}
+.ls a{display:block;padding:5px 12px;border-radius:18px;font-size:11px;font-weight:700;
+  text-decoration:none;transition:all .2s;color:var(--muted);font-family:'Cairo',sans-serif;}
+.ls a.on{background:var(--gold);color:#07071A;box-shadow:0 2px 12px rgba(201,168,76,0.5);}
+
+.page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;}
+.hero{padding:max(90px,calc(env(safe-area-inset-top,20px)+70px)) 24px 36px;text-align:center;position:relative;}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.moon-w{position:relative;display:inline-block;margin-bottom:20px;}
+.moon{font-size:64px;display:block;animation:mf 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 32px rgba(201,168,76,0.7));line-height:1;}
+@keyframes mf{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-14px) rotate(5deg);}}
+.mr{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(201,168,76,0.2);animation:rp 3s ease-in-out infinite;}
+.mr:nth-child(2){inset:-36px;border-color:rgba(201,168,76,0.1);animation-delay:.5s;}
+@keyframes rp{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
+@keyframes fu{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.site-title{font-family:'Tajawal',sans-serif;font-size:clamp(42px,12vw,72px);font-weight:900;
+  color:var(--gold-light);line-height:1;margin-bottom:8px;animation:fu .8s ease both;}
+.site-tag{font-size:13px;color:rgba(201,168,76,0.55);font-weight:300;margin-bottom:28px;animation:fu .8s ease .1s both;}
+.cc{max-width:480px;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:28px;padding:28px 24px;backdrop-filter:blur(24px);
+  box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;
+  animation:fu .8s ease .2s both;}
+.cc-lbl{font-size:10px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:20px;text-align:center;}
+.dg{display:grid;grid-template-columns:80px 1fr 110px;gap:10px;margin-bottom:20px;}
+.fw label{display:block;font-size:10px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;}
+.fw select,.fw input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.2);
+  border-radius:14px;padding:16px 10px;color:var(--text);font-size:17px;font-weight:700;
+  font-family:'Cairo',sans-serif;text-align:center;outline:none;-webkit-appearance:none;transition:all .25s;}
+.fw select:focus,.fw input:focus{border-color:var(--gold);background:rgba(201,168,76,0.07);box-shadow:0 0 0 3px rgba(201,168,76,0.1);}
+.fw select option{background:#0C0C22;}
+.cbtn{width:100%;background:linear-gradient(135deg,#EDD27E,#C9A84C,#8B6914);border:none;
+  border-radius:18px;padding:20px;color:#07071A;font-size:18px;font-weight:900;
+  font-family:'Cairo',sans-serif;cursor:pointer;
+  box-shadow:0 8px 32px rgba(201,168,76,0.4),0 1px 0 rgba(255,255,255,0.3) inset;
+  transition:all .2s;}
+.cbtn:active{transform:scale(0.97);}
+.errmsg{background:rgba(233,69,96,0.1);border:1px solid rgba(233,69,96,0.25);border-radius:12px;
+  padding:12px 16px;color:#ff8fa3;font-size:13px;margin-top:14px;text-align:center;display:none;}
+
+/* ENGAGE SECTION */
+.sec{padding:20px 20px 0;max-width:540px;margin:0 auto;width:100%;animation:fu .8s ease .3s both;}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.sec-title{font-family:'Tajawal',sans-serif;font-size:22px;font-weight:700;color:var(--gold-light);}
+.see-all{font-size:12px;color:var(--gold);cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif;}
+.engage-title{font-family:'Tajawal',sans-serif;font-size:22px;font-weight:800;color:var(--gold-light);
+  text-align:center;margin-bottom:8px;}
+.engage-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.7;margin-bottom:18px;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+.stat-box{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:16px 10px;text-align:center;}
+.stat-num{font-family:'Tajawal',sans-serif;font-size:28px;font-weight:900;color:var(--gold-light);line-height:1;}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:4px;}
+.teaser-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+.teaser{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02));
+  border:1px solid var(--border);border-radius:20px;padding:18px;cursor:pointer;
+  transition:all .25s;display:flex;align-items:center;gap:14px;}
+.teaser:hover,.teaser:active{transform:translateX(-4px);border-color:rgba(201,168,76,0.4);}
+.teaser-icon{font-size:30px;flex-shrink:0;}
+.teaser-body{flex:1;}
+.teaser-title{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.teaser-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.teaser-arrow{font-size:16px;color:var(--gold);flex-shrink:0;}
+
+/* RESULT */
+#rs{display:none;flex-direction:column;position:fixed;inset:0;z-index:100;background:var(--bg2);overflow:hidden;}
+#rs.on{display:flex;}
+.rtb{display:flex;align-items:center;justify-content:space-between;
+  padding:max(56px,calc(env(safe-area-inset-top,20px)+16px)) 20px 16px;
+  background:rgba(7,7,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);flex-shrink:0;}
+.bb{background:rgba(255,255,255,0.06);border:1px solid var(--border2);border-radius:14px;
+  padding:10px 18px;color:var(--gold);font-size:14px;cursor:pointer;transition:all .2s;
+  font-family:'Cairo',sans-serif;font-weight:700;}
+.bb:active{transform:scale(0.94);}
+.tb-title{font-family:'Tajawal',sans-serif;font-size:20px;color:var(--gold-light);font-weight:700;}
+.cpbtn{background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:12px;
+  padding:10px 16px;color:var(--gold);font-size:13px;cursor:pointer;font-family:'Cairo',sans-serif;}
+.rb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 18px max(80px,calc(var(--safe)+60px));}
+.rb::-webkit-scrollbar{display:none;}
+.rh{background:linear-gradient(145deg,rgba(201,168,76,0.14),rgba(201,168,76,0.03));
+  border:1px solid rgba(201,168,76,0.28);border-radius:26px;padding:28px 22px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden;}
+.rh::after{content:'🌙';position:absolute;top:-15px;right:-10px;font-size:90px;opacity:0.05;pointer-events:none;}
+.rdr2{display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.rdv{font-family:'Tajawal',sans-serif;font-size:clamp(14px,4.5vw,22px);color:var(--gold-light);font-weight:700;line-height:1.3;}
+.rdl{font-size:10px;color:var(--muted);margin-top:5px;text-transform:uppercase;}
+.rsep{width:1px;height:52px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.45),transparent);margin:0 18px;flex-shrink:0;}
+.nbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(76,175,125,0.12);
+  border:1px solid rgba(76,175,125,0.3);border-radius:32px;padding:9px 18px;font-size:12px;color:#7DFFB3;line-height:1.5;}
+.hdr-lbl{font-size:10px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:10px;padding-right:4px;}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.sc2{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:18px 14px;text-align:center;}
+.sn{font-family:'Tajawal',sans-serif;font-size:36px;color:var(--gold-light);font-weight:900;line-height:1;margin-bottom:6px;}
+.sl{font-size:10px;color:var(--muted);}
+.tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:22px;
+  padding:9px 18px;color:var(--muted);font-size:12px;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.1);}
+.lb{background:var(--card);border:1px solid var(--border2);border-radius:20px;overflow:hidden;}
+.lr{display:flex;align-items:center;padding:15px 18px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.lr:last-child{border-bottom:none;}
+.lr.ib{background:rgba(201,168,76,0.07);}
+.lr.it{background:rgba(233,69,96,0.07);}
+.lr.in{background:rgba(76,175,125,0.06);}
+.ra{width:42px;flex-shrink:0;font-family:'Tajawal',sans-serif;font-size:20px;color:var(--gold);font-weight:800;text-align:center;}
+.rbody{flex:1;padding:0 14px;}
+.rg{font-size:15px;font-weight:700;color:var(--text);line-height:1.3;}
+.rhi{font-size:11px;color:var(--muted);margin-top:2px;}
+.rr{text-align:left;flex-shrink:0;}
+.rd{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.bdg{display:inline-block;border-radius:8px;padding:3px 9px;font-size:10px;font-weight:700;}
+.bb1{background:rgba(201,168,76,0.2);color:var(--gold);}
+.bb2{background:rgba(233,69,96,0.2);color:#ff8fa3;}
+.bb3{background:rgba(76,175,125,0.2);color:#7DFFB3;}
+
+/* ADS */
+.ad-sep{font-size:9px;color:rgba(201,168,76,0.4);text-transform:uppercase;text-align:center;padding:10px 0 6px;}
+.ad-card{border-radius:18px;padding:16px;margin:8px 0;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px;}
+.ad-card:active{transform:scale(0.98);}
+.ad-platinum{background:linear-gradient(135deg,rgba(220,220,255,0.08),rgba(220,220,255,0.02));border:1px solid rgba(220,220,255,0.25);}
+.ad-gold{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.02));border:1px solid rgba(201,168,76,0.3);}
+.ad-silver{background:rgba(168,184,200,0.05);border:1px solid rgba(168,184,200,0.2);}
+.ad-bronze{background:rgba(205,127,50,0.05);border:1px solid rgba(205,127,50,0.2);}
+.ad-icon{font-size:32px;flex-shrink:0;}
+.ad-body{flex:1;}
+.ad-tier{font-size:9px;font-weight:700;margin-bottom:4px;text-transform:uppercase;}
+.ad-platinum .ad-tier{color:var(--platinum);}
+.ad-gold .ad-tier{color:var(--gold);}
+.ad-silver .ad-tier{color:#A8B8C8;}
+.ad-bronze .ad-tier{color:#CD7F32;}
+.ad-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.ad-sub{font-size:11px;color:var(--muted);}
+.ad-btn{flex-shrink:0;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  border-radius:10px;padding:8px 14px;font-size:11px;color:var(--text);font-family:'Cairo',sans-serif;cursor:pointer;}
+
+/* ARTICLE CARDS */
+.art-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:20px;
+  margin-bottom:10px;cursor:pointer;transition:all .25s;}
+.art-card:hover{border-color:var(--border);transform:translateX(-3px);}
+.ac-cat{font-size:10px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:8px;}
+.ac-title{font-family:'Tajawal',sans-serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:6px;}
+.ac-sub{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px;}
+.ac-foot{display:flex;align-items:center;gap:8px;}
+.ac-time{font-size:11px;color:var(--muted);}
+.rbtn{margin-right:auto;background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:10px;
+  padding:6px 14px;color:var(--gold);font-size:11px;font-family:'Cairo',sans-serif;cursor:pointer;}
+
+/* OVERLAYS */
+.ov{display:none;flex-direction:column;position:fixed;inset:0;z-index:500;background:var(--bg);overflow:hidden;}
+.ov.on{display:flex;}
+.ov-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:max(56px,calc(env(safe-area-inset-top,20px)+16px)) 20px 16px;
+  background:rgba(7,7,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);flex-shrink:0;}
+.ov-title{font-family:'Tajawal',sans-serif;font-size:20px;color:var(--gold-light);font-weight:700;}
+.ov-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 20px max(80px,calc(var(--safe)+60px));}
+.ov-body::-webkit-scrollbar{display:none;}
+
+/* CHIPS */
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;}
+.chips::-webkit-scrollbar{display:none;}
+.chip{flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:22px;
+  padding:8px 18px;color:var(--muted);font-size:12px;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.chip.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.1);}
+
+/* READER */
+#rdr{display:none;flex-direction:column;position:fixed;inset:0;z-index:700;background:var(--bg);overflow:hidden;}
+#rdr.on{display:flex;}
+.rdr-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:max(56px,calc(env(safe-area-inset-top,20px)+16px)) 20px 16px;
+  background:rgba(7,7,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);flex-shrink:0;}
+.rdr-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:28px 22px max(80px,calc(var(--safe)+60px));}
+.rdr-body::-webkit-scrollbar{width:3px;}
+.rdr-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.3);border-radius:2px;}
+.rdr-cat{font-size:10px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:16px;}
+.rdr-title{font-family:'Tajawal',sans-serif;font-size:clamp(22px,6vw,32px);font-weight:800;color:var(--text);line-height:1.4;margin-bottom:10px;}
+.rdr-sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border2);}
+.rdr-meta{margin-bottom:28px;}
+.rdr-time{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:5px 12px;display:inline-block;}
+.rdr-content{font-size:15px;line-height:1.95;color:rgba(240,237,232,0.92);}
+.rdr-content h2{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:700;color:var(--gold-light);margin:36px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border2);}
+.rdr-content h3{font-family:'Tajawal',sans-serif;font-size:17px;font-weight:700;color:var(--gold);margin:28px 0 12px;}
+.rdr-content p{margin-bottom:18px;}
+.rdr-content strong{color:var(--gold-light);font-weight:700;}
+.rdr-content blockquote{border-right:3px solid var(--gold);margin:24px 0;padding:16px 20px;
+  background:rgba(201,168,76,0.05);border-radius:0 12px 12px 0;color:var(--gold-light);font-size:14px;line-height:1.8;font-weight:600;}
+.rdr-content .hl{display:block;background:rgba(201,168,76,0.07);border:1px solid var(--border);
+  border-radius:12px;padding:14px 18px;margin:20px 0;font-size:14px;color:var(--gold-light);line-height:1.7;}
+.rdr-content ul,.rdr-content ol{padding-right:20px;margin-bottom:18px;}
+.rdr-content li{margin-bottom:10px;line-height:1.8;}
+.rdr-content .src{font-size:11px;color:var(--muted);background:rgba(255,255,255,0.03);border-radius:8px;
+  padding:8px 14px;margin-top:32px;border:1px solid var(--border2);display:block;}
+/* Reactions */
+.art-reactions{border-top:1px solid var(--border2);margin-top:32px;padding-top:24px;text-align:center;pointer-events:auto !important;position:relative;z-index:10;}
+.art-react-title{font-size:13px;color:var(--muted);margin-bottom:14px;}
+.react-btns{display:flex;justify-content:center;gap:12px;margin-bottom:20px;}
+.react-btn{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:12px 18px;pointer-events:auto !important;cursor:pointer !important;
+  font-size:22px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.react-btn.active{border-color:var(--gold);background:rgba(201,168,76,0.12);transform:scale(1.1);}
+.react-count{font-size:10px;color:var(--muted);}
+.share-section{padding-top:16px;border-top:1px solid var(--border2);}
+.share-title{font-size:13px;color:var(--gold);font-weight:700;margin-bottom:12px;}
+.share-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.share-btn{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:12px 18px;pointer-events:auto !important;cursor:pointer !important;
+  font-size:13px;color:var(--text);font-family:'Cairo',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.share-btn.wa{background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.3);color:#25d366;}
+.art-author{text-align:center;padding:20px 0 8px;font-size:13px;color:var(--muted);}
+.art-author strong{color:var(--gold-light);font-family:'Tajawal',sans-serif;font-size:15px;}
+
+/* OBSERVATORY */
+.obs-cats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.obs-cat{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:18px 14px;
+  cursor:pointer;transition:all .25s;text-align:center;}
+.obs-cat:hover{border-color:var(--border);transform:translateY(-2px);}
+.obs-icon{font-size:28px;margin-bottom:8px;}
+.obs-name{font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.obs-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+.obs-notice{background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:14px;
+  padding:14px 18px;margin-bottom:20px;font-size:12px;color:rgba(201,168,76,0.8);line-height:1.7;text-align:center;}
+.obs-excl-hdr{font-size:11px;color:var(--gold);font-weight:700;margin-bottom:12px;text-transform:uppercase;}
+.obs-excl-wrap{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:18px;margin-top:4px;}
+.obs-art-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;color:var(--text);
+  cursor:pointer;display:flex;align-items:center;gap:8px;transition:color .2s;}
+.obs-art-item:last-child{border-bottom:none;}
+.obs-art-item:hover{color:var(--gold);}
+.obs-art-arrow{color:var(--gold);font-size:12px;margin-right:auto;}
+
+/* ADVERTISE */
+.adv-hero{background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.03));
+  border:1px solid rgba(201,168,76,0.25);border-radius:24px;padding:28px 22px;text-align:center;margin-bottom:20px;}
+.adv-hero-title{font-family:'Tajawal',sans-serif;font-size:26px;font-weight:800;color:var(--gold-light);margin-bottom:8px;}
+.adv-hero-sub{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;}
+.adv-audience{background:rgba(201,168,76,0.08);border-radius:12px;padding:12px 16px;font-size:12px;color:rgba(201,168,76,0.9);line-height:1.7;}
+.tier-card{border-radius:22px;padding:22px;margin-bottom:14px;transition:all .2s;}
+.tier-card:hover{transform:translateY(-2px);}
+.tier-plat{background:linear-gradient(135deg,rgba(220,220,255,0.08),rgba(220,220,255,0.02));border:1px solid rgba(220,220,255,0.3);}
+.tier-gold{background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.02));border:1px solid rgba(201,168,76,0.35);}
+.tier-silver{background:rgba(168,184,200,0.06);border:1px solid rgba(168,184,200,0.25);}
+.tier-bronze{background:rgba(205,127,50,0.06);border:1px solid rgba(205,127,50,0.25);}
+.tier-badge{font-size:11px;font-weight:700;margin-bottom:6px;text-transform:uppercase;}
+.tier-plat .tier-badge{color:var(--platinum);}
+.tier-gold .tier-badge{color:var(--gold);}
+.tier-silver .tier-badge{color:#A8B8C8;}
+.tier-bronze .tier-badge{color:#CD7F32;}
+.tier-name{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:10px;}
+.tier-price{font-family:'Lato',sans-serif;font-size:36px;color:var(--gold-light);font-weight:900;line-height:1;margin-bottom:2px;}
+.aed{font-size:14px;font-family:'Cairo',sans-serif;color:var(--gold);font-weight:700;margin-right:4px;}
+.tier-period{font-size:11px;color:var(--muted);margin-bottom:16px;}
+.tier-feats{list-style:none;margin-bottom:18px;}
+.tier-feats li{padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:var(--text);display:flex;align-items:center;gap:8px;}
+.tier-feats li:last-child{border-bottom:none;}
+.tier-feats li::before{content:'✦';color:var(--gold);font-size:10px;flex-shrink:0;}
+.tier-btn{width:100%;background:rgba(201,168,76,0.12);border:1px solid var(--border);border-radius:14px;
+  padding:14px;color:var(--gold);font-size:14px;font-family:'Cairo',sans-serif;font-weight:700;cursor:pointer;transition:all .2s;}
+.tier-btn:hover{background:rgba(201,168,76,0.22);}
+/* Ad form */
+.adv-form-wrap{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:24px;margin-top:8px;}
+.adv-form-title{font-family:'Tajawal',sans-serif;font-size:18px;font-weight:700;color:var(--gold-light);margin-bottom:6px;}
+.adv-form-sub{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
+.ff{margin-bottom:14px;}
+.ff label{display:block;font-size:11px;color:var(--gold);font-weight:700;margin-bottom:8px;text-transform:uppercase;}
+.ff select,.ff input,.ff textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border2);
+  border-radius:14px;padding:14px 16px;color:var(--text);font-size:14px;font-family:'Cairo',sans-serif;
+  outline:none;transition:all .25s;-webkit-appearance:none;}
+.ff select:focus,.ff input:focus,.ff textarea:focus{border-color:var(--gold);background:rgba(201,168,76,0.05);}
+.ff textarea{resize:none;min-height:90px;line-height:1.6;}
+.ff select option{background:#0C0C22;}
+.paypal-box{background:rgba(0,112,240,0.08);border:1px solid rgba(0,112,240,0.25);border-radius:16px;
+  padding:16px;margin:14px 0;text-align:center;}
+.paypal-box p{font-size:12px;color:var(--muted);line-height:1.6;}
+.paypal-box strong{color:#4b9eff;}
+.send-btn{width:100%;background:linear-gradient(135deg,#EDD27E,#C9A84C);border:none;border-radius:16px;
+  padding:18px;color:#07071A;font-size:16px;font-weight:900;font-family:'Cairo',sans-serif;cursor:pointer;
+  box-shadow:0 8px 24px rgba(201,168,76,0.35);transition:all .2s;margin-top:6px;}
+.send-btn:active{transform:scale(0.97);}
+
+/* ABOUT */
+.about-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:24px;margin-bottom:14px;}
+.about-logo{font-family:'Tajawal',sans-serif;font-size:42px;color:var(--gold-light);font-weight:900;margin-bottom:8px;}
+.about-text{font-size:14px;color:var(--muted);line-height:1.85;}
+.val-list{list-style:none;margin-top:12px;}
+.val-list li{padding:12px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--text);display:flex;align-items:flex-start;gap:10px;line-height:1.6;}
+.val-list li:last-child{border-bottom:none;}
+.val-list li::before{content:'✦';color:var(--gold);font-size:10px;flex-shrink:0;margin-top:4px;}
+.val-icon{font-size:18px;flex-shrink:0;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+.contact-btn{display:flex;align-items:center;justify-content:center;gap:8px;
+  background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:16px;padding:16px;
+  color:var(--gold);font-size:13px;font-family:'Cairo',sans-serif;text-align:center;text-decoration:none;transition:all .2s;cursor:pointer;}
+.contact-btn:hover{background:rgba(201,168,76,0.18);}
+.contact-btn.full{grid-column:1/-1;}
+.partners-banner{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.02));
+  border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:22px;margin-bottom:14px;text-align:center;}
+.partners-title{font-family:'Tajawal',sans-serif;font-size:17px;font-weight:700;color:var(--gold-light);margin-bottom:8px;}
+.partners-text{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+.partners-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.p-chip{background:rgba(201,168,76,0.08);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;color:rgba(201,168,76,0.9);}
+.adv-cta-box{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.02));
+  border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:24px;margin-bottom:14px;}
+.adv-cta-title{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:800;color:var(--gold-light);margin-bottom:10px;}
+.adv-cta-text{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
+.adv-cta-points{list-style:none;margin-bottom:18px;}
+.adv-cta-points li{font-size:13px;color:var(--text);padding:6px 0;display:flex;align-items:center;gap:8px;}
+.adv-cta-points li::before{content:'✦';color:var(--gold);font-size:10px;}
+.adv-cta-btn{display:block;text-align:center;background:var(--gold);border:none;border-radius:14px;
+  padding:15px 24px;color:#07071A;font-size:15px;font-family:'Cairo',sans-serif;font-weight:800;cursor:pointer;
+  box-shadow:0 6px 20px rgba(201,168,76,0.35);transition:all .2s;text-decoration:none;width:100%;}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:99999;
+  display:flex;background:rgba(7,7,26,0.96);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border2);padding:10px 0 max(14px,var(--safe));
+  justify-content:space-around;align-items:center;pointer-events:all;}
+.nb{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;
+  cursor:pointer;padding:6px 12px;border-radius:16px;transition:all .2s;color:var(--muted);font-family:'Cairo',sans-serif;}
+.nb.on{color:var(--gold);}
+.ni{font-size:20px;line-height:1;}
+.nl{font-size:9px;font-weight:600;}
+#toast{position:fixed;bottom:max(90px,calc(var(--safe)+80px));left:50%;
+  transform:translateX(-50%) translateY(20px);background:rgba(20,20,40,0.96);
+  border:1px solid var(--border);border-radius:14px;padding:12px 24px;
+  font-size:13px;color:var(--gold-light);pointer-events:none;opacity:0;
+  transition:all .3s;z-index:9999;white-space:nowrap;backdrop-filter:blur(16px);}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+.pgbar{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:9999;width:0%;
+  transition:width .1s;box-shadow:0 0 8px rgba(201,168,76,0.8);}
+.footer{text-align:center;padding:40px 20px max(100px,calc(var(--safe)+90px));
+  font-size:11px;color:rgba(255,255,255,0.2);line-height:1.8;}
+.footer-brand{font-family:'Tajawal',sans-serif;font-size:18px;color:rgba(201,168,76,0.4);font-weight:700;margin-bottom:6px;}
+.footer-links{display:flex;gap:16px;justify-content:center;margin-bottom:8px;flex-wrap:wrap;}
+.footer-link{font-size:11px;color:rgba(201,168,76,0.35);cursor:pointer;transition:color .2s;}
+.footer-link:hover{color:var(--gold);}
+
+/* CONTENT PROTECTION */
+/* CONTENT PROTECTION — معطّلة مؤقتاً أثناء التطوير */
+/* لتفعيلها: احذف التعليق من السطر أدناه */
+/* .rdr-content{-webkit-user-select:none;-moz-user-select:none;user-select:none;} */
+/* .rdr-content{-webkit-user-drag:none;} */
+/* document.addEventListener('contextmenu',e=>e.preventDefault()); */
+/* document.addEventListener('copy',e=>{e.preventDefault();e.clipboardData.setData('text','© مَوْلِدي mawlidi.com');}); */
+
+</style>
+<!-- Content source: ./content.json -->
+</head>
+<body>
+<div class="pgbar" id="pgbar"></div>
+<canvas id="sc"></canvas>
+<div class="ls"><a href="/arb/" class="on">عربي</a><a href="/eng/">EN</a></div>
+<div id="toast"></div>
+
+<!-- HOME PAGE -->
+<div class="page" id="home-pg">
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="moon-w"><div class="mr"></div><div class="mr"></div><span class="moon">🌙</span></div>
+    <h1 class="site-title">مَوْلِدي</h1>
+    <p class="site-tag">ميلادك هذا العام في التقويم القمري 🌙</p>
+    <div class="cc">
+      <p class="cc-lbl">أدخل تاريخ ميلادك الميلادي</p>
+      <div class="dg">
+        <div class="fw"><label>اليوم</label><select id="iDay"></select></div>
+        <div class="fw"><label>الشهر</label><select id="iMon"></select></div>
+        <div class="fw"><label>السنة</label><input type="number" id="iYr" placeholder="1990" min="1900" max="2099" inputmode="numeric"></div>
+      </div>
+      <button class="cbtn" onclick="calc()">ميلادك هذا العام قمرياً 🌙</button>
+      <div class="errmsg" id="errmsg"></div>
+    </div>
+  </section>
+
+  <!-- ENGAGE -->
+  <div class="sec" style="padding-top:28px;">
+    <h2 class="engage-title">اكتشف ما وراء تاريخ ميلادك</h2>
+    <p class="engage-sub">مَوْلِدي ليس مجرد حاسبة — رحلة في الزمن والحضارة والهوية</p>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">12</div><div class="stat-lbl">تصنيف معرفي</div></div>
+      <div class="stat-box"><div class="stat-num">15+</div><div class="stat-lbl">مقالة عميقة</div></div>
+      <div class="stat-box"><div class="stat-num">1446</div><div class="stat-lbl">سنة هجرية</div></div>
+    </div>
+    <div class="teaser-cards">
+      <div class="teaser" onclick="openOv('obs-ov')">
+        <div class="teaser-icon">🔭</div>
+        <div class="teaser-body"><div class="teaser-title">مرصد المواليد</div><div class="teaser-desc">12 تصنيفاً معرفياً في علم النفس والتاريخ والكون</div></div>
+        <div class="teaser-arrow">←</div>
+      </div>
+      <div class="teaser" onclick="openOv('arts-ov')">
+        <div class="teaser-icon">📖</div>
+        <div class="teaser-body"><div class="teaser-title">مقالات معمّقة</div><div class="teaser-desc">اقرأ عن لماذا نختلف وعن جمال التقويم القمري</div></div>
+        <div class="teaser-arrow">←</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" style="padding-top:24px;">
+    <div class="sec-hdr"><h2 class="sec-title">أبرز المقالات</h2><button class="see-all" onclick="openOv('arts-ov')">عرض الكل ←</button></div>
+    <div id="art-prev"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">مَوْلِدي 🌙</div>
+    <div class="footer-links">
+      <span class="footer-link" onclick="openOv('about-ov')">من نحن</span>
+      <span class="footer-link" onclick="openOv('obs-ov')">المرصد</span>
+      <span class="footer-link" onclick="openOv('arts-ov')">المقالات</span>
+      <span class="footer-link" onclick="openOv('adv-ov')">أعلن معنا</span>
+    </div>
+    الفنان الطيب عامر · Altayeb Amer · جميع الحقوق محفوظة © ٢٠٢٥ · mawlidi.com
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div id="rs">
+  <div class="rtb">
+    <button class="bb" onclick="closeRs()">← رجوع</button>
+    <span class="tb-title">مَوْلِدي 🌙</span>
+    <button class="cpbtn" onclick="copyRes()">📋 نسخ</button>
+  </div>
+  <div class="rb" id="rb"></div>
+</div>
+
+<!-- OBSERVATORY SCREEN -->
+<div class="ov" id="obs-ov">
+  <div class="ov-hdr">
+    <button class="bb" onclick="closeOv('obs-ov')">← رجوع</button>
+    <span class="ov-title">🔭 مرصد المواليد</span>
+    <div style="width:54px"></div>
+  </div>
+  <div class="ov-body">
+    <div class="obs-notice"><strong>✦ ميثاق المرصد</strong><br>مساحة ثقافية ومعرفية — لا توقعات ولا ادعاء بمعرفة الغيب الذي لا يعلمه إلا الله سبحانه وتعالى</div>
+    <div class="obs-cats" id="obs-cats"></div>
+    <div class="obs-excl-wrap">
+      <div class="obs-excl-hdr">✦ مقالات المرصد الحصرية</div>
+      <div id="obs-arts-list"></div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:16px;line-height:1.7;padding-bottom:8px;">
+      🌙 المرصد مساحة للتأمل المعرفي — لا توقعات ولا ادعاء بمعرفة الغيب
+    </div>
+    <div class="footer" style="padding-top:20px;">
+      <div class="footer-brand">مَوْلِدي 🌙</div>
+      الفنان الطيب عامر · mawlidi.com
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLES SCREEN -->
+<div class="ov" id="arts-ov">
+  <div class="ov-hdr">
+    <button class="bb" onclick="closeOv('arts-ov')">← رجوع</button>
+    <span class="ov-title">📖 المقالات</span>
+    <div style="width:54px"></div>
+  </div>
+  <div class="ov-body">
+    <div style="background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:14px;
+      padding:12px 16px;margin-bottom:18px;font-size:11px;color:rgba(201,168,76,0.8);line-height:1.7;text-align:center;">
+      ✦ جميع المقالات للثقافة والتأمل — لا توقعات ولا ادعاء بمعرفة الغيب
+    </div>
+    <div class="chips" id="art-chips"></div>
+    <div id="arts-list"></div>
+    <div class="footer" style="padding-top:20px;">
+      <div class="footer-brand">مَوْلِدي 🌙</div>
+      الفنان الطيب عامر · mawlidi.com
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE READER -->
+<div id="rdr">
+  <div class="rdr-hdr">
+    <button class="bb" onclick="closeRdr()">← رجوع</button>
+    <span class="ov-title" id="rdr-top" style="font-size:13px;">مقالة</span>
+    <div style="width:54px"></div>
+  </div>
+  <div class="rdr-body" id="rdr-body"></div>
+</div>
+
+<!-- ADVERTISE SCREEN -->
+<div class="ov" id="adv-ov">
+  <div class="ov-hdr">
+    <button class="bb" onclick="closeOv('adv-ov')">← رجوع</button>
+    <span class="ov-title">💎 أعلن معنا</span>
+    <div style="width:54px"></div>
+  </div>
+  <div class="ov-body">
+    <div class="adv-hero">
+      <div class="adv-hero-title">💎 أعلن في مَوْلِدي</div>
+      <div class="adv-hero-sub">وصول مباشر لجمهور يبحث عن أعياد الميلاد الهجرية من السعودية والإمارات والخليج العربي</div>
+      <div class="adv-audience">🎯 جمهور مَوْلِدي: محلات الكيك · متاجر الهدايا · التصوير · تنظيم الحفلات · الورود · الطباعة</div>
+    </div>
+
+    <div class="tier-card tier-plat">
+      <div class="tier-badge">PLATINUM ✦</div>
+      <div class="tier-name">الباقة البلاتينية</div>
+      <div class="tier-price"><span class="aed">د.إ</span>2,000</div>
+      <div class="tier-period">درهم إماراتي / شهر</div>
+      <ul class="tier-feats">
+        <li>أعلى ظهور — أول بطاقة بعد النتائج مباشرة</li>
+        <li>حجم كبير مع صورة ونص وزر دعوة للعمل</li>
+        <li>ظهور في صفحات المقالات</li>
+        <li>تقرير شهري بعدد النقرات والظهور</li>
+      </ul>
+      <button class="tier-btn" onclick="scrollToForm('بلاتيني')">تواصل للحجز</button>
+    </div>
+
+    <div class="tier-card tier-gold">
+      <div class="tier-badge">GOLD ★</div>
+      <div class="tier-name">الباقة الذهبية</div>
+      <div class="tier-price"><span class="aed">د.إ</span>1,000</div>
+      <div class="tier-period">درهم إماراتي / شهر</div>
+      <ul class="tier-feats">
+        <li>ظهور بعد إحصائيات النتائج</li>
+        <li>حجم متوسط مع صورة ونص وزر</li>
+        <li>ظهور في صفحة المقالات</li>
+      </ul>
+      <button class="tier-btn" onclick="scrollToForm('ذهبي')">تواصل للحجز</button>
+    </div>
+
+    <div class="tier-card tier-silver">
+      <div class="tier-badge">SILVER</div>
+      <div class="tier-name">الباقة الفضية</div>
+      <div class="tier-price"><span class="aed">د.إ</span>500</div>
+      <div class="tier-period">درهم إماراتي / شهر</div>
+      <ul class="tier-feats">
+        <li>بطاقتان داخل جدول النتائج</li>
+        <li>حجم صغير مع أيقونة ونص</li>
+      </ul>
+      <button class="tier-btn" onclick="scrollToForm('فضي')">تواصل للحجز</button>
+    </div>
+
+    <div class="tier-card tier-bronze">
+      <div class="tier-badge">BRONZE</div>
+      <div class="tier-name">الباقة البرونزية</div>
+      <div class="tier-price"><span class="aed">د.إ</span>200</div>
+      <div class="tier-period">درهم إماراتي / شهر</div>
+      <ul class="tier-feats">
+        <li>بطاقة أسفل صفحة النتائج</li>
+        <li>نص وزر فقط</li>
+      </ul>
+      <button class="tier-btn" onclick="scrollToForm('برونزي')">تواصل للحجز</button>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="adv-form-wrap" id="adv-form-wrap">
+      <div class="adv-form-title">📋 نموذج الحجز</div>
+      <div class="adv-form-sub">أكمل البيانات وسنتواصل معك خلال 24 ساعة لتأكيد التفاصيل وإتمام الدفع عبر PayPal.</div>
+      <div class="ff">
+        <label>نوع الباقة</label>
+        <select id="adv-tier">
+          <option value="بلاتيني">💠 الباقة البلاتينية — د.إ 2,000 / شهر</option>
+          <option value="ذهبي">⭐ الباقة الذهبية — د.إ 1,000 / شهر</option>
+          <option value="فضي">🥈 الباقة الفضية — د.إ 500 / شهر</option>
+          <option value="برونزي">🥉 الباقة البرونزية — د.إ 200 / شهر</option>
+        </select>
+      </div>
+      <div class="ff">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="adv-email" placeholder="example@email.com" dir="ltr">
+      </div>
+      <div class="ff">
+        <label>اسم النشاط التجاري</label>
+        <input type="text" id="adv-biz" placeholder="اسم متجرك أو نشاطك">
+      </div>
+      <div class="ff">
+        <label>رسالتك (اختياري)</label>
+        <textarea id="adv-msg" placeholder="تفاصيل إضافية أو أسئلة..."></textarea>
+      </div>
+      <div class="paypal-box">
+        <div style="font-size:24px;margin-bottom:6px;">💳</div>
+        <p>الدفع يتم عبر <strong>PayPal</strong> — بعد مراجعة طلبك وتأكيده، نرسل لك رابط الدفع الآمن مباشرة إلى بريدك الإلكتروني.</p>
+      </div>
+      <button class="send-btn" onclick="sendAdvForm()">إرسال الطلب ✦</button>
+    </div>
+    <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--muted);padding-bottom:8px;">
+      📧 artist.altayeb@gmail.com · الفنان الطيب عامر
+    </div>
+    <div class="footer" style="padding-top:12px;">
+      <div class="footer-brand">مَوْلِدي 🌙</div>
+      الفنان الطيب عامر · mawlidi.com
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT SCREEN -->
+<div class="ov" id="about-ov">
+  <div class="ov-hdr">
+    <button class="bb" onclick="closeOv('about-ov')">← رجوع</button>
+    <span class="ov-title">ℹ️ من نحن</span>
+    <div style="width:54px"></div>
+  </div>
+  <div class="ov-body">
+    <div class="about-card">
+      <div class="about-logo">مَوْلِدي 🌙</div>
+      <p class="about-text">مَوْلِدي مشروع عربي مستقل يهدف إلى تقديم أدوات دقيقة لحساب العمر الهجري، إضافة إلى محتوى ثقافي ومعرفي يساعد على فهم الإنسان وعلاقته بالزمن.<br><br>
+      نؤمن أن الإنسان أعقد من أن يُختزل في تاريخ ميلاد، وأن شخصيته تتشكل من الإيمان والتربية والبيئة والتجارب الحياتية.<br><br>
+      لا يقدم الموقع تنبؤات بالمستقبل أو ادعاءات بمعرفة الغيب — الغيب لا يعلمه إلا الله سبحانه وتعالى.</p>
+    </div>
+
+    <div class="partners-banner">
+      <div class="partners-title">🌟 جمهور مَوْلِدي الأعزاء</div>
+      <div class="partners-text">وصناع الفرح والسعادة الكرام، دامت أيامكم ملئ بتواريخ مميزة وذكريات لا تُنسى.</div>
+      <div class="partners-title" style="font-size:14px;margin:12px 0 6px;">💼 شركاء مَوْلِدي في صناعة الفرح</div>
+      <div class="partners-chips">
+        <span class="p-chip">🎂 محلات الكيك</span>
+        <span class="p-chip">🎁 متاجر الهدايا</span>
+        <span class="p-chip">📸 التصوير</span>
+        <span class="p-chip">🎉 تنظيم الحفلات</span>
+        <span class="p-chip">🌹 الورود</span>
+        <span class="p-chip">🖨️ الطباعة</span>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <div style="font-size:13px;color:var(--gold);font-weight:700;margin-bottom:14px;">✦ قيمنا</div>
+      <ul class="val-list">
+        <li><span class="val-icon">🎯</span><div><strong>الدقة</strong><br>خوارزميات حساب مبنية على التقويم الهجري الرسمي</div></li>
+        <li><span class="val-icon">📚</span><div><strong>المعرفة</strong><br>محتوى ثقافي وتاريخي يحترم العقل ويغني الفكر</div></li>
+        <li><span class="val-icon">🛡️</span><div><strong>الأمانة</strong><br>لا توقعات ولا ادعاء بمعرفة الغيب</div></li>
+        <li><span class="val-icon">🔒</span><div><strong>الخصوصية</strong><br>لا يتم حفظ أو إرسال أي بيانات شخصية</div></li>
+      </ul>
+    </div>
+
+    <div class="about-card">
+      <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:10px;">المؤسس</div>
+      <div style="font-size:17px;color:var(--text);font-weight:800;font-family:'Tajawal',sans-serif;">الفنان الطيب عامر</div>
+      <div style="font-size:13px;color:var(--gold);margin-top:2px;font-family:'Lato',sans-serif;font-weight:700;">Altayeb Amer</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">مؤسس مَوْلِدي · Founder</div>
+    </div>
+
+    <div class="adv-cta-box">
+      <div class="adv-cta-title">💎 أعلن معنا وانمُ معنا</div>
+      <div class="adv-cta-text">مَوْلِدي يصل لجمهور يبحث بنشاط عن المناسبات الهجرية وأعياد الميلاد — إعلانك يظهر في اللحظة التي يكون فيها المستخدم أكثر استعداداً للاحتفال والشراء.</div>
+      <ul class="adv-cta-points">
+        <li>وصول مباشر لجمهور الخليج والسعودية والإمارات</li>
+        <li>ظهور مضمون في النتائج والمقالات</li>
+        <li>باقات مرنة تبدأ من 200 درهم شهرياً</li>
+        <li>تقارير دورية لمتابعة أداء إعلانك</li>
+        <li>دفع آمن عبر PayPal</li>
+      </ul>
+      <button class="adv-cta-btn" onclick="openOv('adv-ov')">ابدأ الإعلان الآن ←</button>
+    </div>
+
+    <div class="about-card">
+      <div style="font-size:13px;color:var(--gold);font-weight:700;margin-bottom:14px;">📧 تواصل معنا</div>
+      <div class="contact-grid">
+        <a href="mailto:artist.altayeb@gmail.com?subject=مَوْلِدي" class="contact-btn">✉️ البريد الإلكتروني</a>
+        <a href="https://wa.me/?text=مرحباً، أريد التواصل بخصوص مَوْلِدي" class="contact-btn">📱 واتساب</a>
+        <button class="contact-btn full" onclick="openOv('adv-ov')">💎 الإعلان في مَوْلِدي</button>
+      </div>
+    </div>
+
+    <div class="footer" style="padding-top:16px;">
+      <div class="footer-brand">مَوْلِدي 🌙</div>
+      جميع الحقوق محفوظة © ٢٠٢٥ · mawlidi.com<br>
+      الفنان الطيب عامر · Altayeb Amer
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav" id="bnav-main">
+  <button class="nb on" id="nb-home" onclick="goHome()"><span class="ni">🌙</span><span class="nl">مَوْلِدي</span></button>
+  <button class="nb" id="nb-obs"  onclick="navTo('obs-ov')"><span class="ni">🔭</span><span class="nl">المرصد</span></button>
+  <button class="nb" id="nb-arts" onclick="navTo('arts-ov')"><span class="ni">📖</span><span class="nl">مقالات</span></button>
+  <button class="nb" id="nb-adv"  onclick="navTo('adv-ov')"><span class="ni">💎</span><span class="nl">أعلن</span></button>
+  <button class="nb" id="nb-about" onclick="navTo('about-ov')"><span class="ni">ℹ️</span><span class="nl">من نحن</span></button>
+</nav>
+
+<script>
+// ═══ STARS ═══
+(function(){
+  const c=document.getElementById('sc'),ctx=c.getContext('2d');let S=[];
+  function resize(){c.width=innerWidth;c.height=innerHeight;}
+  function init(){S=[];for(let i=0;i<180;i++)S.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.3+.2,o:Math.random(),s:(Math.random()-.5)*.007});}
+  function draw(){ctx.clearRect(0,0,c.width,c.height);S.forEach(s=>{s.o+=s.s;if(s.o>.9||s.o<.05)s.s=-s.s;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${s.o})`;ctx.fill();});requestAnimationFrame(draw);}
+  window.addEventListener('resize',()=>{resize();init();});resize();init();draw();
+})();
+
+// ═══ HIJRI ENGINE ═══
+function gToJ(y,m,d){if(m<=2){y--;m+=12;}const A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524;}
+function jToH(jd){const l=jd-1948440+10632,n=Math.floor((l-1)/10631),ll=l-10631*n+354;const j=Math.floor((10985-ll)/5316)*Math.floor(50*ll/17719)+Math.floor(ll/5670)*Math.floor(43*ll/15238);const lll=ll-Math.floor((30-j)/15)*Math.floor(17719*j/50)-Math.floor(j/16)*Math.floor(15238*j/43)+29;const month=Math.floor(24*lll/709),day=lll-Math.floor(709*month/24),year=30*n+j-30;return{y:year,m:month,d:day};}
+function hToJ(y,m,d){return d+Math.ceil(29.5*(m-1))+(y-1)*354+Math.floor((3+11*y)/30)+1948440-385;}
+function jToG(jd){const z=Math.floor(jd+.5),a=Math.floor((z-1867216.25)/36524.25),aa=z+1+a-Math.floor(a/4),b=aa+1524,cc=Math.floor((b-122.1)/365.25),d=Math.floor(365.25*cc),e=Math.floor((b-d)/30.6001);const day=b-d-Math.floor(30.6001*e),month=e<14?e-1:e-13,year=month>2?cc-4716:cc-4715;return{y:year,m:month,d:day};}
+
+const MAR=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const MHR=['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+const DAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+
+(function(){
+  const d=document.getElementById('iDay'),m=document.getElementById('iMon');
+  for(let i=1;i<=31;i++)d.innerHTML+=`<option value="${i}">${i}</option>`;
+  MAR.forEach((mn,i)=>m.innerHTML+=`<option value="${i+1}">${mn}</option>`);
+})();
+
+// ═══ CALCULATE ═══
+let ROWS=[];
+function calc(){
+  const day=+document.getElementById('iDay').value;
+  const mon=+document.getElementById('iMon').value;
+  const yr=+document.getElementById('iYr').value;
+  const err=document.getElementById('errmsg');
+  if(!yr||yr<1900||yr>2099){err.style.display='block';err.textContent='أدخل سنة صحيحة بين 1900 و 2099';return;}
+  const testDate=new Date(yr,mon-1,day);
+  if(testDate.getFullYear()!==yr||testDate.getMonth()!==mon-1||testDate.getDate()!==day){
+    err.style.display='block';err.textContent='التاريخ غير صحيح، تحقق من اليوم والشهر';return;}
+  err.style.display='none';
+  const today=new Date();
+  const bJD=gToJ(yr,mon,day),tJD=gToJ(today.getFullYear(),today.getMonth()+1,today.getDate());
+  const bH=jToH(bJD),tH=jToH(tJD);
+  ROWS=[];
+  for(let hy=bH.y;hy<=tH.y+2;hy++){
+    const jd=hToJ(hy,bH.m,bH.d),g=jToG(jd);
+    if(g.y<yr-1||g.y>today.getFullYear()+3)continue;
+    ROWS.push({age:hy-bH.y,jd,hy,gy:g.y,gm:g.m,gd:g.d,isBirth:hy===bH.y});
+  }
+  buildResultHTML(yr,mon,day,bH,tH,tJD);
+  document.getElementById('rs').classList.add('on');
+  document.getElementById('rb').scrollTop=0;setPg(0);
+}
+
+function buildResultHTML(yr,mon,day,bH,tH,tJD){
+  const today=new Date(),nextRow=ROWS.find(r=>r.jd>tJD),todayRow=ROWS.find(r=>r.jd===tJD);
+  let nextBadge='',daysLeft='—';
+  if(todayRow){nextBadge='🎂 يوم ميلادك الهجري اليوم!';daysLeft='0 🎂';}
+  else if(nextRow){const dl=nextRow.jd-tJD;nextBadge=`⭐ عيدك القادم: ${nextRow.gd} ${MAR[nextRow.gm-1]} ${nextRow.gy}م — بعد ${dl} يوم`;daysLeft=dl;}
+  let html=`<div class="rh">
+    <div style="font-size:10px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:16px;">نتيجتك</div>
+    <div class="rdr2">
+      <div style="flex:1;text-align:center;"><div class="rdv">${day} ${MAR[mon-1]} ${yr}م</div><div class="rdl">تاريخ ميلادك الميلادي</div></div>
+      <div class="rsep"></div>
+      <div style="flex:1;text-align:center;"><div class="rdv">${bH.d} ${MHR[bH.m-1]} ${bH.y}هـ</div><div class="rdl">تاريخ ميلادك الهجري</div></div>
+    </div>
+    <div class="nbadge">${nextBadge}</div>
+  </div>
+  <div class="hdr-lbl">إحصائياتك</div>
+  <div class="sg">
+    <div class="sc2"><div class="sn">${tH.y-bH.y}</div><div class="sl">عمرك بالهجري</div></div>
+    <div class="sc2"><div class="sn">${today.getFullYear()-yr}</div><div class="sl">عمرك بالميلادي</div></div>
+    <div class="sc2"><div class="sn">${Math.abs((tH.y-bH.y)-(today.getFullYear()-yr))}</div><div class="sl">سنوات الفارق</div></div>
+    <div class="sc2"><div class="sn">${daysLeft}</div><div class="sl">يوم على عيدك</div></div>
+  </div>
+  <div class="ad-sep">إعلان</div>
+  <div class="ad-card ad-platinum" onclick="openOv('adv-ov')">
+    <div class="ad-icon">🎂</div>
+    <div class="ad-body"><div class="ad-tier">PLATINUM ✦</div><div class="ad-name">مخبز النجوم الذهبية</div><div class="ad-sub">تورتات مخصصة لعيد ميلادك الهجري</div></div>
+    <div class="ad-btn">اطلب</div>
+  </div>
+  <div class="hdr-lbl" style="margin-top:16px;">رحلة ميلادك عبر السنين</div>
+  <div class="tabs">
+    <button class="tab on" onclick="filterRows('all',this)">الكل</button>
+    <button class="tab" onclick="filterRows('past',this)">الماضي</button>
+    <button class="tab" onclick="filterRows('future',this)">المستقبل</button>
+  </div>
+  <div class="lb" id="rows-list"></div>
+  <div class="ad-sep">إعلان</div>
+  <div class="ad-card ad-gold" onclick="openOv('adv-ov')">
+    <div class="ad-icon">🎁</div>
+    <div class="ad-body"><div class="ad-tier">GOLD ★</div><div class="ad-name">هدايا الهلال</div><div class="ad-sub">هدايا فاخرة للمناسبات الهجرية</div></div>
+    <div class="ad-btn">تسوّق</div>
+  </div>
+  <div class="ad-sep">إعلان</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div class="ad-card ad-silver" style="flex-direction:column;text-align:center;" onclick="openOv('adv-ov')">
+      <div class="ad-icon">🌸</div><div class="ad-tier">SILVER</div><div class="ad-name" style="font-size:12px;">ورود القمر</div>
+    </div>
+    <div class="ad-card ad-silver" style="flex-direction:column;text-align:center;" onclick="openOv('adv-ov')">
+      <div class="ad-icon">📸</div><div class="ad-tier">SILVER</div><div class="ad-name" style="font-size:12px;">لحظات</div>
+    </div>
+  </div>
+  <div class="ad-sep">إعلان</div>
+  <div class="ad-card ad-bronze" onclick="openOv('adv-ov')">
+    <div class="ad-icon">🎈</div>
+    <div class="ad-body"><div class="ad-tier">BRONZE</div><div class="ad-name">بالونات الفرح</div><div class="ad-sub">تنسيق حفلات وتوصيل</div></div>
+    <div class="ad-btn">اتصل</div>
+  </div>
+  <div style="background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:18px;padding:20px;margin-top:14px;text-align:center;">
+    <div style="font-size:14px;color:var(--gold);font-weight:700;margin-bottom:6px;">✦ أعلن معنا في مَوْلِدي</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">وصول مباشر لجمهور يبحث عن أعياد الميلاد الهجرية · باقات من 200 درهم</div>
+    <button onclick="openOv('adv-ov')" style="background:var(--gold);border:none;border-radius:12px;padding:12px 24px;color:#07071A;font-size:13px;font-family:'Cairo',sans-serif;font-weight:700;cursor:pointer;">تواصل معنا</button>
+  </div>
+  <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:16px;line-height:1.7;">
+    ± يوم حسب رؤية الهلال الفعلية<br>
+    <button onclick="closeRs()" style="background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:12px;padding:12px 24px;color:var(--gold);font-size:13px;font-family:'Cairo',sans-serif;cursor:pointer;margin-top:12px;">🌙 احسب تاريخاً آخر</button>
+  </div>
+  <div style="font-size:11px;color:rgba(255,255,255,0.15);text-align:center;margin-top:14px;padding-bottom:8px;">
+    الفنان الطيب عامر · Mawlidi.com
+  </div>`;
+  document.getElementById('rb').innerHTML=html;
+  renderRows('all');
+}
+
+function renderRows(filter){
+  const today=new Date(),tJD=gToJ(today.getFullYear(),today.getMonth()+1,today.getDate());
+  const el=document.getElementById('rows-list');if(!el)return;
+  el.innerHTML='';
+  const data=filter==='past'?ROWS.filter(r=>r.jd<tJD):filter==='future'?ROWS.filter(r=>r.jd>=tJD):ROWS;
+  data.forEach((r,i)=>{
+    const isToday=r.jd===tJD,isNext=!data.slice(0,i).some(x=>x.jd>tJD)&&r.jd>tJD,h=jToH(r.jd);
+    let badge='';
+    if(r.isBirth)badge=`<span class="bdg bb1">الميلاد</span>`;
+    else if(isToday)badge=`<span class="bdg bb2">اليوم 🎂</span>`;
+    else if(isNext)badge=`<span class="bdg bb3">القادم ⭐</span>`;
+    const div=document.createElement('div');
+    div.className=`lr${r.isBirth?' ib':isToday?' it':isNext?' in':''}`;
+    div.innerHTML=`<div class="ra">${r.age===0?'🎂':r.age}</div>
+      <div class="rbody"><div class="rg">${r.gd} ${MAR[r.gm-1]} ${r.gy}م</div><div class="rhi">${r.hy} هـ · ${MHR[h.m-1]}</div></div>
+      <div class="rr"><div class="rd">${DAYS[new Date(r.gy,r.gm-1,r.gd).getDay()]}</div>${badge}</div>`;
+    el.appendChild(div);
+  });
+}
+function filterRows(f,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');renderRows(f);}
+function closeRs(){document.getElementById('rs').classList.remove('on');}
+function copyRes(){
+  const lines=ROWS.map(r=>`${r.hy}هـ | ${r.gd} ${MAR[r.gm-1]} ${r.gy}م | سنة ${r.age}`);
+  navigator.clipboard.writeText('مَوْلِدي\n'+lines.join('\n')).then(()=>toast('تم النسخ ✓')).catch(()=>toast('تعذر النسخ'));
+}
+
+// ═══ OBSERVATORY (تصنيفات مستقلة عن المقالات) ═══
+const OBS_CATS=[
+  {icon:'🌅',name:'لحظة الميلاد',desc:'ما يحدث لحظة الولادة في الكون والجسد والروح',cat:'obs_birth'},
+  {icon:'🔭',name:'الكون والزمن',desc:'العلاقة بين الإنسان والفضاء وحركة الأجرام',cat:'obs_cosmos'},
+  {icon:'🧬',name:'الجينات والميراث',desc:'ما ورثناه بيولوجياً وكيف يتشكّل الإنسان',cat:'obs_genes'},
+  {icon:'🌙',name:'القمر والحضارات',desc:'كيف رأت الأمم القمرَ وبنت عليه تقاويمها',cat:'obs_moon'},
+  {icon:'📜',name:'الميلاد في التاريخ',desc:'كيف وثّقت الحضارات لحظات الميلاد عبر العصور',cat:'obs_history'},
+  {icon:'🎭',name:'الهوية والانتماء',desc:'دور الزمن والمكان والثقافة في تشكيل هويتنا',cat:'obs_identity'},
+  {icon:'🏛️',name:'الفلسفة والوجود',desc:'تأملات الفلاسفة في معنى القدوم إلى الدنيا',cat:'obs_philosophy'},
+  {icon:'🧘',name:'الروحانية والميلاد',desc:'المعاني الروحية والدينية في مختلف الحضارات',cat:'obs_spirit'},
+  {icon:'🎓',name:'علم النفس التنموي',desc:'كيف يتطور الإنسان من الميلاد حتى النضج',cat:'obs_dev'},
+  {icon:'🗺️',name:'الجغرافيا والشخصية',desc:'تأثير المكان وبيئة الولادة على الإنسان',cat:'obs_geo'},
+  {icon:'📊',name:'إحصاءات الميلاد',desc:'أرقام وحقائق مثيرة عن مواليد العالم',cat:'obs_stats'},
+  {icon:'🤝',name:'المجتمع والميلاد',desc:'كيف يحتفل المجتمع بالقادمين الجدد',cat:'obs_social'},
+];
+
+const OBS_ARTS=[
+  {id:'o1',icon:'🌅',cat:'obs_birth',cat_ar:'🌅 لحظة الميلاد',
+  title:'ماذا يحدث للجسد والدماغ في لحظة الولادة؟',
+  sub:'رحلة علمية في أول ثوانٍ من الوجود خارج الرحم',
+  min:8,
+  body:`<p>لحظة الولادة هي الأكثر درامية في الحياة الإنسانية — وربما الأكثر تعقيداً بيولوجياً على الإطلاق. في غضون ثوانٍ، يتحول الكيان البشري من كائن يعتمد اعتماداً كلياً على الأم، إلى كائن مستقل يجب أن يتنفس ويرى ويستجيب للعالم بمفرده. هذا الانتقال المعجز يحدث في ثوانٍ قليلة وهو من أعقد العمليات البيولوجية في الطبيعة.</p>
+  <h2>أول نفس: المعجزة الخفية</h2>
+  <p>في الرحم، رئتا الجنين مليئتان بالسائل الأمنيوسي طوال فترة الحمل. هذا السائل ضروري لنمو الرئتين، لكنه يمنعهما من العمل كرئتين حقيقيتين. لحظة الولادة، يجب أن يُفرَّغ هذا السائل وتُملأ الرئتان بالهواء في أقل من دقيقة واحدة. ما الذي يُحفّز هذا التحول الجذري؟ عدة عوامل تتضافر معاً: انخفاض درجة الحرارة الخارجية يُرسل إشارة عصبية تدفع الجسد للشهيق الأول. ضغط قناة الولادة على صدر الجنين يُساعد على طرد السائل من الرئتين. وتوقف الأكسجين من الحبل السري يُنشّط مركز التنفس في الدماغ فوراً.</p>
+  <p>هذا الشهيق الأول يتطلب ضغطاً يساوي خمسة أضعاف ما يحتاجه التنفس الطبيعي لاحقاً — كأن الجسد يؤدي أصعب تمرين في حياته كلها في لحظته الأولى. والبكاء الذي يتبعه ليس فقط تعبيراً عاطفياً، بل وظيفة بيولوجية حيوية: كل صرخة تُساعد على توسيع الحويصلات الهوائية الصغيرة في الرئتين وتهيئتها لتبادل الغازات.</p>
+  <h2>القلب الذي يُعيد برمجة نفسه</h2>
+  <p>في الجنين، هناك فتحة بين البطينين الأيمن والأيسر تسمى "الثقبة البيضوية" — تسمح للدم بتجاوز الرئتين لأنها لا تعمل داخل الرحم. لحظة الشهيق الأول، يرتفع ضغط الدم في الرئتين بشكل حاد فيُغلق هذا المسار إلى الأبد. القلب يُعيد تنظيم مساره الهيدروليكي بالكامل في دقائق — هندسة ذاتية التطوير لا تحتاج مهندساً خارجياً.</p>
+  <p>والمدهش أن نحو 25% من البشر تبقى هذه الفتحة مفتوحة جزئياً طوال حياتهم دون أن تُسبب مشاكل في معظم الأحيان — يحملون في قلوبهم "أثراً" من حياتهم داخل الرحم.</p>
+  <h2>الدماغ وأول حواسه</h2>
+  <p>الدماغ عند الولادة يحتوي على نحو 100 مليار خلية عصبية — نفس العدد تقريباً الذي سيحمله طوال الحياة. لكن الاتصالات (السيناپسات) بين هذه الخلايا ضئيلة جداً. في السنوات الأولى، يُنشئ الدماغ ما يزيد على مليون اتصال عصبي جديد في الثانية — أسرع نمو للشبكات العصبية في حياة الإنسان كلها.</p>
+  <p>حاسة اللمس هي الأكثر تطوراً عند الولادة — الجلد كله مستقبلات حسية جاهزة. تليها السمع: الجنين يسمع منذ الأسبوع الثامن والعشرين ويميّز صوت أمه في الرحم. لذا يتعرف المولود على صوتها من اللحظة الأولى — ليس تعلماً جديداً بل استمرارية لعلاقة بدأت قبل أشهر.</p>
+  <p>البصر لا يزال ضبابياً — المولود يرى بوضوح فقط في نطاق 20-30 سم. وهذا ليس عيباً بل تصميم ذكي: 20-30 سم هي المسافة بين وجه الرضيع ووجه أمه حين الرضاعة. الطبيعة برمجت المولود ليرى وجه أمه أولاً وأوضح — كأن أول صورة في الدنيا يجب أن تكون وجه الحب والأمان.</p>
+  <h2>الانفجار الهرموني</h2>
+  <p>لحظة الولادة، يُطلق جسد الجنين أعلى مستويات الأدرينالين في حياته كلها. هذا الانفجار الهرموني ليس استجابة للخوف بل استجابة وقائية: يُساعد على طرد السائل من الرئتين، ويُحفز الدورة الدموية، ويجعل المولود يقظاً ومستعداً للحياة.</p>
+  <p>في الوقت نفسه، يُطلق جسد الأم كميات كبيرة من الأكسيتوسين — هرمون المحبة والارتباط. يُنشئ هذا الهرمون التعلق العاطفي الفوري بين الأم والمولود. ولهذا السبب البيولوجي، اللحظات الأولى بعد الولادة من أهم لحظات تكوين الرابطة العاطفية.</p>
+  <h2>الساعة الذهبية</h2>
+  <p>علماء الأطفال يُسمّون الساعة الأولى بعد الولادة "الساعة الذهبية". الأدرينالين الهائل يجعل المولود في حالة يقظة حادة غير عادية — عيناه مفتوحتان، يبحث عن وجه أمه، يستجيب للأصوات. في هذه الساعة يتشكّل أول اتصال بصري بين الأم وطفلها — نظرة تُرسّخ رابطة ستدوم العمر كله.</p>
+  <h2>الفطرة: البُعد الروحي</h2>
+  <p>في الإسلام، "كل مولود يُولد على الفطرة" — الاستعداد الفطري للتوحيد والخير والإدراك الروحي. المولود يأتي نقياً، خالياً من الذنوب. ولذا كان أول ما يُسمعه المولود في التقليد الإسلامي هو الأذان في أذنه اليمنى — قبل أي ضوضاء الدنيا، يسمع: "الله أكبر". هذا الانسجام بين الحقيقة البيولوجية والحقيقة الروحية مدهش: الجسد يُطلق أعلى طاقة في لحظة الولادة، والروح تستقبل أرقى الكلمات.</p>
+  <blockquote>في أول ثوانٍ من الحياة، يؤدي الجسد أعقد أوركسترا بيولوجية في الكون — رئتان تتنفسان لأول مرة، قلب يُعيد برمجة نفسه، دماغ يبدأ رحلة تعلم ستمتد عقوداً، وروح تلتمس فطرتها الأولى.</blockquote>
+  <span class="src">المصادر: American Academy of Pediatrics "Newborn Care"، Scott Gilbert "Developmental Biology" ط.12، Nature "The first breath"، Mayo Clinic، التفسير النبوي لحديث الفطرة</span>`},
+
+  {id:'o2',icon:'🌙',cat:'obs_moon',cat_ar:'🌙 القمر والحضارات',
+  title:'القمر في عيون الحضارات: من الأسطورة إلى التقويم',
+  sub:'كيف رأى الإنسان القمر عبر آلاف السنين وبنى عليه حضارات كاملة',
+  min:9,
+  body:`<p>منذ أن رفع الإنسان عينيه إلى السماء لأول مرة، كان القمر أكثر الأجرام فتنةً وغموضاً. لا يُضيء كالشمس الحارقة ولا يخفى كالنجوم البعيدة — يتحول ويتبدل ويختفي ثم يعود في دورة منتظمة كتنفّس السماء. وفي هذا التحوّل رأى الإنسان عبر التاريخ ما يريد رؤيته: الموت والبعث، الزمن والأبدية، الرحمة والقدرة.</p>
+<h2>أول تقويم في التاريخ</h2>
+<p>الإنسان البدائي لم يكن لديه ساعة ولا تقويم. القمر كان ساعته وتقويمه الأول. الهلال يُعلن بداية شهر جديد. البدر يُحدد ليلة الاحتفال والصيد وعبور الأنهار. المحاق يُشير إلى الهدوء والتأمل. في أقدم اللقى الأثرية المرتبطة بعدّ الوقت — عظام إيشانغو من الكونغو التي يعود تاريخها لأكثر من 20,000 سنة — يرى الباحثون تسجيلاً بدائياً لدورات القمر. الإنسان بدأ يعدّ الأيام والشهور متتبعاً القمر قبل كل اختراع آخر.</p>
+<h2>البابليون: علم وأسطورة في آنٍ واحد</h2>
+<p>البابليون كانوا أول من رصد دورة القمر بدقة علمية حقيقية. تمكنوا من التنبؤ بالكسوف والخسوف قبل وقوعهما، وطوّروا نظام الـ Saros — دورة مدتها 18 سنة و11 يوماً يتكرر فيها نمط الخسوفات بشكل شبه مطابق. هذا إنجاز فلكي مذهل لحضارة تعمل بالملاحظة المجردة فحسب.</p>
+<p>في الوقت نفسه، كان القمر عندهم الإله "سين" أو "نانّا" — إله الحكمة والزمن. المعبد الكبير في أور كان مخصصاً لعبادته. هذا المزج بين الرصد العلمي الدقيق والتفسير الديني استمر قروناً — وهو ما يجعل تاريخ الفلك القديم أكثر تعقيداً وإثارة.</p>
+<h2>مصر القديمة: القمر ورحلة الروح</h2>
+<p>المصريون القدماء عرفوا القمر بالإله "خنسو" — المسافر في السماء وإله الزمن والطب. الأهم هو ارتباط القمر بأسطورة أوزيريس وإيزيس — أسطورة الموت والبعث. القمر الذي يموت (المحاق) ثم يُولد من جديد (الهلال) كان رمزاً قوياً لفكرة الخلود. في المعتقد المصري، روح الميت تُسافر مع القمر في رحلتها الأبدية.</p>
+<h2>الحضارة الإسلامية: القمر كميقات ورمز</h2>
+<p>في الإسلام، القمر ميقات وعلامة وذكرى. القرآن يذكره في مواضع متعددة: "يَسْأَلُونَكَ عَنِ الْأَهِلَّةِ ۖ قُلْ هِيَ مَوَاقِيتُ لِلنَّاسِ وَالْحَجِّ". القمر ميقات للناس في معاملاتهم وعباداتهم.</p>
+<p>التقويم الهجري القمري البحت يربط المسلم بإيقاع كوني خاص. رمضان يتنقل عبر كل فصول السنة في دورة 33 سنة — العبادة لا تنتمي لفصل بعينه بل للزمن كله. وقد أنجز علماء المسلمين في الفلك ما أعجز غيرهم: البيروني طوّر خوارزميات دقيقة لتحويل التواريخ بين الهجري والميلادي لا تزال أساس حسابات اليوم. ابن يونس المصري رصد 140 خسوفاً قمرياً ووثّقها بدقة لم تُسبق.</p>
+<h2>اليابان: تأمل القمر كفلسفة</h2>
+<p>"تسوكيمي" (مشاهدة القمر) احتفال خريفي ياباني عريق — الناس يجتمعون لتأمل البدر وجماله. الفلسفة الكامنة هي مفهوم "مونو نو أواري" — الإحساس بعذوبة الأشياء الزائلة. القمر يكتمل ثم يتلاشى، كالأزهار تتفتح ثم تتساقط، كالحياة نفسها. هذا التأمل في الزوال ليس حزناً بل حكمة — قبول جمال الزوال بدل رفضه.</p>
+<h2>العلم الحديث: ما بين الجمال والحقيقة</h2>
+<p>العلم الحديث لا يُقلل من جمال القمر — بل يُضيف له عمقاً آخر. القمر يبعد 384,400 كيلومتراً ووطأه 12 إنساناً بين 1969 و1972. يُسبّب المد والجزر على الأرض — تأثير فيزيائي حقيقي موثق. لكن هذا التأثير على المحيطات لا يُترجم إلى تأثير على شخصية الأفراد أو مصائرهم — الدراسات التي ادّعت وجود علاقة بين اكتمال القمر وزيادة الجرائم لم تُثبت عند التدقيق المنهجي الصارم.</p>
+<p>ما يبقى ثابتاً عبر كل هذا التاريخ هو أن القمر كان مرآة عكست أعمق تساؤلات الإنسان — عن الزمن والموت والبعث والجمال والمعنى. وهذه المرآة لا تزال تعمل، في كل ليلة يُضيء فيها القمر السماء.</p>
+<blockquote>القمر لم يكن يوماً مجرد نجم — كان مرآة رأى فيها كل إنسان وكل حضارة شيئاً من أعمق تساؤلاتها: من نحن؟ إلى أين نذهب؟ وما معنى أن نعيش ثم نمضي؟</blockquote>
+<span class="src">المصادر: "Moonlore" لTony Allan، "The Moon: A History for the Future" لOliver Morton، "التقويم في الحضارات الكبرى" لمحمود الشنيطي، "تاريخ علم الفلك الإسلامي" لديفيد كينغ</span>`},
+
+  {id:'o3',icon:'📊',cat:'obs_stats',cat_ar:'📊 إحصاءات الميلاد',
+  title:'أرقام تدهشك عن مواليد العالم',
+  sub:'حقائق إحصائية مثيرة عن الولادة والمواليد حول العالم',
+  min:7,
+  body:`<p>وراء كل رقم إحصائي عن المواليد قصة إنسانية ضخمة. الأرقام ليست مجردة أبداً — هي خلاصة لحياة ملايين البشر وأنماطهم وظروفهم وأحلامهم وخسائرهم. كل رقم يمثّل إنساناً كاملاً، جاء إلى الدنيا لحظةً بعينها، في مكان بعينه، لأب وأم ينتظران.</p>
+  <h2>أرقام تُذهل العقل</h2>
+  <p>يُولد في العالم نحو <strong>385,000 طفل يومياً</strong> — ما يعادل 4.5 طفل في كل ثانية. في الوقت الذي تقرأ فيه هذه الفقرة، وُلد في مكان ما من العالم عشرات الأطفال الجدد. وفي المقابل، يرحل من العالم نحو 163,000 شخص يومياً — ما يعني أن صافي النمو البشري يومياً نحو 220,000 إنسان. كوكب الأرض يستقبل سكانه الجدد بوتيرة لا تتوقف.</p>
+  <p>على مدى عام واحد، يُولد في العالم نحو 140 مليون طفل. هذا يعني أن عدد مواليد عام واحد يُقارب عدد سكان روسيا كلها — أكبر دولة في العالم من حيث المساحة.</p>
+  <h2>أين وأين أكثر؟</h2>
+  <p>أفريقيا جنوب الصحراء تستضيف نحو 40% من مواليد العالم حالياً، مع ارتفاع متوقع للنسبة في العقود القادمة. آسيا — وبخاصة جنوب آسيا وجنوب شرقها — تُضيف نحو 45% من المواليد العالميين. أوروبا وأمريكا الشمالية واليابان تُسجّل معدلات منخفضة ومتناقصة.</p>
+  <p>في دول الخليج العربي، معدلات المواليد شهدت تحولات لافتة: السعودية التي كانت معدلات خصوبتها تتجاوز 7 أطفال للمرأة في السبعينيات، انخفضت إلى نحو 2.3 اليوم — انعكاس للتحضر والتعليم وتأخر سن الزواج.</p>
+  <h2>الأيام والأشهر: أنماط مدهشة</h2>
+  <p>في معظم الدول الغربية، يُعدّ الثلاثاء اليوم الأكثر ولادة على مدار الأسبوع — لأن كثيراً من الولادات المجدولة (قيصرية أو تحريض) تُجدوَل في أيام العمل. أما السبت فهو الأقل لأن كثيراً من الأطباء لا يُجدولون العمليات فيه.</p>
+  <p>أغسطس وسبتمبر يُسجّلان في الدول الغربية أعلى معدلات الولادة — ما يعني أن معدلات الحمل ترتفع في نوفمبر وديسمبر من كل عام. في الدول العربية، تميل الولادات للتزايد في الشهور الباردة ربما بسبب أنماط الزواج والأعراس التي تُفضّل الخريف والشتاء.</p>
+  <h2>وزن الميلاد: مؤشر صحي مركب</h2>
+  <p>متوسط وزن المولود عالمياً يتراوح بين 3 و3.5 كيلوغرام. الأطفال الأقل من 2.5 كيلوغرام يُصنَّفون "منخفضي الوزن عند الولادة" — وهو مؤشر مهم لوضع الأم الصحي والاقتصادي. جنوب آسيا تُسجّل أعلى نسب انخفاض الوزن عند الولادة عالمياً، مرتبطة بسوء التغذية وضعف الرعاية الصحية الأمومية.</p>
+  <h2>الفصل والعمر: علاقة مدهشة</h2>
+  <p>عدة دراسات أشارت إلى أن من وُلدوا في أشهر الخريف (سبتمبر-نوفمبر) يميلون إلى أعمار أطول قليلاً في المتوسط — ربما بسبب مستويات فيتامين D لدى الأم خلال الحمل الذي يتزامن مع فصل الصيف المشمس. ودراسة بريطانية تُشير إلى أن مواليد سبتمبر يميلون لأداء أكاديمي أفضل — ببساطة لأنهم الأكبر عمراً في صفهم الدراسي حين يبدأون المدرسة.</p>
+  <p>لكن تجدر الإشارة: هذه ارتباطات إحصائية ضعيفة لا تتجاوز الاتجاهات العامة — كل فرد قصة مستقلة تماماً.</p>
+  <h2>المواليد والتاريخ: لحظات غيّرت الأرقام</h2>
+  <p>الأحداث الكبرى تترك بصمات ديموغرافية واضحة. بعد نهاية الحروب الكبرى، سُجّلت موجات "baby boom" واسعة — الجنود العائدون للحياة الطبيعية وأسرهم المتشوقة. في الدول التي عاشت مجاعات أو كوارث، انخفضت معدلات الولادة بشكل حاد ثم ارتفعت بعد الاستقرار. حتى أحداث اجتماعية محددة — كانقطاع الكهرباء لفترة طويلة — تركت أثراً إحصائياً في معدلات الولادة بعد تسعة أشهر بالضبط.</p>
+  <blockquote>كل مولود يُضيف فصلاً جديداً إلى الكتاب الإنساني — كتاب لا ينتهي ولا يتوقف، يُكتب بلا قلم في كل ثانية من ثواني هذا الكوكب الحي.</blockquote>
+  <span class="src">المصادر: تقارير منظمة الصحة العالمية 2024، CDC "Birth Statistics"، الجهاز المركزي للإحصاء السعودي، "World Population Prospects" UN 2023، "Season of Birth Effects" Journal of Epidemiology</span>`},
+
+  {id:'o4',icon:'🧬',cat:'obs_genes',cat_ar:'🧬 الجينات والميراث',
+  title:'ما الذي نرثه فعلاً؟ الجينات وحدود قدرتها',
+  sub:'علم الجينوم يكشف أن الوراثة أعقد بكثير مما ظننا',
+  min:8,
+  body:`<p>لعقود طويلة كان الاعتقاد السائد: الجينات هي القدر. إما "موهوب" بالجينات أو لا. إما "عرضة" لمرض أو لا. لكن ثورة علم الجينوم في العقدين الأخيرين غيّرت هذه الصورة جذرياً وكشفت أن الوراثة أعقد بكثير وأكثر مرونةً مما ظنّ العلماء والعامة على حدٍّ سواء.</p>
+<h2>الجينوم البشري: الحجم والتعقيد</h2>
+<p>يحتوي الجينوم البشري على نحو <strong>3 مليار زوج قاعدي</strong> من الحمض النووي DNA، مُوزَّعة على 23 زوجاً من الكروموسومات. الرقم ضخم، لكن الأكثر إدهاشاً هو ما يكشفه المقارنة: نحو 98.8% من هذا الجينوم مشترك بيننا وبين الشمبانزي — فما الذي يجعلنا بشراً؟</p>
+<p>الإجابة لا تكمن في الفارق البسيط في تتابع القواعد بل في أنماط تعبير الجينات — متى تُفعَّل وكيف تتفاعل مع بعضها ومع البيئة. هذا التعقيد هو ما جعل مشروع الجينوم البشري الذي انتهى عام 2003 "فاتحة باب" لا نهايته.</p>
+<h2>الإيبيجينتيكس: ما فوق الجينات</h2>
+<p>الاكتشاف الأهم والأكثر ثورية في العقود الأخيرة هو علم الإيبيجينتيكس (Epigenetics) — دراسة كيف تُعدَّل الجينات بالبيئة والتجربة دون تغيير الحمض النووي نفسه. الصدمات النفسية، والتغذية، والمناخ العاطفي في الطفولة، ومستوى التلوث، وحتى نمط النوم — كلها تُغيّر أنماط تعبير الجينات من خلال آليات كيميائية قابلة للقياس.</p>
+<p>والأكثر إثارةً: هذه التغييرات الإيبيجينية قد تُورَّث! دراسات على الفئران أثبتت أن الصدمة النفسية لجد يمكن أن تترك آثاراً قابلة للقياس في أحفاده من الجيل الثاني والثالث. هذا يعني أن ما يُورَّث ليس فقط الحمض النووي الجامد بل أيضاً شيء من "ذاكرة الأجداد الحياتية".</p>
+<h2>ما تُفسره الجينات وما لا تُفسره</h2>
+<p>للسمات البسيطة كلون العيون وفصيلة الدم، الجينات تُفسر كل شيء تقريباً. لكن للسمات المعقدة كالذكاء والشخصية والميول — الصورة مختلفة كلياً. دراسات التوائم المتطابقة تُشير إلى أن الجينات تُفسر نحو 40-60% من التباين في سمات كبرى كالذكاء والانبساطية — والباقي؟ البيئة، والتجربة، والاختيار، والصدفة.</p>
+<p>حتى الأمراض "الوراثية" ليست حتمية كلياً. من يحمل جين BRCA1 لا يُصاب بسرطان الثدي بالضرورة — بل يكون لديه احتمال أعلى يتفاعل مع عوامل بيئية وسلوكية كثيرة. هذا الفهم أحدث ثورة في الطب الوقائي.</p>
+<h2>الإنسان: أكثر من جيناته</h2>
+<p>الرؤية الإسلامية تتوافق مع هذا الفهم العلمي المتطور: الإنسان أُعطي العقل والإرادة الحرة — ما يجعله أكثر من مجرد برنامج جيني. "إن الله لا يغيّر ما بقوم حتى يغيّروا ما بأنفسهم" — هذا إقرار قرآني بأن التغيير ممكن وأن الإنسان فاعل لا مفعول به، حتى في مواجهة ما ورثه من جيناته وظروف ميلاده.</p>
+<blockquote>الجينات تكتب مسوّدة الإنسان — لكن الحياة والإيمان والاختيار والبيئة هي من تُحرّر النص النهائي، وأحياناً تُعيد كتابته من جديد.</blockquote>
+<span class="src">المصادر: "The Gene" لSiddhartha Mukherjee، "Epigenetics Revolution" لNessa Carey، مجلة Nature Genetics 2023، "Behavioral Genetics" لPlomin & DeFries</span>`},
+
+  {id:'o5',icon:'🤝',cat:'obs_social',cat_ar:'🤝 المجتمع والميلاد',
+  title:'طقوس الترحيب بالمولود: من الأذان إلى احتفالات العالم',
+  sub:'كيف استقبلت المجتمعات عبر التاريخ القادمين الجدد إلى الدنيا',
+  min:8,
+  body:`<p>في كل حضارة عبر التاريخ، الميلاد لم يكن حدثاً خاصاً بالأسرة وحدها — بل كان حدثاً اجتماعياً يستدعي طقوساً جماعية تعكس قيم المجتمع ونظرته إلى الإنسان وإلى معنى الحياة. كيفية استقبال المولود تُخبرنا أكثر عن المجتمع مما تُخبرنا أي وثيقة رسمية.</p>
+<h2>الأذان: أول كلمة في أذن المولود المسلم</h2>
+<p>في الإسلام، أول ما يُسمعه المولود هو الأذان يُتلى في أذنه اليمنى — إعلان بأن هذا الإنسان يدخل الحياة تحت اسم الله وكلمة التوحيد. قبل أن يسمع أي صوت آخر، يسمع: "الله أكبر، الله أكبر، أشهد أن لا إله إلا الله". وتُؤذَّن في الأذن اليمنى وتُقام في اليسرى — كأن المولود يُستقبل بالصلاة في أول لحظة وجوده.</p>
+<p>هذا أعمق إعلان هوية يمكن تصوره: الهوية الأولى والأعمق ليست الجنسية ولا الانتماء القبلي ولا الاسم — بل الانتماء لله. قبل أن يعرف الطفل اسمه، يسمع اسم الله.</p>
+<h2>اليوم السابع: طقوس الاعتراف الاجتماعي</h2>
+<p>في اليوم السابع تتكثف الطقوس الإسلامية: العقيقة ذبح الشاة وتوزيع اللحم على الفقراء والجيران — إشراك للمجتمع الأوسع في فرحة الأسرة. حلق الشعر والتصدق بوزنه ذهباً — ربط مادي بين الإنسان الجديد والواجب الاجتماعي. التسمية — إعلان للهوية أمام الجماعة.</p>
+<h2>في اليابان: أوماموري والحماية الروحية</h2>
+<p>في اليابان، يُقدَّم للمولود "أوماموري" — تميمة مباركة من المعبد — كأول هدية رمزية. هذا يعكس الاعتقاد بأن الطفل يحتاج حماية روحية وهو يخطو أولى خطواته في دنيا مليئة بالمجهول. الحفل الأول (أو-ميا ماييري) حين يُؤخذ الطفل للمعبد لأول مرة يكون بعد 30-100 يوم من الولادة — تقديم الطفل لعالمه الروحي.</p>
+<h2>في الهند: الرياح الأولى والبركة الروحية</h2>
+<p>في التقاليد الهندية الهندوسية، طقوس "ناماكاراما" للتسمية تُقام في اليوم الثاني عشر أو بعد ذلك. يُكتب اسم الطفل على طبق به أرز ثم يُقرأ للعائلة. طقوس "آن براشان" تُشير إلى أول أكلة صلبة — طعم العسل أول ما يُطعَمه المولود في كثير من التقاليد كأن الحياة يجب أن تبدأ بالحلاوة.</p>
+<h2>في أفريقيا جنوب الصحراء: "أنا بسببكم"</h2>
+<p>في كثير من المجتمعات الأفريقية، يبقى المولود في البيت أسبوعاً أو أكثر قبل أن يُعرَّض للعالم الخارجي — فترة "تعريف" بعالمه الأسري الدافئ قبل مواجهة الكون الواسع. ثم يُعلن اسمه أمام المجتمع في احتفال كبير. فلسفة "أوبونتو" — "أنا موجود لأن نحن موجودون" — تجعل الاحتفال بالمولود احتفالاً بالمجتمع كله لا بالفرد وحده.</p>
+<h2>في التراث العربي قبل الإسلام وبعده</h2>
+<p>قبل الإسلام، طقوس الميلاد العربية كانت مرتبطة بالبُعد القبلي: الإعلان عن المولود الذكر كان إعلان قوة للقبيلة. الإسلام أبقى على بعض الطقوس الاجتماعية (كالوليمة والاحتفال) لكنه نقّاها من البعد القبلي وأسّس على بعد روحي وإنساني أعمق.</p>
+<blockquote>طريقة استقبال المجتمع للمولود الجديد تكشف أكثر شيء عن قيمه ورؤيته للإنسان — هي في الحقيقة رسالة يُوجهها المجتمع لنفسه عن ما يُؤمن به.</blockquote>
+<span class="src">المصادر: "Birth Customs Around the World" — National Geographic، "Ubuntu Philosophy" لMogobe Ramose، "Cultural Anthropology" لConrad Kottak، "أحكام المولود في الفقه الإسلامي"</span>`},
+];
+
+(function(){
+  const el=document.getElementById('obs-cats');
+  OBS_CATS.forEach(o=>{
+    const d=document.createElement('div');
+    d.className='obs-cat';
+    d.innerHTML=`<div class="obs-icon">${o.icon}</div><div class="obs-name">${o.name}</div><div class="obs-desc">${o.desc}</div>`;
+    d.onclick=()=>{
+      const match=OBS_ARTS.find(a=>a.cat===o.cat);
+      if(match)openArt(match.id,'obs');
+      else toast(`قريباً: مقالات عن ${o.name}`);
+    };
+    el.appendChild(d);
+  });
+  renderObsArts();
+})();
+
+function renderObsArts(){
+  const el=document.getElementById('obs-arts-list');if(!el)return;
+  OBS_ARTS.forEach(a=>{
+    const d=document.createElement('div');
+    d.className='obs-art-item';
+    d.innerHTML=`<span>${a.icon}</span><span style="flex:1;">${a.title}</span><span class="obs-art-arrow">←</span>`;
+    d.onclick=()=>openArt(a.id,'obs');
+    el.appendChild(d);
+  });
+}
+
+// ═══ ARTICLES DATA (مستقلة تماماً عن المرصد) ═══
+const ARTS=[
+{id:'a1',cat:'birth',cat_ar:'🌱 الإنسان والميلاد',
+title:'لماذا يختلف شخصان وُلدا في اليوم نفسه؟',
+sub:'رحلة في أسرار الشخصية والبيئة والاختيارات الإنسانية',
+min:3,
+body:`<p>قد يجمع شخصين تاريخ ميلاد واحد بالضبط — نفس اليوم، نفس السنة، وربما نفس المدينة — لكن حياتيهما تسيران في مسارين متباينين كلياً. أحدهما يصبح طبيباً والآخر موسيقياً. أحدهما انطوائي هادئ والآخر اجتماعي متألق. أحدهما مؤمن عميق والآخر لا مبالٍ بالدين. كيف يحدث هذا إن كانت "طاقة" اليوم واحدة؟</p>
+<h2>مغالطة التأثير الكوني</h2>
+<p>المنطلق الخاطئ الذي تقوم عليه فكرة التأثير الكوني هو الاعتقاد بأن الكواكب والنجوم تُرسل "طاقة" تُشكّل الشخصية. الفيزياء الحديثة تُثبت أن الجاذبية هي القوة الوحيدة التي يمكن أن تؤثر بها الأجرام البعيدة — وأن جاذبية المشتري على المولود تساوي جزءاً من تريليون من جاذبية طبيبة التوليد الواقفة في الغرفة. لا "طاقة خفية"، ولا "إشعاع نجمي يُشكّل الروح". القوانين الفيزيائية لا تُسمح بذلك حرفياً.</p>
+<h2>البيئة: البصمة الأقوى</h2>
+<p>المتشابهون في تاريخ الميلاد مختلفون في كل شيء آخر: الأسرة التي وُلدوا فيها، والقيم التي نشؤوا عليها، والمدرسة التي التحقوا بها، والكتاب الأول الذي قرؤوه، والخسارة الأولى التي عاشوها. الطفل الذي نشأ في بيت يحتفي بالكتب والحوار هو إنسان مختلف جوهرياً عن طفل وُلد في نفس اليوم ونشأ في بيئة مليئة بالخوف والصراع. البيئة لا تُكيّف الإنسان فحسب — بل تُعيد تشكيل بنية دماغه حرفياً.</p>
+<h2>تأثير بارنوم: لماذا نُصدّق الوصف؟</h2>
+<p>علماء النفس يُسمّون الظاهرة "تأثير بارنوم" أو "تأثير فورر": حين تُقدَّم لإنسان توصيفات عامة تنطبق على أغلب البشر، يعتقد أنها تخصه تحديداً. التجربة الأصلية عام 1949: قدّم الباحث بيرترام فورر لطلابه "تقييماً نفسياً شخصياً" لكل منهم — والحقيقة أنهم جميعاً تلقّوا نفس النص المأخوذ من عمود أبراج صحيفة. حين سُئلوا عن دقة التقييم من 1 إلى 5، كان المتوسط 4.26 من 5.</p>
+<p>الأوصاف الناجحة تجمع بين خصائص محددة: إيجابية مُغرية، وعمومية كافية، وتوصيف "حالة وسط" يقبلها أي شخص. جملة مثل "أحياناً تشعر بأنك لم تُقدَّر بما يكفي" تنطبق على كل إنسان. جملة "تمتلك قدرات لم تستغلها بعد" تُغري الجميع.</p>
+<h2>التوأمان المتطابقان: الدليل العلمي الأقوى</h2>
+<p>أفضل اختبار علمي لمدى تأثير تاريخ الميلاد على الشخصية هو مقارنة التوائم المتطابقة — فهم يشتركون في نفس الجينات ونفس تاريخ الميلاد تحديداً. الدراسات تُظهر باستمرار أن التوائم المتطابقة الذين نشؤوا في بيئات مختلفة يختلفون اختلافاً كبيراً في الشخصية والاختيارات والقيم، رغم أن "نجمهم واحد" تماماً. هذا يُفنّد أي ادعاء بتأثير التوقيت الكوني على الشخصية.</p>
+<h2>ما يُشكّل الشخصية فعلاً؟</h2>
+<p>العلم الحديث يُشير إلى أن الشخصية تتشكل من تفاعل معقد بين الجينات (50-60%) والبيئة والتجربة الشخصية والاختيارات الحرة. الإيمان الذي يُحوّل القلب، والتربية التي تُرسّخ القيم، والقدوة التي تُضيء المسار، والصدمات التي تكسر ثم تُعيد البناء، والانتصارات التي تُكوّن الثقة — كلها تكتب الشخصية بخط أوضح وأعمق من أي تاريخ ميلاد.</p>
+<blockquote>لا يوجد إنسانان متشابهان تماماً — حتى التوأمان المتطابقان يختلفان مع الوقت. الشخصية لا تُكتب في النجوم بل تُكتب في التجربة والاختيار والإيمان.</blockquote>
+<span class="src">المصادر: "The Forer Effect" بحث Bertram Forer 1949، "Thinking, Fast and Slow" لDaniel Kahneman، دراسات التوائم في مجلة Psychological Science 2015-2022</span>`},
+
+{id:'a2',cat:'psychology',cat_ar:'🧠 علم النفس والميلاد',
+title:'لماذا نبحث عن أنفسنا في الأبراج؟',
+sub:'علم النفس وراء الفضول الإنساني نحو التصنيفات والمعرفة الذاتية',
+min:3,
+body:`<p>الأبراج ليست ظاهرة حديثة. جذورها تمتد آلاف السنين عبر حضارات البابليين والإغريق والفرس والهنود. لكن ظاهرة الانتشار الرقمي الهائل لها في العقد الأخير تستحق تأملاً أعمق من مجرد "تسلية بريئة" — لأنها باتت تُؤثّر في قرارات الزواج، واختيار الشريك، وبناء العلاقات، وتفسير سلوك الآخرين.</p>
+<h2>الفراغ الهوياتي في العصر الرقمي</h2>
+<p>في عالم يتسارع ويتغير بشكل مُرهق، كثيرون يبحثون عن إجابة لسؤال "من أنا؟" في وقت أصبحت فيه الهويات التقليدية — القبيلة، والانتماء المهني، والروابط الدينية الواضحة — أقل حضوراً في حياة بعض الناس. الأبراج تُقدم إجابة فورية وجاهزة ومُعبّأة في 12 خياراً واضحاً: "أنت برج الحمل — عفوي وقيادي وشجاع." هذا مُريح بشكل فوري حتى لو كان مبسَّطاً إلى حد الخطأ.</p>
+<h2>الهوية الاجتماعية والمجتمع الرقمي</h2>
+<p>الانتماء لتصنيف يخلق مجتمعاً فورياً. "نحن برج الجوزاء" — هذه العبارة تُنشئ رابطاً اجتماعياً مع غرباء في عالم تتفكك فيه الروابط التقليدية. في منصات التواصل الاجتماعي، محتوى الأبراج يحصل على تفاعل هائل لأنه يُوفّر "مرآة" يُريد الناس أن يروا أنفسهم فيها — وهذه حاجة إنسانية حقيقية، حتى لو كانت الأداة خاطئة.</p>
+<h2>ظاهرة التحقق الذاتي</h2>
+<p>حين تُصدّق أنك "برج الأسد تحب الأضواء"، تبدأ تصرّف بطريقة تُثبّت هذه الصورة. هذا ما يُسميه علماء النفس "التنبؤ المُحقق لذاته" — ليس لأن النجوم أثّرت فيك، بل لأن الاعتقاد ذاته يُغيّر السلوك. والنتيجة: تشعر أن التوصيف "دقيق" لأنك جعلته كذلك بنفسك.</p>
+<h2>ماذا يقول العلم الحديث؟</h2>
+<p>الدراسات المحكّمة التي اختبرت التنجيم بطرق علمية صارمة — بما فيها الدراسة الشهيرة لـGeoffrey Dean التي تتبّعت 2,000 شخص وُلدوا في لندن في الفترة نفسها ("التوائم الزمنية") على مدى ثلاثين سنة — لم تجد أي ارتباط إحصائي بين مواضع النجوم وقت الميلاد والشخصية أو القدرات أو المسار الحياتي. الفارق بين أشخاص من نفس البرج لا يختلف عن الفارق بين أشخاص من أبراج مختلفة.</p>
+<h2>الإشكالية الأخلاقية والعقدية</h2>
+<p>من منظور إسلامي، ربط الشخصية أو المصير بمواضع النجوم يُدخل في باب ما نُهينا عنه: الاعتقاد بأن الكواكب تعلم الغيب أو تُحدد المصائر. الغيب لا يعلمه إلا الله سبحانه وتعالى. الاهتمام بالأبراج "للتسلية" قد يبدو بريئاً، لكنه قد يُفتح باباً لاعتقادات أعمق تُعطي الكواكب قدرة ليست لها.</p>
+<h2>ما البديل؟</h2>
+<p>الفضول في معرفة النفس شيء جميل وصحي بل هو واجب ديني ومعرفي. لكن الأدوات الصحيحة موجودة: التأمل والمحاسبة الذاتية التي أوصى بها الإسلام، واختبارات الشخصية المبنية علمياً كـMBTI وBig Five (مع تحفظاتها)، وقراءة سير الناجحين وفهم رحلاتهم، والتفكير في القيم الشخصية والمبادئ التي تُريد أن تعيش بها.</p>
+<blockquote>الفضول في معرفة النفس شيء جميل وصحي — الخطأ يكمن في البحث عن الإجابة في المكان الخاطئ بينما الأدوات الصحيحة في متناول يدك.</blockquote>
+<span class="src">المصادر: "The Barnum Effect" لPaul Meehl، دراسة Geoffrey Dean للتوائم الزمنية 1985، "Astrology and Science" مجلة Correlation، تفسير ابن كثير لآيات الغيب</span>`},
+
+{id:'a3',cat:'sky',cat_ar:'🌌 السماء والثقافة',
+title:'الفرق بين علم الفلك والتنجيم',
+sub:'رحلة في تاريخ نظرة الإنسان إلى السماء من ألف سنة إلى اليوم',
+min:3,
+body:`<p>في القرن السابع عشر، حدث انفصال تاريخي بين علمين كانا واحداً لآلاف السنين. المنجم والفلكي كانا الشخص ذاته — يرصد السماء، يسجّل حركة الكواكب، ويُقرر من مواضعها قرارات الحرب والسلم والزواج. الكاهن البابلي كان فلكياً رياضياً وقارئاً للطالع في آنٍ معاً. ثم جاءت الثورة العلمية وغيّرت كل شيء.</p>
+<h2>جذور الارتباط القديم</h2>
+<p>قبل أن نفهم الانفصال، لا بد أن نفهم لماذا كانا متصلين. في الحضارات القديمة، السماء كانت كل شيء: مصدر الضوء والمطر والفصول. الإنسان الذي يفهم السماء كان يفهم متى يزرع ومتى يحصد، متى تفيض الأنهار، متى تأتي الرياح. هذا الفهم العملي للسماء أعطى الفلكيين مكانة هائلة — ومن المنطقي أن يُستنتج أن من يفهم حركة النجوم ربما يفهم أيضاً مصائر البشر.</p>
+<p>البابليون طوّروا أول نظام منهجي لرصد النجوم يعود لأكثر من ثلاثة آلاف سنة. وصلوا إلى دقة مذهلة في التنبؤ بحركة الكواكب والكسوف والخسوف — وهذه الدقة أعطتهم مصداقية علمية حقيقية، فكانوا يخلطون بينها وبين قراءة الطالع.</p>
+<h2>نقطة الانفصال الكبرى</h2>
+<p>كوبرنيكوس عام 1543 نشر نظريته أن الأرض تدور حول الشمس لا العكس. هذا الاكتشاف وحده قلب نموذج التنجيم رأساً على عقب، لأن التنجيم القديم بُني على الأرض كمركز الكون. عندما تبيّن أن الأرض كوكب صغير يدور حول نجم متوسط في ركن من أركان مجرة واحدة من مئات المليارات من المجرات، انهار هذا الافتراض جذرياً.</p>
+<p>جاء كيبلر بعده ليكتشف القوانين الرياضية الدقيقة لحركة الكواكب — ليس لأنها "تُرسل رسائل" بل لأنها تخضع لقوانين فيزيائية صارمة. ثم نيوتن اكتشف قانون الجاذبية الكونية: الكواكب تؤثر على بعضها بالجاذبية وفق معادلات رياضية محددة.</p>
+<h2>في الحضارة الإسلامية: الفصل المبكر</h2>
+<p>المثير أن الحضارة الإسلامية كانت من أوائل من فصلوا بين العلمين. البيروني — العالم الموسوعي في القرن الحادي عشر — كتب صراحةً أنه يُعلّم التنجيم بوصفه تراثاً فكرياً لكنه يُشكّك في صحته علمياً. علماء الفلك المسلمون كالبتّاني والزرقالي طوّروا الفلك خدمةً لتحديد القبلة وأوقات الصلاة وبداية الأشهر القمرية، لا لقراءة المصائر.</p>
+<h2>علم الفلك الحديث: ما اكتشفناه</h2>
+<p>اليوم، علم الفلك بلغ مستويات مذهلة. تلسكوب جيمس ويب يرصد مجرات تكوّنت بعد مئات الملايين من سنين من الانفجار الكبير. اكتشفنا أمواج الجاذبية — تموّجات في نسيج الزمكان ناتجة عن اندماج ثقوب سوداء. رصدنا أكثر من خمسة آلاف كوكب خارج المجموعة الشمسية.</p>
+<p>النجم الذي تراه الليلة بعينك ربما انطلق ضوءه منذ مليون سنة. مجرتنا تحتوي على مئتي مليار نجم. وهناك أكثر من تريليوني مجرة في الكون المرصود. هذه الأرقام تتجاوز كل تصور.</p>
+<h2>الموقف الصحيح: الانبهار بلا أوهام</h2>
+<p>النظر إلى السماء بعيون العلم لا يُفقدها جمالها — بل يُضيف إليها عمقاً آخر. أن تعرف أن ضوء نجم ما استغرق ألف سنة ليصل إلى عينك أجمل من أي قراءة طالع. أن تفهم كيف أن الجاذبية وحدها تُبقي المجموعة الشمسية في توازن منذ مليارات السنين — هذا أعمق من أي تفسير أسطوري.</p>
+<blockquote>النظر إلى السماء بعيني العلم لا يُفقدها جمالها — بل يُضيف إليها عمقاً آخر أوسع بكثير من أي أسطورة.</blockquote>
+<span class="src">المصادر: "The Astronomy Book" لJim Bell، البيروني "التفهيم لأوائل صناعة التنجيم"، مجلة Sky & Telescope</span>`},
+
+{id:'a4',cat:'hijri',cat_ar:'📅 التقويم الهجري',
+title:'التقويم الهجري: نبضة حضارة كاملة',
+sub:'لماذا بدأ التقويم بالهجرة لا بالميلاد؟ وما الذي تحمله أسماء الأشهر من تاريخ؟',
+min:2,
+body:`<p>في اللحظة التي يبدأ فيها الهلال رحلته الشهرية، تتحرك معه قلوب ملايين حول العالم. رمضان يبدأ أو ينتهي. العيد يُعلَن. موسم الحج يقترب. هذا الإيقاع ليس مجرد نظام لعدّ الأيام — بل هو نبضة حضارة كاملة تمتد ألفاً وأربعمائة سنة.</p>
+<h2>لماذا بدأ التقويم بالهجرة لا بالميلاد؟</h2>
+<p>في عهد الخليفة عمر بن الخطاب رضي الله عنه، وصلته رسالة تقول: "يأتينا منك كتاب ليس له تاريخ." فدعا الصحابة للتشاور. اقترح علي بن أبي طالب رضي الله عنه الهجرة كنقطة بداية، فأجمع الصحابة على ذلك.</p>
+<p>لماذا الهجرة تحديداً؟ لأنها لم تكن مجرد انتقال جغرافي — بل كانت اللحظة التي تحوّلت فيها الدعوة من إيمان فردي إلى مجتمع منظّم، من وجود في الهامش إلى بناء دولة. التأريخ بالهجرة اختيار لحظة التحوّل لا مجرد لحظة البداية.</p>
+<h2>أسماء الأشهر: كتاب في التاريخ</h2>
+<p><strong>المحرم:</strong> مشتق من "التحريم" — كانت العرب تُحرّم فيه القتال. وهو أول أشهر السنة وأحد الأشهر الحرم الأربعة.</p>
+<p><strong>صفر:</strong> قيل لأن بيوت العرب كانت تخلو "تصفر" حين يخرجون للغزو في هذا الشهر.</p>
+<p><strong>ربيع الأول:</strong> سُمّي في موسم الربيع. وفيه وُلد النبي ﷺ وفيه توفي — شهر الأول والآخر في سيرته الشريفة.</p>
+<p><strong>رمضان:</strong> من "الرمضاء" — الحرارة الشديدة المحرقة. والآن هو شهر الصيام والقرآن والمغفرة.</p>
+<p><strong>ذو الحجة:</strong> شهر الحج والأيام العشر الأفضل عند الله. قال النبي ﷺ: "ما من أيام العمل الصالح فيها أحب إلى الله من هذه الأيام العشر."</p>
+<h2>جمال السنة القمرية: الانتقال عبر الفصول</h2>
+<p>السنة الهجرية أقصر من السنة الميلادية بأحد عشر يوماً تقريباً. هذا يعني أن التقويم الهجري يتنقّل عبر كل فصول السنة الميلادية على مدى ثلاثة وثلاثين سنة. رمضان يأتي صيفاً طويل الأيام شديد الحر — فيختبر الصائم التحمّل بأعلى درجاته. ثم يأتي شتاءً قصير الأيام لطيف الهواء — فيختبر خفّة العبادة. لا موسم ثابت للعبادة لأن الإسلام دين لكل البشر في كل المناخات.</p>
+<h2>الحساب الهجري: دقة الخوارزمية</h2>
+<p>الشهر القمري يبلغ 29 يوماً و12 ساعة و44 دقيقة و3 ثوانٍ في المتوسط. الخوارزميات التي يستخدمها مَوْلِدي تعتمد على "رقم اليوم اليولياني" — نظام رياضي يُحوّل أي تاريخ إلى رقم متسلسل من نقطة مرجعية ثابتة، مما يسمح بتحويل التواريخ بدقة عالية بين التقويمين الميلادي والهجري.</p>
+<h2>التقويم الهجري في حياتنا اليوم</h2>
+<p>أكثر من مليار ونصف مسلم يُحدّدون رمضان وعيد الفطر وعيد الأضحى والحج بالتقويم الهجري. معرفة تاريخ ميلادك الهجري يربطك بهذا الإيقاع الحضاري العميق. وُلدت في رمضان؟ في شهر نزل فيه القرآن. في ذي الحجة؟ في أفضل أيام الدنيا. في ربيع الأول؟ في شهر سيرة النبي ﷺ.</p>
+<blockquote>القمر لا يُشير إلى مصيرك — لكنه يربطك بزمن أكبر من زمنك، وبحضارة أعمق من ذاكرتك الفردية، وبعبادة لا تعرف حدوداً جغرافية أو موسمية.</blockquote>
+<span class="src">المصادر: "التقويم الهجري" للدكتور محمد السماك، "السيرة النبوية" لابن هشام، "Chronology of the Ancient World" لE.J. Bickerman</span>`},
+
+{id:'a5',cat:'cultures',cat_ar:'🌍 الثقافات والميلاد',
+title:'كيف تحتفل حضارات العالم بيوم الميلاد؟',
+sub:'رحلة حول العالم في معنى الوجود والاحتفال باليوم الأول',
+min:2,
+body:`<p>في طوكيو تستيقظ على رسائل عيد ميلاد وكيكة مزيّنة. في تهران قد تمرّ الذكرى بهدوء مع فنجان شاي ودعاء. وفي قرية نيجيرية، يوم ميلادك ليس يومك وحدك — بل هو يوم القرية بأسرها. هذا التباين الهائل يكشف شيئاً عميقاً: معنى الميلاد تُحدده الحضارة، لا التاريخ.</p>
+<h2>الغرب الحديث: تمجيد الفرد</h2>
+<p>الاحتفال الغربي الحديث يعكس فلسفة بعينها: الفرد في المركز. الكيكة والشموع وأغنية "Happy Birthday" كلها رموز لأن "وجودك هو الأهم." الأغنية كتبتها الأختان Hill عام 1893 ولم تنتهِ نزاعاتها القانونية حتى 2016. تقليد الشموع يعود للإغريق الذين وضعوا شموع على كعكات مقدسة للإلهة أرتيميس.</p>
+<h2>الصين: الحكمة قبل العدد</h2>
+<p>في التقليد الصيني، المولود يُعتبر عمره سنة في لحظة الميلاد — تقديراً لأشهر الحمل التسعة. الاحتفالات الكبرى ليست الأعياد السنوية بل "أعياد المئة" — الستون والسبعون والثمانون — تعبيراً عن احترام الحكمة المكتسبة بالتجربة.</p>
+<h2>التراث الإسلامي: المعنى قبل الاحتفال</h2>
+<p>اليوم السابع هو المحطة المحورية: العقيقة — شكر لله على نعمة المولود. التسمية — إعلان هوية وقيمة. والأذان في الأذن اليمنى — أول ما يسمعه المولود هو "الله أكبر". قبل أي كلمة أخرى، قبل أي نداء دنيوي، يسمع إعلان التوحيد.</p>
+<h2>الهند: التقويم القمري والنجم الشخصي</h2>
+<p>في التقاليد الهندوسية، يُعدّ لكل إنسان "نجمه" الخاص ويُحتفل بالميلاد وفق التقويم القمري الهندي، ما يعني أن الذكرى السنوية تتنقل بين التواريخ الميلادية. الاحتفال الديني يشمل الزيارة للمعبد.</p>
+<h2>أفريقيا جنوب الصحراء: الميلاد كحدث جماعي</h2>
+<p>في فلسفة "أوبونتو" الأفريقية — "أنا موجود لأن نحن موجودون" — الفرد لا يُعرَّف بمعزل عن مجتمعه. عند قبائل اليوروبا، الاحتفال بالميلاد ليس فردياً بل جماعياً — يجتمع أهل الحي ويُدخَل المولود في نسيج المجتمع بشكل رسمي.</p>
+<h2>ماذا تقول لنا هذه الاختلافات؟</h2>
+<p>التنوع في طريقة الاحتفال يعكس أسئلة فلسفية: هل الفرد قيمة مستقلة أم جزء من كل أكبر؟ هل الوجود نعمة تُحتفل بها أم أمانة تُحمل؟ مَوْلِدي يُقدّم الميلاد في بُعده الهجري — ليس لأن التقويم الهجري أفضل من سواه، بل لأنه يربط الإنسان المسلم بحضارته الروحية وبإيقاع القمر لا الشمس.</p>
+<blockquote>يوم الميلاد ليس مجرد يوم — بل هو سؤال تجيب عنه حضارتك: من هو الإنسان وكيف يحتفل المجتمع بقدومه؟</blockquote>
+<span class="src">المصادر: "The Birthday Book" لRuth & Jay Sarett، "Ubuntu Philosophy" لMogobe Ramose، "أحكام المولود في الفقه الإسلامي"</span>`},
+
+{id:'a6',cat:'psychology',cat_ar:'🧠 علم النفس والميلاد',
+title:'تأثير ترتيب الميلاد على الشخصية: حقيقة أم خرافة؟',
+sub:'ما يقوله العلم الحديث عن الأبناء الأوائل والأواخر والأوسط',
+min:2,
+body:`<p>الابن الأكبر قائد ومسؤول، والأصغر مغامر مرح، والأوسط دبلوماسي توافقي. هذه الأحكام انتشرت حتى باتت تُصنَّف بمصاف الحقائق. لكن ماذا يقول العلم الحديث فعلاً؟</p>
+<h2>أدلر والنظرية الأولى</h2>
+<p>في مطلع القرن العشرين، صاغ ألفريد أدلر أول نظرية حول تأثير ترتيب الميلاد. رأى أن الابن الأكبر يعيش تجربة "الخلع عن العرش" حين يُولد أخ أصغر — هذه التجربة تُولّد دافعاً للاستعادة والتحكم والمسؤولية. بدت النظرية منطقية وجذابة — وهذا بالضبط هو الخطر. المنطق الظاهري لا يعني صحة الادعاء.</p>
+<h2>ماذا تقول الدراسات الكبرى؟</h2>
+<p>عام 2015، نشر روب داميان وبريان روبرتس دراسة تتبّعت أكثر من <strong>370,000 شخص</strong> في أمريكا وألمانيا وبريطانيا. النتيجة؟ ترتيب الميلاد يُفسّر أقل من 1% من التباين في الشخصية. الاختلافات ضئيلة جداً في التطبيق العملي.</p>
+<p>دراسة ألمانية تتبّعت 20,000 شخص وجدت ميزة طفيفة للابن الأكبر في الذكاء المقاس — ليس لأسباب جينية بل لأن الوالدين يقضون وقتاً أطول في التفاعل المعرفي مع أول أطفالهم. لكن هذه الميزة ضئيلة لدرجة أنها لا تُترجَم لفروق في الحياة العملية.</p>
+<h2>لماذا نُصدّق رغم ذلك؟</h2>
+<p><strong>تأثير بارنوم:</strong> توصيفات "الابن الأكبر" تحتوي صفات يريد كل إنسان رؤية نفسه فيها: "مسؤول، قيادي، حازم."</p>
+<p><strong>تحيز التأكيد:</strong> نتذكر حين نجح التوصيف وننسى حين فشل. إذا قيل "الأبكار أكثر طموحاً" تذكرت فوراً كل الأبكار الطموحين وأغفلت الباقين.</p>
+<p><strong>رغبة الأهل في التفسير:</strong> الأهل يبحثون عن تفسيرات للاختلافات بين أبنائهم. ترتيب الميلاد يُقدّم تفسيراً جاهزاً مريحاً.</p>
+<h2>ما يُؤثّر فعلاً في الشخصية</h2>
+<p>الأبحاث تُشير إلى أن المؤثرات الحقيقية هي: جودة العلاقة الوالدية، والقيم المُغرَسة في الطفولة، والتجارب الحياتية الكبرى، والبيئة الثقافية، وأخيراً الاختيارات الحرة التي يتخذها الإنسان يومياً.</p>
+<p>الترتيب بين الأبناء قد يُؤثّر في بعض أنماط التفاعل الأسري، لكنه ليس "قدراً" محدداً للشخصية. الطفل الأصغر الذي يتحمّل مسؤوليات مبكرة قد يكون أكثر نضجاً من الأكبر الذي نشأ في بيئة محمية.</p>
+<blockquote>كل إنسان يعيش قصة مختلفة حتى داخل الأسرة الواحدة — لكن ترتيب ميلاده ليس القدر الذي يُحدد مساره.</blockquote>
+<span class="src">المصادر: Damian & Roberts (2015) Journal of Research in Personality، Kristensen & Bjerkedal (2007) Science، Frank Sulloway "Born to Rebel"</span>`},
+
+{id:'a7',cat:'islam',cat_ar:'🌙 الإسلام والميلاد',
+title:'الرؤية الإسلامية للمولد: بين التكريم والزهد في التعظيم',
+sub:'كيف ينظر الإسلام إلى لحظة الميلاد والاحتفال بها؟',
+min:2,
+body:`<p>حين يُولد طفل في مجتمع مسلم، تتحرك من حوله طقوس دينية ذات معنى عميق. هذه الطقوس ليست مجرد عادات اجتماعية متوارثة — بل هي تعبيرات عقدية تُجسّد موقف الإسلام الجذري من الإنسان: كيف يُنظر إليه، ما قيمته، وكيف يُستقبل قدومه إلى الدنيا.</p>
+<h2>الأذان: أول كلمة في الدنيا</h2>
+<p>أول ما يُسمعه المولود المسلم حين يدخل الدنيا هو الأذان يُتلى في أذنه اليمنى — إعلان بأن هذا الإنسان يدخل الحياة تحت اسم الله وكلمة التوحيد. قبل أن يسمع أي صوت آخر، يسمع: "الله أكبر، الله أكبر، أشهد أن لا إله إلا الله". هذا أعمق إعلان هوية يمكن تصوره — الهوية الأولى والأعمق هي الانتماء لله.</p>
+<p>والسنة أن يُتلى في الأذن اليمنى الأذان، وفي اليسرى الإقامة — كأن المولود يُستقبل باستحضار الصلاة في أول لحظة وجوده خارج الرحم. هذا تقليد ثابت في الفقه الإسلامي وإن تفاوتت آراء العلماء في حكمه بين السنة والمستحب.</p>
+<h2>اليوم السابع: يوم الشكر والتسمية</h2>
+<p>اليوم السابع من الولادة يوم محوري في الفقه الإسلامي. فيه تُستحب العقيقة — ذبح شاتين عن المولود الذكر وشاة عن الأنثى. العقيقة ليست مجرد وليمة بل شعيرة تحمل معاني عميقة: الشكر لله على نعمة المولود، وفك "رهانة" الطفل كما جاء في الحديث، وإشراك المجتمع والفقراء في فرحة الأسرة.</p>
+<p>وفي اليوم السابع أيضاً يُسن حلق شعر المولود والتصدق بوزنه ذهباً أو فضةً — تعبير مادي عن الشكر يُعطى للفقراء. وفيه أيضاً التسمية الرسمية للمولود. النبي ﷺ قال: "أحب الأسماء إلى الله عبدالله وعبدالرحمن". الاسم ليس مجرد علامة تعريفية — بل إعلان هوية وانتماء يحمله الإنسان طوال حياته.</p>
+<h2>الختان: الفطرة والطهارة</h2>
+<p>الختان من شعائر الفطرة في الإسلام — يُطهّر الجسد ويُهيّئه. النبي ﷺ عدّه من خصال الفطرة الخمس. وفيه دلالة رمزية عميقة: الإنسان يُولد على الفطرة لكنه بحاجة إلى "إكمال" هذه الفطرة بالعبادة والطهارة والتشريع الإلهي.</p>
+<h2>التقويم الهجري والذاكرة الروحية للميلاد</h2>
+<p>وُلدت في رمضان؟ في شهر القرآن والصيام والمغفرة — ربطتك الحياة منذ ولادتك بأرقى الشهور. وُلدت في ذي الحجة؟ في الأيام العشر الأولى التي قال عنها النبي ﷺ إنه لا يوجد عمل صالح أحب إلى الله منه في هذه الأيام. وُلدت في ربيع الأول؟ في الشهر الذي شهد مولد خير البشر محمد ﷺ.</p>
+<p>هذا الربط بين التاريخ الشخصي والروزنامة الروحية هو ما يجعل التقويم الهجري أكثر من نظام لعدّ الأيام — إنه إطار تُعيش فيه الحياة بمعنى ديني متجدد.</p>
+<h2>موقف الإسلام من الاحتفال بأعياد الميلاد</h2>
+<p>تجدر الإشارة إلى أن الفقهاء تباينت آراؤهم في حكم الاحتفال بأعياد الميلاد السنوية. بعضهم يراه مباحاً ما دام خالياً من المحرمات. وبعضهم يتحفظ عليه باعتباره تقليداً مستحدثاً. والمهم في النهاية أن الإسلام يُؤكد أن الشكر الحقيقي لله على نعمة العمر يتجلى في استثمار السنوات بطاعة الله والإحسان للخلق، لا في الاحتفالات وحدها.</p>
+<blockquote>ليس يوم ميلادك الهجري دليلاً على شخصيتك أو مصيرك — لكنه نافذة على إيقاع الحضارة التي تنتمي إليها، وذكرى بأن كل سنة مضت هي نعمة تستحق الشكر.</blockquote>
+<span class="src">المصادر: "أحكام المولود" للدكتور عمر الأشقر، فتاوى اللجنة الدائمة للبحوث العلمية والإفتاء، إسلام سؤال وجواب، "فقه العبادات" لمصطفى الخن</span>`},
+
+{id:'a8',cat:'cultures',cat_ar:'🌍 الثقافات والميلاد',
+title:'الميلاد في الحضارة العربية: من الجاهلية إلى الإسلام',
+sub:'كيف تحوّل مفهوم الميلاد في الوجدان العربي عبر التاريخ',
+min:2,
+body:`<p>قبل الإسلام، ولادة طفل في الجزيرة العربية كانت تعني شيئاً مختلفاً كلياً. لم تكن الأسرة تحتفل دائماً — بل كانت ولادة البنت تُحسب مصيبة في أحيان كثيرة. ثم جاء الإسلام بثورة إنسانية غيّرت المفهوم من جذوره.</p>
+<h2>الجاهلية: الميلاد كورقة قبلية</h2>
+<p>في المجتمع القبلي، الإنسان لم يكن قيمة مستقلة — بل كان وحدة في منظومة قبلية. الذكور كانوا "الموارد الاستراتيجية": يُقاتلون ويكسبون ويحمون. الإناث كن عبئاً محتملاً في مجتمع يُؤمن بأن الابنة قد تُسبّ القبيلة.</p>
+<p>وأد البنات كان ممارسة موثّقة في بعض القبائل. القرآن الكريم خلّد هذه الجريمة: "وَإِذَا بُشِّرَ أَحَدُهُم بِالْأُنثَىٰ ظَلَّ وَجْهُهُ مُسْوَدًّا وَهُوَ كَظِيمٌ."</p>
+<h2>ثورة الإسلام: كل مولود كريم</h2>
+<p>جاء الإسلام بمفهوم ثوري: كل إنسان — ذكراً أو أنثى، من أي قبيلة — كريم على الله، مُكرَّم بالفطرة. "وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ" — لم تقل الآية "كرّمنا العرب" بل "بني آدم" جميعاً.</p>
+<p>تحريم الوأد جاء قاطعاً: "وَإِذَا الْمَوْءُودَةُ سُئِلَتْ — بِأَيِّ ذَنبٍ قُتِلَتْ." يوم القيامة ستُسأل الضحية عن ذنبها — هذه أقوى إعادة صياغة أخلاقية ممكنة.</p>
+<h2>الأذان: أول إعلان هوية</h2>
+<p>كان العرب يُعلنون مولود الذكر بالاحتفال ومولود الأنثى بالصمت أو الحزن. الإسلام سوّى: الأذان يُقرأ في أذن كل مولود. أول ما يسمعه الإنسان حين يدخل الدنيا هو "الله أكبر" لا اسم أبيه ولا انتمائه القبلي.</p>
+<h2>الشعر العربي: قبل وبعد</h2>
+<p>في الشعر الجاهلي، الميلاد يُحتفى به إذا كان ميلاد فارس تُدافع به القبيلة. بعد الإسلام، تحوّلت القيم: الكرم والعلم والتقى باتت أسمى من النسب القبلي. الأدب الإسلامي ملأته الدعوات للمواليد بالصلاح والعافية لا بالبطولة الحربية.</p>
+<h2>الطفل في الفقه الإسلامي</h2>
+<p>الفقه الإسلامي أرسى منظومة حقوق الطفل قبل قرون من الإعلان العالمي. حق الطفل في الاسم الحسن، وفي الرضاعة، وفي التربية الصالحة، وفي العدل بين الأبناء — كلها واجبات على الآباء. الحديث النبوي "كل مولود يُولد على الفطرة" يُرسّخ أن الطفل يأتي بريئاً نقياً — لا محملاً بخطيئة موروثة.</p>
+<blockquote>الميلاد تحوّل من حدث قبلي حسابي إلى نعمة ربانية ومسؤولية إنسانية — هذا التحول يُلخّص في سطور ثورة الإسلام الإنسانية الكاملة.</blockquote>
+<span class="src">المصادر: "العصر الجاهلي" لشوقي ضيف، تفسير الطبري والقرطبي، "أحكام الطفل في الفقه الإسلامي" لمحمد الزحيلي</span>`},
+
+{id:'a9',cat:'philosophy',cat_ar:'📖 الفلسفة والوجود',
+title:'من أين جئنا؟ تأملات الفلاسفة في لحظة الوجود',
+sub:'رحلة في أعمق الأسئلة الفلسفية حول معنى الولادة والوجود',
+min:2,
+body:`<p>"من أين جئنا؟" — ربما هو أقدم سؤال فلسفي في التاريخ. كل طفل يسأله في مرحلة ما. كل حضارة حاولت الإجابة عنه. وكل فيلسوف كبير أمضى جزءاً من حياته الفكرية في مواجهته.</p>
+<h2>ما قبل الفلسفة: الأساطير والولادة</h2>
+<p>في الأسطورة البابلية، الإنسان خُلق من دم الإله المُقتَل ليكون عبداً يخدم الآلهة. في الأسطورة المصرية، الإنسان دموع الإله رع. في الأسطورة الإغريقية، الإنسان مزيج من الطين وجوهر إلهي. هذه الأساطير تعكس نظرات كاملة للإنسان: هل هو كائن مُستعبَد أم مُكرَّم؟</p>
+<h2>أفلاطون: الولادة كنسيان</h2>
+<p>طوّر أفلاطون نظرية التذكّر: الروح قبل الجسد عاشت في "عالم المُثُل" — عالم المعرفة الخالصة. ثم تتجسد في الجسد وتنسى. الولادة إذاً ليست بداية بل انتقال مصحوب بنسيان. التعلم عند أفلاطون هو "تذكّر" لما عرفته الروح من قبل.</p>
+<h2>أرسطو: الولادة كإمكانية</h2>
+<p>خالف أرسطو أستاذه: لا روح سابقة ولا عالم مُثُل. المولود يأتي كـ"إمكانية" تبحث عن تحقيق. مثل البذرة التي تحمل شكلها النهائي لكنها تحتاج التربة والماء. هذا يُلقي على التربية والبيئة مسؤولية هائلة: الإنسان إمكانية تتحقق أو تُهدَر بحسب شروطها.</p>
+<h2>الرواقيون: الولادة كمهمة</h2>
+<p>ماركوس أوريليوس وسينيكا رأوا أن الإنسان يأتي بـ"لوغوس" أي عقل كوني يشاركه مع الكون. المهمة: العيش وفق الطبيعة والعقل لا الانقياد للأهواء.</p>
+<h2>الرؤية الإسلامية: الفطرة والأمانة</h2>
+<p>"كل مولود يُولد على الفطرة فأبواه يُهوّدانه أو يُنصّرانه أو يُمجّسانه" — فلسفة كاملة في حديث واحد. الإنسان يأتي محمّلاً باستعداد فطري للتوحيد والخير. الميلاد ليس بداية من الصفر بل قدوم بفطرة نقية.</p>
+<p>والإنسان في الإسلام يحمل "الأمانة" التي أبت السماوات والأرض والجبال حملها. الولادة هي الدخول في هذه الأمانة — وهي شرف لا يُشبهه شرف.</p>
+<h2>الوجودية الحديثة</h2>
+<p>سارتر قال: "الوجود يسبق الماهية." لا معنى جاهز، لا طبيعة محددة سلفاً — الإنسان يأتي ولا شيء وعليه أن يختار من يكون. الولادة هي الدخول في مسؤولية الاختيار الكامل.</p>
+<h2>ماذا يعني كل هذا عملياً؟</h2>
+<p>التأمل الفلسفي في الميلاد يُؤثّر مباشرةً في كيف ننظر لأنفسنا: هل أنا إمكانية لم تتحقق بعد؟ هل أنا صاحب أمانة يجب أن أؤدّيها؟ الإجابة تُغيّر كيف تعيش.</p>
+<blockquote>كل طفل جديد هو سؤال الله للإنسانية: ماذا ستصنعون بهذا الإنسان الجديد؟ وكيف ستُمكّنونه من تحقيق إمكانيته الكاملة؟</blockquote>
+<span class="src">المصادر: "جمهورية أفلاطون" ترجمة فؤاد زكريا، "النفس" لأرسطو، "التأملات" لماركوس أوريليوس، "الوجود والعدم" لسارتر</span>`},
+
+{id:'a10',cat:'birth',cat_ar:'🌱 الإنسان والميلاد',
+title:'اسمك وهويتك: لماذا الأسماء مهمة في كل الحضارات؟',
+sub:'علم النفس والتاريخ يكشفان عن علاقة عميقة بين الاسم والإنسان',
+min:2,
+body:`<p>"ما اسمك؟" — هذا السؤال الأول في كل لقاء ليس مجرد إجراء اجتماعي. إنه طلب معرفة هوية الشخص الأعمق. الاسم في كثير من الحضارات هو المقطَّر الأول لكل ما يُؤمَل أن يكون عليه الإنسان.</p>
+<h2>الاسم كهوية وقيمة في الإسلام</h2>
+<p>"أحب الأسماء إلى الله عبدالله وعبدالرحمن" — هذا الحديث لا يُقدّم توصية جمالية بل يُرسّخ مفهوماً عقدياً: الاسم إعلان عن العلاقة مع الله. الفقه الإسلامي جعل التسمية الحسنة واجباً على الوالدين — الاسم مسؤولية أخلاقية لا شأن شخصي فردي.</p>
+<h2>علم النفس: هل يُؤثّر الاسم؟</h2>
+<p>ظاهرة "الحتمية الاسمية" رصدها الباحثون: وُجدت دراسات تُشير إلى أن الناس قد يميلون لمهن أو مواقف تتشابه مع أسمائهم. الظاهرة مثار جدل علمي، لكن ما هو ثابت: أصحاب الأسماء "السهلة النطق" في الثقافات الغربية يحصلون أحياناً على فرص عمل أكثر ممن يحملون أسماء غريبة — وهذا واقع موثّق وإن كان غير عادل.</p>
+<h2>الأسماء في الحضارات</h2>
+<p>في كثير من الثقافات الأفريقية، يُعطى المولود اسماً مؤقتاً ثم اسمه الدائم حين "تتضح شخصيته" — الاسم يجب أن يُلائم صاحبه لا أن يُفرض عليه.</p>
+<p>في اليابان، الكانجي تُعطي المعنى الحقيقي للأسماء — اختيار حروف الكتابة فن كامل يراعي معاني الجمال والقوة والحظ.</p>
+<p>في الحضارة العربية الجاهلية، كانت الأسماء وصفاً مباشراً: خالد، أسامة، سيف. بعد الإسلام تحوّلت لتعكس القيم الدينية: عبدالرحمن، محمد، فاطمة.</p>
+<h2>الاسم والهوية الاجتماعية</h2>
+<p>الاسم هو أول شيء يعرفه الآخرون عنك وآخر شيء يُذكر بعدك. في اللغة العربية، "ذِكر" الإنسان هو سمعته وما بقي منه — مشتق من اسمه. الأشخاص الذين يُغيّرون أسماءهم — بعد الإسلام أو إعادة اكتشاف الذات — كثيراً ما يصفون التجربة بأنها "ولادة جديدة".</p>
+<h2>الاسم الأجمل</h2>
+<p>أجمل الأسماء هو الذي يحمل معنىً صادقاً، يُلفظ بسهولة، ولا يُحمَّل صاحبه معنىً سلبياً. لكن فوق كل ذلك: أجمل الأسماء هو الذي تُملؤه بالفعل الصالح والخُلق الحسن حتى يصبح ذِكراً يدوم.</p>
+<blockquote>الاسم الحسن أول هدية يقدمها الوالدان — لكن أجمل شيء هو أن تملأه بمعنىً يدوم ويترك أثراً يتجاوزك.</blockquote>
+<span class="src">المصادر: "أسماء العرب ودلالاتها" لعبد الرزاق الصاعدي، "Nominative Determinism" مجلة New Scientist، "فقه الأسماء في الإسلام"</span>`},
+];
+
+// ═══ CONTENT LOADER — reads from content.json if available ═══
+async function loadContent() {
+  // Try to fetch content.json from same directory
+  try {
+    const res = await fetch('./content.json?v=' + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      // Override article metadata (not bodies - they stay in HTML)
+      if (data.articles && data.articles.ar) {
+        data.articles.ar.forEach(remote => {
+          const local = ARTS.find(a => a.id === remote.id);
+          if (local) {
+            local.title  = remote.title  || local.title;
+            local.sub    = remote.sub    || local.sub;
+            local.cat    = remote.cat    || local.cat;
+            local.cat_ar = remote.cat_ar || local.cat_ar;
+            local.min    = remote.min    || local.min;
+            local.status = remote.status || 'published';
+          } else if (remote.body) {
+            // New article added via dashboard
+            ARTS.push(remote);
+          }
+        });
+      }
+      // Override obs article metadata
+      if (data.obsArticles && data.obsArticles.ar) {
+        data.obsArticles.ar.forEach(remote => {
+          const local = OBS_ARTS.find(a => a.id === remote.id);
+          if (local) {
+            local.title = remote.title || local.title;
+            local.sub   = remote.sub   || local.sub;
+            local.min   = remote.min   || local.min;
+          } else if (remote.body) {
+            OBS_ARTS.push(remote);
+          }
+        });
+      }
+      // Filter out draft articles
+      const published = ARTS.filter(a => a.status !== 'draft');
+      ARTS.length = 0;
+      published.forEach(a => ARTS.push(a));
+      // Store for dashboard sync
+      window._contentData = data;
+      console.log('✅ content.json loaded:', data.meta?.lastUpdated);
+    }
+  } catch(e) {
+    // content.json not found - use hardcoded data (works offline)
+    console.log('ℹ️ Using embedded content (content.json not found)');
+  }
+  // Render after load attempt
+  renderHomePreview();
+  renderChips();
+  renderArtsList();
+}
+
+function renderHomePreview() {
+  const el = document.getElementById('art-prev');
+  if (!el) return;
+  el.innerHTML = '';
+  ARTS.slice(0,3).forEach(a => {
+    const d = document.createElement('div');
+    d.className = 'art-card';
+    d.innerHTML = `<div class="ac-cat">${a.cat_ar}</div><div class="ac-title">${a.title}</div>
+      <div class="ac-sub">${a.sub}</div>
+      <div class="ac-foot"><span class="ac-time">⏱ ${a.min} دقيقة قراءة</span>
+      <button class="rbtn" onclick="openArt('${a.id}','arts')">اقرأ ←</button></div>`;
+    el.appendChild(d);
+  });
+}
+
+// Start loading
+loadContent();
+
+// ═══ ARTS LIST ═══
+let curCat='all';
+function filterCat(cat){curCat=cat;renderChips();renderArtsList();}
+function renderChips(){
+  const nm={all:'🌟 الكل',birth:'🌱 الميلاد',psychology:'🧠 علم النفس',sky:'🌌 السماء',hijri:'📅 الهجري',cultures:'🌍 الثقافات',islam:'🌙 الإسلام',philosophy:'📖 الفلسفة'};
+  const cats=['all',...new Set(ARTS.map(a=>a.cat))];
+  const el=document.getElementById('art-chips');el.innerHTML='';
+  cats.forEach(c=>{
+    const b=document.createElement('button');
+    b.className=`chip${c===curCat?' on':''}`;b.textContent=nm[c]||c;
+    b.onclick=()=>filterCat(c);el.appendChild(b);
+  });
+}
+function renderArtsList(){
+  const el=document.getElementById('arts-list');el.innerHTML='';
+  const list=curCat==='all'?ARTS:ARTS.filter(a=>a.cat===curCat);
+  list.forEach(a=>{
+    const d=document.createElement('div');d.className='art-card';
+    d.innerHTML=`<div class="ac-cat">${a.cat_ar}</div><div class="ac-title">${a.title}</div>
+      <div class="ac-sub">${a.sub}</div>
+      <div class="ac-foot"><span class="ac-time">⏱ ${a.min} دقيقة</span>
+      <button class="rbtn" onclick="openArt('${a.id}','arts')">اقرأ ←</button></div>`;
+    el.appendChild(d);
+  });
+}
+
+// ═══ OPEN ARTICLE ═══
+let reactCounts={};
+function openArt(id,src){
+  const a=ARTS.find(x=>x.id===id)||OBS_ARTS.find(x=>x.id===id);
+  if(!a)return;
+  if(!reactCounts[id])reactCounts[id]={clap:0,think:0,star:0,love:0};
+  const rc=reactCounts[id];
+  document.getElementById('rdr-top').textContent=a.cat_ar;
+  document.getElementById('rdr-body').innerHTML=`
+    <div class="rdr-cat">${a.cat_ar}</div>
+    <div class="rdr-title">${a.title}</div>
+    <div class="rdr-sub">${a.sub}</div>
+    <div class="rdr-meta"><span class="rdr-time">⏱ ${a.min} دقيقة قراءة</span></div>
+    <div class="rdr-content">${a.body}</div>
+    <div class="art-reactions">
+      <div class="art-react-title">💬 هل أعجبتك المقالة؟</div>
+      <div class="react-btns">
+        <button class="react-btn" id="r-clap-${id}" onclick="doReact('${id}','clap')">👏<span class="react-count" id="rc-clap-${id}">${rc.clap||''}</span></button>
+        <button class="react-btn" id="r-think-${id}" onclick="doReact('${id}','think')">🤔<span class="react-count" id="rc-think-${id}">${rc.think||''}</span></button>
+        <button class="react-btn" id="r-star-${id}" onclick="doReact('${id}','star')">⭐<span class="react-count" id="rc-star-${id}">${rc.star||''}</span></button>
+        <button class="react-btn" id="r-love-${id}" onclick="doReact('${id}','love')">❤️<span class="react-count" id="rc-love-${id}">${rc.love||''}</span></button>
+      </div>
+      <div class="share-section">
+        <div class="share-title">✦ شارك المقالة</div>
+        <div class="share-btns">
+          <button class="share-btn" onclick="copyArtLink('${id}')">🔗 نسخ رابط المقالة</button>
+          <button class="share-btn wa" onclick="shareWA('${a.title.replace(/'/g,"\\'")}')">📱 واتساب</button>
+        </div>
+      </div>
+    </div>
+    <div class="art-author"><strong>الفنان الطيب عامر</strong><br><span style="color:var(--gold);font-size:12px;">Mawlidi.com</span></div>`;
+  document.getElementById('rdr').classList.add('on');
+  document.querySelector('#rdr .rdr-body').scrollTop=0;setPg(0);
+  document.querySelector('#rdr .rdr-body').addEventListener('scroll',function(){
+    const p=this.scrollTop/(this.scrollHeight-this.clientHeight)*100;setPg(p);
+  },{once:false,passive:true});
+}
+function doReact(id,type){
+  if(!reactCounts[id])reactCounts[id]={clap:0,think:0,star:0,love:0};
+  const btn=document.getElementById(`r-${type}-${id}`);
+  if(btn.classList.contains('active')){btn.classList.remove('active');reactCounts[id][type]=Math.max(0,reactCounts[id][type]-1);}
+  else{btn.classList.add('active');reactCounts[id][type]=(reactCounts[id][type]||0)+1;}
+  const el=document.getElementById(`rc-${type}-${id}`);if(el)el.textContent=reactCounts[id][type]||'';
+  toast('شكراً لتفاعلك ✦');
+}
+function copyArtLink(id){
+  navigator.clipboard.writeText(`https://mawlidi.com/arb/#art-${id}`).then(()=>toast('تم نسخ الرابط ✓')).catch(()=>toast('تعذر النسخ'));
+}
+function shareWA(title){
+  const txt=encodeURIComponent(`اقرأ هذه المقالة في مَوْلِدي: ${title}\nhttps://mawlidi.com/arb/`);
+  window.open(`https://wa.me/?text=${txt}`,'_blank');
+}
+function closeRdr(){document.getElementById('rdr').classList.remove('on');}
+
+// ═══ NAV ═══
+const ALL_OVS=['obs-ov','arts-ov','adv-ov','about-ov'];
+function openOv(id){
+  // Close article reader first if open
+  document.getElementById('rdr').classList.remove('on');
+  document.getElementById('rs').classList.remove('on');
+  ALL_OVS.forEach(o=>document.getElementById(o).classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(id==='arts-ov'){renderChips();renderArtsList();}
+  const nm={'obs-ov':'obs','arts-ov':'arts','adv-ov':'adv','about-ov':'about'};
+  setNav(nm[id]||'home');
+}
+function closeOv(id){document.getElementById(id).classList.remove('on');setNav('home');}
+function goHome(){
+  ALL_OVS.forEach(o=>document.getElementById(o).classList.remove('on'));
+  document.getElementById('rs').classList.remove('on');
+  document.getElementById('rdr').classList.remove('on');
+  setNav('home');
+  window.scrollTo(0,0);
+}
+function setNav(a){['home','obs','arts','adv','about'].forEach(n=>{const b=document.getElementById('nb-'+n);if(b)b.classList.toggle('on',n===a);});}
+function setPg(p){document.getElementById('pgbar').style.width=p+'%';}
+
+// ═══ ADV FORM ═══
+function scrollToForm(tier){
+  const sel=document.getElementById('adv-tier');
+  if(sel)Array.from(sel.options).forEach(o=>{if(o.value===tier)o.selected=true;});
+  const wrap=document.getElementById('adv-form-wrap');
+  if(wrap)setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+function sendAdvForm(){
+  const tier=document.getElementById('adv-tier').value;
+  const email=document.getElementById('adv-email').value.trim();
+  const biz=document.getElementById('adv-biz').value.trim();
+  const msg=document.getElementById('adv-msg').value.trim();
+  if(!email||!email.includes('@')){toast('أدخل بريداً إلكترونياً صحيحاً');return;}
+  if(!biz){toast('أدخل اسم النشاط التجاري');return;}
+  const subject=encodeURIComponent(`طلب إعلان — الباقة الـ${tier} في مَوْلِدي`);
+  const body=encodeURIComponent(`الباقة: ${tier}\nالبريد: ${email}\nالنشاط: ${biz}\nرسالة: ${msg||'—'}\n\n---\nمَوْلِدي · mawlidi.com`);
+  window.location.href=`mailto:artist.altayeb@gmail.com?subject=${subject}&body=${body}`;
+  toast('جاري فتح البريد الإلكتروني ✓');
+}
+function contactAdv(tier){openOv('adv-ov');setTimeout(()=>scrollToForm(tier),200);}
+
+// ═══ TOAST ═══
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('on');
+  setTimeout(()=>el.classList.remove('on'),2500);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter')calc();});
+
+// navTo: always close reader and result before navigating
+function navTo(ovId){
+  document.getElementById('rdr').classList.remove('on');
+  document.getElementById('rs').classList.remove('on');
+  openOv(ovId);
+}
+
+// ═══ CONTENT PROTECTION ═══
+document.addEventListener('contextmenu',function(e){
+  const t=e.target;
+  if(t.closest('#rdr')||t.closest('.ov-body')){
+    e.preventDefault();
+    toast('المحتوى محمي ومُؤلَّف · mawlidi.com');
+    return false;
+  }
+});
+document.addEventListener('copy',function(e){
+  if(window.getSelection&&window.getSelection().toString().length>0){
+    const sel=window.getSelection().toString();
+    if(sel.length>30){
+      e.clipboardData.setData('text/plain',sel+'\n\nالمصدر: مَوْلِدي © mawlidi.com');
+      e.preventDefault();
+    }
+  }
+});
+/* Content protection keydown — disabled during development */
+/* To enable: uncomment below
+document.addEventListener('keydown',function(e){
+  if(document.getElementById('rdr').classList.contains('on')){
+    if((e.ctrlKey||e.metaKey)&&(e.key==='s'||e.key==='u'||e.key==='a')){
+      e.preventDefault(); toast('المحتوى محمي · mawlidi.com');
+    }
+  }
+});
+*/
+
+</script>
+</body>
+</html>

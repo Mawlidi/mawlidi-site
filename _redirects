@@ -1,0 +1,10 @@
+# Cloudflare Pages Redirects
+# mawlidi.com v2
+
+# Root redirect to Arabic
+/ /arb/ 302
+
+# Old article paths (if any)
+/article/* /arb/ 301
+/en/* /eng/ 301
+/ar/* /arb/ 301

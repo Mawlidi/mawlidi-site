@@ -1,0 +1,486 @@
+{
+  "meta": {
+    "version": "1.0",
+    "site": "mawlidi.com",
+    "lastUpdated": "2025-06-04",
+    "description": "Mawlidi Content Data — managed via Dashboard"
+  },
+  "settings": {
+    "ar": {
+      "siteName": "مَوْلِدي",
+      "tagline": "ميلادك هذا العام في التقويم القمري",
+      "authorName": "الفنان الطيب عامر",
+      "contactEmail": "artist.altayeb@gmail.com"
+    },
+    "en": {
+      "siteName": "Mawlidi",
+      "tagline": "Your Birthday in the Lunar Calendar",
+      "authorName": "Altayeb Amer",
+      "contactEmail": "artist.altayeb@gmail.com"
+    },
+    "ads": {
+      "pricePlatinum": 2000,
+      "priceGold": 1000,
+      "priceSilver": 500,
+      "priceBronze": 200,
+      "currency": "AED"
+    }
+  },
+  "categories": {
+    "ar": [
+      {
+        "id": "birth",
+        "icon": "🌱",
+        "name": "الإنسان والميلاد"
+      },
+      {
+        "id": "psychology",
+        "icon": "🧠",
+        "name": "علم النفس والميلاد"
+      },
+      {
+        "id": "sky",
+        "icon": "🌌",
+        "name": "السماء والثقافة"
+      },
+      {
+        "id": "hijri",
+        "icon": "📅",
+        "name": "التقويم الهجري"
+      },
+      {
+        "id": "cultures",
+        "icon": "🌍",
+        "name": "الثقافات والميلاد"
+      },
+      {
+        "id": "islam",
+        "icon": "🌙",
+        "name": "الإسلام والميلاد"
+      },
+      {
+        "id": "philosophy",
+        "icon": "📖",
+        "name": "الفلسفة والوجود"
+      }
+    ],
+    "en": [
+      {
+        "id": "birth",
+        "icon": "🌱",
+        "name": "Birth & Humanity"
+      },
+      {
+        "id": "psychology",
+        "icon": "🧠",
+        "name": "Psychology & Birth"
+      },
+      {
+        "id": "sky",
+        "icon": "🌌",
+        "name": "Sky & Culture"
+      },
+      {
+        "id": "hijri",
+        "icon": "📅",
+        "name": "Hijri Calendar"
+      },
+      {
+        "id": "cultures",
+        "icon": "🌍",
+        "name": "World Cultures"
+      },
+      {
+        "id": "islam",
+        "icon": "🌙",
+        "name": "Islam & Birth"
+      },
+      {
+        "id": "philosophy",
+        "icon": "📖",
+        "name": "Philosophy"
+      }
+    ]
+  },
+  "obsCategories": [
+    {
+      "icon": "🌅",
+      "name_ar": "لحظة الميلاد",
+      "name_en": "Moment of Birth",
+      "desc_ar": "ما يحدث لحظة الولادة في الكون والجسد والروح",
+      "desc_en": "What happens at the moment of birth — body, cosmos, and soul",
+      "cat": "obs_birth"
+    },
+    {
+      "icon": "🔭",
+      "name_ar": "الكون والزمن",
+      "name_en": "Cosmos & Time",
+      "desc_ar": "العلاقة بين الإنسان والفضاء وحركة الأجرام",
+      "desc_en": "The relationship between humans and celestial bodies",
+      "cat": "obs_cosmos"
+    },
+    {
+      "icon": "🧬",
+      "name_ar": "الجينات والميراث",
+      "name_en": "Genes & Heritage",
+      "desc_ar": "ما ورثناه بيولوجياً وكيف يتشكّل الإنسان",
+      "desc_en": "What we inherit biologically",
+      "cat": "obs_genes"
+    },
+    {
+      "icon": "🌙",
+      "name_ar": "القمر والحضارات",
+      "name_en": "Moon & Civilizations",
+      "desc_ar": "كيف رأت الأمم القمرَ وبنت عليه تقاويمها",
+      "desc_en": "How civilizations saw the moon",
+      "cat": "obs_moon"
+    },
+    {
+      "icon": "📜",
+      "name_ar": "الميلاد في التاريخ",
+      "name_en": "Birth in History",
+      "desc_ar": "كيف وثّقت الحضارات لحظات الميلاد",
+      "desc_en": "How civilizations documented birth",
+      "cat": "obs_history"
+    },
+    {
+      "icon": "🎭",
+      "name_ar": "الهوية والانتماء",
+      "name_en": "Identity & Belonging",
+      "desc_ar": "دور الزمن والمكان والثقافة في تشكيل هويتنا",
+      "desc_en": "Role of time, place, and culture in identity",
+      "cat": "obs_identity"
+    },
+    {
+      "icon": "🏛️",
+      "name_ar": "الفلسفة والوجود",
+      "name_en": "Philosophy & Existence",
+      "desc_ar": "تأملات الفلاسفة في معنى القدوم إلى الدنيا",
+      "desc_en": "Philosophers' reflections on coming into the world",
+      "cat": "obs_philosophy"
+    },
+    {
+      "icon": "🧘",
+      "name_ar": "الروحانية والميلاد",
+      "name_en": "Spirituality & Birth",
+      "desc_ar": "المعاني الروحية في مختلف الحضارات",
+      "desc_en": "Spiritual meanings of birth across civilizations",
+      "cat": "obs_spirit"
+    },
+    {
+      "icon": "🎓",
+      "name_ar": "علم النفس التنموي",
+      "name_en": "Developmental Psychology",
+      "desc_ar": "كيف يتطور الإنسان من الميلاد حتى النضج",
+      "desc_en": "How humans develop from birth to maturity",
+      "cat": "obs_dev"
+    },
+    {
+      "icon": "🗺️",
+      "name_ar": "الجغرافيا والشخصية",
+      "name_en": "Geography & Character",
+      "desc_ar": "تأثير المكان وبيئة الولادة على الإنسان",
+      "desc_en": "Influence of birthplace on the individual",
+      "cat": "obs_geo"
+    },
+    {
+      "icon": "📊",
+      "name_ar": "إحصاءات الميلاد",
+      "name_en": "Birth Statistics",
+      "desc_ar": "أرقام وحقائق مثيرة عن مواليد العالم",
+      "desc_en": "Fascinating facts about births worldwide",
+      "cat": "obs_stats"
+    },
+    {
+      "icon": "🤝",
+      "name_ar": "المجتمع والميلاد",
+      "name_en": "Society & Birth",
+      "desc_ar": "كيف يحتفل المجتمع بالقادمين الجدد",
+      "desc_en": "How communities welcome newborns",
+      "cat": "obs_social"
+    }
+  ],
+  "articles": {
+    "ar": [
+      {
+        "id": "a1",
+        "cat": "birth",
+        "cat_ar": "🌱 الإنسان والميلاد",
+        "title": "لماذا يختلف شخصان وُلدا في اليوم نفسه؟",
+        "sub": "رحلة في أسرار الشخصية والبيئة والاختيارات الإنسانية",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a2",
+        "cat": "psychology",
+        "cat_ar": "🧠 علم النفس والميلاد",
+        "title": "لماذا نبحث عن أنفسنا في الأبراج؟",
+        "sub": "علم النفس وراء الفضول الإنساني نحو التصنيفات",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a3",
+        "cat": "sky",
+        "cat_ar": "🌌 السماء والثقافة",
+        "title": "الفرق بين علم الفلك والتنجيم",
+        "sub": "رحلة في تاريخ نظرة الإنسان إلى السماء",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a4",
+        "cat": "hijri",
+        "cat_ar": "📅 التقويم الهجري",
+        "title": "التقويم الهجري: نبضة حضارة كاملة",
+        "sub": "لماذا بدأ التقويم بالهجرة لا بالميلاد؟",
+        "min": 4,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a5",
+        "cat": "cultures",
+        "cat_ar": "🌍 الثقافات والميلاد",
+        "title": "كيف تحتفل حضارات العالم بيوم الميلاد؟",
+        "sub": "رحلة حول العالم في معنى الوجود والاحتفال",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a6",
+        "cat": "psychology",
+        "cat_ar": "🧠 علم النفس والميلاد",
+        "title": "تأثير ترتيب الميلاد على الشخصية: حقيقة أم خرافة؟",
+        "sub": "ما يقوله العلم الحديث عن الأبناء الأوائل والأواخر",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a7",
+        "cat": "islam",
+        "cat_ar": "🌙 الإسلام والميلاد",
+        "title": "الرؤية الإسلامية للمولد: بين التكريم والزهد في التعظيم",
+        "sub": "كيف ينظر الإسلام إلى لحظة الميلاد",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a8",
+        "cat": "cultures",
+        "cat_ar": "🌍 الثقافات والميلاد",
+        "title": "الميلاد في الحضارة العربية: من الجاهلية إلى الإسلام",
+        "sub": "كيف تحوّل مفهوم الميلاد في الوجدان العربي",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a9",
+        "cat": "philosophy",
+        "cat_ar": "📖 الفلسفة والوجود",
+        "title": "من أين جئنا؟ تأملات الفلاسفة في لحظة الوجود",
+        "sub": "رحلة في أعمق الأسئلة الفلسفية",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a10",
+        "cat": "birth",
+        "cat_ar": "🌱 الإنسان والميلاد",
+        "title": "اسمك وهويتك: لماذا الأسماء مهمة في كل الحضارات؟",
+        "sub": "علم النفس والتاريخ يكشفان عن علاقة عميقة",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      }
+    ],
+    "en": [
+      {
+        "id": "a1",
+        "cat": "birth",
+        "cat_en": "🌱 The Human & Birth",
+        "title": "Why Do Two People Born on the Same Day Differ So Much?",
+        "sub": "A deep dive into personality, environment, and human nature",
+        "min": 8,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a2",
+        "cat": "psychology",
+        "cat_en": "🧠 Psychology & Birth",
+        "title": "Why Do We Search for Ourselves in Astrology?",
+        "sub": "The psychology behind humanity's fascination with self-knowledge",
+        "min": 8,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a3",
+        "cat": "sky",
+        "cat_en": "🌌 Sky & Culture",
+        "title": "The Difference Between Astronomy and Astrology",
+        "sub": "A journey through humanity's evolving gaze at the sky",
+        "min": 8,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a4",
+        "cat": "hijri",
+        "cat_en": "📅 The Hijri Calendar",
+        "title": "The Hijri Calendar: The Pulse of an Entire Civilization",
+        "sub": "Why did the calendar begin with the Migration, not the Birth?",
+        "min": 10,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a5",
+        "cat": "cultures",
+        "cat_en": "🌍 Cultures & Birth",
+        "title": "How Do World Civilizations Celebrate Birthdays?",
+        "sub": "A journey around the world in the meaning of existence",
+        "min": 8,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a6",
+        "cat": "psychology",
+        "cat_en": "🔬 Psychology & Birth",
+        "title": "Birth Order and Personality: Fact or Myth?",
+        "sub": "What modern science actually says about firstborns and last-borns",
+        "min": 8,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a7",
+        "cat": "islam",
+        "cat_en": "🌙 Islam & Birth",
+        "title": "The Islamic View of Birth: Between Honor and Humility",
+        "sub": "How does Islam understand the moment of birth?",
+        "min": 8,
+        "status": "published",
+        "target": "arts"
+      }
+    ]
+  },
+  "obsArticles": {
+    "ar": [
+      {
+        "id": "o1",
+        "icon": "🌅",
+        "cat": "obs_birth",
+        "cat_ar": "🌅 لحظة الميلاد",
+        "title": "ماذا يحدث للجسد والدماغ في لحظة الولادة؟",
+        "sub": "رحلة علمية في أول ثوانٍ من الوجود خارج الرحم",
+        "min": 8,
+        "status": "published"
+      },
+      {
+        "id": "o2",
+        "icon": "🌙",
+        "cat": "obs_moon",
+        "cat_ar": "🌙 القمر والحضارات",
+        "title": "القمر في عيون الحضارات: من الأسطورة إلى التقويم",
+        "sub": "كيف رأى الإنسان القمر عبر آلاف السنين",
+        "min": 9,
+        "status": "published"
+      },
+      {
+        "id": "o3",
+        "icon": "📊",
+        "cat": "obs_stats",
+        "cat_ar": "📊 إحصاءات الميلاد",
+        "title": "أرقام تدهشك عن مواليد العالم",
+        "sub": "حقائق إحصائية مثيرة عن الولادة والمواليد",
+        "min": 7,
+        "status": "published"
+      },
+      {
+        "id": "o4",
+        "icon": "🧬",
+        "cat": "obs_genes",
+        "cat_ar": "🧬 الجينات والميراث",
+        "title": "ما الذي نرثه فعلاً؟ الجينات وحدود قدرتها",
+        "sub": "علم الجينوم يكشف أن الوراثة أعقد مما ظننا",
+        "min": 8,
+        "status": "published"
+      },
+      {
+        "id": "o5",
+        "icon": "🤝",
+        "cat": "obs_social",
+        "cat_ar": "🤝 المجتمع والميلاد",
+        "title": "طقوس الترحيب بالمولود: من الأذان إلى احتفالات العالم",
+        "sub": "كيف استقبلت المجتمعات القادمين الجدد",
+        "min": 7,
+        "status": "published"
+      }
+    ],
+    "en": [
+      {
+        "id": "o1",
+        "icon": "🌅",
+        "cat": "obs_birth",
+        "cat_en": "🌅 Moment of Birth",
+        "title": "What Happens to the Body and Brain at Birth?",
+        "sub": "A scientific journey through the first seconds of existence",
+        "min": 8,
+        "status": "published"
+      },
+      {
+        "id": "o2",
+        "icon": "🌙",
+        "cat": "obs_moon",
+        "cat_en": "🌙 Moon & Civilizations",
+        "title": "The Moon Through the Eyes of Civilizations",
+        "sub": "How humans saw the moon across thousands of years",
+        "min": 9,
+        "status": "published"
+      },
+      {
+        "id": "o3",
+        "icon": "📊",
+        "cat": "obs_stats",
+        "cat_en": "📊 Birth Statistics",
+        "title": "Numbers That Astonish You About World Births",
+        "sub": "Fascinating statistical facts about births worldwide",
+        "min": 7,
+        "status": "published"
+      },
+      {
+        "id": "o4",
+        "icon": "🧬",
+        "cat": "obs_genes",
+        "cat_en": "🧬 Genes & Heritage",
+        "title": "What Do We Really Inherit? Genes and Their Limits",
+        "sub": "Genomic science reveals heredity is far more complex",
+        "min": 8,
+        "status": "published"
+      },
+      {
+        "id": "o5",
+        "icon": "🤝",
+        "cat": "obs_social",
+        "cat_en": "🤝 Society & Birth",
+        "title": "Welcome Rituals: From the Adhan to Global Celebrations",
+        "sub": "How societies welcomed newborns throughout history",
+        "min": 7,
+        "status": "published"
+      }
+    ]
+  },
+  "advertisers": []
+}
