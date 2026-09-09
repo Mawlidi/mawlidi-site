@@ -17,19 +17,21 @@ function jdOfNoon(y, m, d) {
 
 const norm = a => ((a % 360) + 360) % 360;
 
-// استطالة القمر عن الشمس بالدرجات (0 = محاق، 180 = بدر)
-function elongation(jd) {
+// خط طول الشمس الظاهري بالدرجات
+function sunLongitude(jd) {
   const T = (jd - 2451545) / 36525;
-
-  // الشمس
   const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
   const Ms = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
   const C  = (1.914602 - 0.004817 * T) * Math.sin(Ms * RAD)
            + (0.019993 - 0.000101 * T) * Math.sin(2 * Ms * RAD)
            + 0.000289 * Math.sin(3 * Ms * RAD);
-  const sunLon = L0 + C;
+  return norm(L0 + C);
+}
 
-  // القمر — الحدود الرئيسية
+// خط طول القمر بالدرجات — الحدود الرئيسية
+function moonLongitude(jd) {
+  const T = (jd - 2451545) / 36525;
+  const Ms = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
   const Lp = 218.3164477 + 481267.88123421 * T - 0.0015786 * T * T;
   const D  = 297.8501921 + 445267.1114034 * T - 0.0018819 * T * T;
   const Mm = 134.9633964 + 477198.8675055 * T + 0.0087414 * T * T;
@@ -50,7 +52,42 @@ function elongation(jd) {
     - 0.034720 * Math.sin(D * RAD)
     - 0.030383 * Math.sin((Ms + Mm) * RAD);
 
-  return norm(moonLon - sunLon);
+  return norm(moonLon);
+}
+
+// استطالة القمر عن الشمس بالدرجات (0 = محاق، 180 = بدر)
+function elongation(jd) {
+  return norm(moonLongitude(jd) - sunLongitude(jd));
+}
+
+/* ═══ منازل القمر الثمانية والعشرون ═══
+   المنازل سيدرية: مرتبطة بالنجوم لا بنقطة الاعتدال، فتُطرح زاوية
+   المبادرة (الأيانامشا) من خط الطول المداري قبل القسمة.
+   القسمة متساوية: 360 ÷ 28 = 12° 51′ 26″ لكل منزلة، وهو ما اعتمده
+   علماء الفلك المسلمون في الحساب. النظام النجمي القديم غير متساوٍ،
+   والفرق بينهما قد يبلغ ليلة. */
+const MANSION_ARC = 360 / 28;
+
+function ayanamsa(jd) {                       // درجة المبادرة التقريبية
+  return 23.85 + 0.0139694 * ((jd - 2451545) / 365.25);
+}
+
+function siderealLon(jd, tropicalLon) {
+  return norm(tropicalLon - ayanamsa(jd));
+}
+
+// رقم منزلة القمر (0 = الشرطان) ونسبة قطعها
+function moonMansion(jd) {
+  const s = siderealLon(jd, moonLongitude(jd));
+  return { idx: Math.floor(s / MANSION_ARC), lon: s,
+           frac: (s % MANSION_ARC) / MANSION_ARC };
+}
+
+// رقم منزلة الشمس — موضعها في دورة السنة بين النجوم
+function sunMansion(jd) {
+  const s = siderealLon(jd, sunLongitude(jd));
+  return { idx: Math.floor(s / MANSION_ARC), lon: s,
+           frac: (s % MANSION_ARC) / MANSION_ARC };
 }
 
 // الطور الكامل ليوم ميلادي
@@ -66,4 +103,5 @@ function moonPhase(y, m, d) {
 }
 
 if (typeof module !== 'undefined' && module.exports)
-  module.exports = { moonPhase, elongation, jdOfNoon, SYNODIC };
+  module.exports = { moonPhase, elongation, jdOfNoon, SYNODIC,
+    sunLongitude, moonLongitude, moonMansion, sunMansion, MANSION_ARC };

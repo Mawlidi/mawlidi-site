@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>The Twenty-Eight Lunar Mansions — Mawlidi</title>
+<meta name="description" content="Which mansion is the Moon in tonight? The twenty-eight manazil with their stars, computed astronomically, and the Arab anwa’ tradition explained.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/eng/mansions/">
+<link rel="alternate" hreflang="ar" href="https://mawlidi.com/arb/mansions/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/mansions/">
+<meta property="og:title" content="The Twenty-Eight Lunar Mansions — Mawlidi">
+<meta property="og:description" content="Which mansion is the Moon in tonight? The twenty-eight manazil with their stars, computed astronomically, and the Arab anwa’ tradition explained.">
+<meta property="og:url" content="https://mawlidi.com/eng/mansions/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"The Twenty-Eight Lunar Mansions","description":"Which mansion is the Moon in tonight? The twenty-eight manazil with their stars, computed astronomically, and the Arab anwa’ tradition explained.","url":"https://mawlidi.com/eng/mansions/","applicationCategory":"ReferenceApplication","inLanguage":"en","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are the lunar mansions?","acceptedAnswer":{"@type":"Answer","text":"Twenty-eight positions among the stars through which the Moon passes on its orbit, named by the Arabs after the stars or groups lying in them. They were used to mark the night of the month and to fix the seasons of the year, and are mentioned in the Qur’an: \"And the Moon — We have determined for it mansions\" (Ya-Sin 39)."}},{"@type":"Question","name":"Does the Moon occupy one mansion each night?","acceptedAnswer":{"@type":"Answer","text":"Almost, but not exactly. The sidereal month is 27.32 days while there are twenty-eight mansions, so the Moon covers about 1.025 mansions per night. Its speed also varies between perigee and apogee, from 11.8 to 15.4 degrees a day against a mansion arc of 12.86 degrees, so it may linger two nights in one mansion or skip one entirely. The familiar saying is a good approximation, not a rule."}},{"@type":"Question","name":"How do the mansions differ from the anwa’?","acceptedAnswer":{"@type":"Answer","text":"The mansions are the Moon’s nightly positions, on a sidereal cycle of 27.32 days. The anwa’ are solar seasons, tied to a mansion setting in the west at dawn as its counterpart rises in the east, dividing the solar year into twenty-eight periods of thirteen days each. The names are shared; the meanings are not, and many sources conflate them."}},{"@type":"Question","name":"Does a mansion influence a person’s character or fortune?","acceptedAnswer":{"@type":"Answer","text":"No. This page reports the Moon’s position among the stars, an astronomical fact, and relays what the Arabs said about the seasons as heritage attributed to its sources. A hadith agreed upon by al-Bukhari and Muslim states that whoever says \"we were given rain by such-and-such a star\" believes in the star and disbelieves in God, while whoever says \"we were given rain by the grace and mercy of God\" is the believer. The star is a marker of time, not a cause."}},{"@type":"Question","name":"Is the calculation here accurate?","acceptedAnswer":{"@type":"Answer","text":"The mansions are computed by equal sidereal division: 12° 51′ 26″ each, the method adopted by Muslim astronomers. We verified that each mansion falls on its actual star. The older star-based system has unequal arcs following the stars themselves, and can differ from the calculation by a single night."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Lato',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">Home</a> <span>/</span> <span>Lunar Mansions</span></nav>
+
+<main class="tool wide">
+  <h1>Lunar Mansions</h1>
+  <p class="tool-sub">Which mansion is the Moon in tonight? The twenty-eight manazil with their stars, computed astronomically, and the Arab anwa’ tradition explained.</p>
+
+  <section class="out mansion-now" id="now"></section>
+
+  <details class="pick">
+    <summary>Another date</summary>
+    <div class="fields">
+      <label class="fld"><span>Day</span><select id="fD"></select></label>
+      <label class="fld"><span>Month</span><select id="fM"></select></label>
+      <label class="fld"><span>Year</span><input id="fY" type="number" inputmode="numeric"></label>
+    </div>
+    <div class="acts">
+      <button class="go" onclick="run()">Calculate</button>
+      <button class="ghost" onclick="setToday()">Tonight</button>
+    </div>
+    <p class="err" id="err" hidden></p>
+  </details>
+
+  <section class="anwa">
+    <h2 class="mini-h">The anwa’: the other face of the mansions</h2>
+    <p>The mansions are the Moon’s nightly positions; the anwa’ are solar seasons. For the Arabs a nawʾ was a mansion setting in the west at dawn as its counterpart rose in the east, dividing the solar year into twenty-eight periods of thirteen days each, by which planting, travel and the grazing of camels were ordered.</p>
+    <p>The sources do not agree: some took the nawʾ to be the setting, others the rising, and Ibn Qutayba noted the disagreement in his Book of the Anwa’. For that reason this page gives no fixed dates for the anwa’ — assigning them would mean settling a dispute that was never settled — and shows instead the Sun’s position among the mansions, which is simply computed.</p>
+    <p>A hadith agreed upon by al-Bukhari and Muslim records the Prophet saying after rainfall: &quot;This morning one of My servants became a believer in Me and one a disbeliever.&quot; Whoever said the rain came by the grace and mercy of God was the believer; whoever said it came by such-and-such a star believed in the star. Scholars drew the line clearly: holding that a star sends rain is idolatry, while using it as a marker of when the rainy season usually begins is not. The star marks time; it does not cause.</p>
+  </section>
+
+  <h2 class="mini-h">The twenty-eight mansions</h2>
+  <div class="tbl-wrap">
+    <table class="mtable">
+      <thead><tr><th>#</th><th>Mansion</th><th>Star or group</th></tr></thead>
+      <tbody>
+      <tr><td class="n">1</td><td class="m">Al-Sharatan</td><td>β and γ Arietis — the ram’s horns</td></tr>
+      <tr><td class="n">2</td><td class="m">Al-Butayn</td><td>ε, δ and ρ Arietis — the ram’s belly</td></tr>
+      <tr><td class="n">3</td><td class="m">Al-Thurayya</td><td>The Pleiades cluster in Taurus</td></tr>
+      <tr><td class="n">4</td><td class="m">Al-Dabaran</td><td>Aldebaran, α Tauri</td></tr>
+      <tr><td class="n">5</td><td class="m">Al-Haq‘a</td><td>λ and φ Orionis — Orion’s head</td></tr>
+      <tr><td class="n">6</td><td class="m">Al-Han‘a</td><td>γ and ξ Geminorum</td></tr>
+      <tr><td class="n">7</td><td class="m">Al-Dhira‘</td><td>Castor and Pollux — the lion’s outstretched arm</td></tr>
+      <tr><td class="n">8</td><td class="m">Al-Nathra</td><td>The Praesepe cluster in Cancer</td></tr>
+      <tr><td class="n">9</td><td class="m">Al-Tarf</td><td>κ Leonis and λ Cancri — the lion’s eyes</td></tr>
+      <tr><td class="n">10</td><td class="m">Al-Jabha</td><td>Regulus and the Sickle of Leo</td></tr>
+      <tr><td class="n">11</td><td class="m">Al-Zubra</td><td>δ and θ Leonis — the lion’s shoulder</td></tr>
+      <tr><td class="n">12</td><td class="m">Al-Sarfa</td><td>Denebola, β Leonis</td></tr>
+      <tr><td class="n">13</td><td class="m">Al-‘Awwa</td><td>Stars in Virgo</td></tr>
+      <tr><td class="n">14</td><td class="m">Al-Simak</td><td>Spica, α Virginis</td></tr>
+      <tr><td class="n">15</td><td class="m">Al-Ghafr</td><td>ι, κ and λ Virginis</td></tr>
+      <tr><td class="n">16</td><td class="m">Al-Zubana</td><td>α and β Librae — the scorpion’s claws</td></tr>
+      <tr><td class="n">17</td><td class="m">Al-Iklil</td><td>β, δ and π Scorpii</td></tr>
+      <tr><td class="n">18</td><td class="m">Al-Qalb</td><td>Antares, α Scorpii — the scorpion’s heart</td></tr>
+      <tr><td class="n">19</td><td class="m">Al-Shawla</td><td>λ and υ Scorpii — the sting</td></tr>
+      <tr><td class="n">20</td><td class="m">Al-Na‘a’im</td><td>Stars in Sagittarius</td></tr>
+      <tr><td class="n">21</td><td class="m">Al-Balda</td><td>A starless gap between Al-Na‘a’im and Sa‘d al-Dhabih</td></tr>
+      <tr><td class="n">22</td><td class="m">Sa‘d al-Dhabih</td><td>α and β Capricorni</td></tr>
+      <tr><td class="n">23</td><td class="m">Sa‘d Bula‘</td><td>ε and μ Aquarii</td></tr>
+      <tr><td class="n">24</td><td class="m">Sa‘d al-Su‘ud</td><td>β and ξ Aquarii</td></tr>
+      <tr><td class="n">25</td><td class="m">Sa‘d al-Akhbiya</td><td>γ, ζ, η and π Aquarii</td></tr>
+      <tr><td class="n">26</td><td class="m">Al-Fargh al-Muqaddam</td><td>α and β Pegasi</td></tr>
+      <tr><td class="n">27</td><td class="m">Al-Fargh al-Mu’akhkhar</td><td>γ Pegasi and α Andromedae</td></tr>
+      <tr><td class="n">28</td><td class="m">Al-Risha</td><td>β Andromedae — also called the belly of the fish</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="tool-link">
+    <a href="../moon/">Your birth moon →</a> &nbsp;·&nbsp;
+    <a href="../calendar/">Full-year Hijri calendar →</a>
+  </p>
+
+  <section class="faq">
+    <details><summary>What are the lunar mansions?</summary><p>Twenty-eight positions among the stars through which the Moon passes on its orbit, named by the Arabs after the stars or groups lying in them. They were used to mark the night of the month and to fix the seasons of the year, and are mentioned in the Qur’an: &quot;And the Moon — We have determined for it mansions&quot; (Ya-Sin 39).</p></details>
+    <details><summary>Does the Moon occupy one mansion each night?</summary><p>Almost, but not exactly. The sidereal month is 27.32 days while there are twenty-eight mansions, so the Moon covers about 1.025 mansions per night. Its speed also varies between perigee and apogee, from 11.8 to 15.4 degrees a day against a mansion arc of 12.86 degrees, so it may linger two nights in one mansion or skip one entirely. The familiar saying is a good approximation, not a rule.</p></details>
+    <details><summary>How do the mansions differ from the anwa’?</summary><p>The mansions are the Moon’s nightly positions, on a sidereal cycle of 27.32 days. The anwa’ are solar seasons, tied to a mansion setting in the west at dawn as its counterpart rises in the east, dividing the solar year into twenty-eight periods of thirteen days each. The names are shared; the meanings are not, and many sources conflate them.</p></details>
+    <details><summary>Does a mansion influence a person’s character or fortune?</summary><p>No. This page reports the Moon’s position among the stars, an astronomical fact, and relays what the Arabs said about the seasons as heritage attributed to its sources. A hadith agreed upon by al-Bukhari and Muslim states that whoever says &quot;we were given rain by such-and-such a star&quot; believes in the star and disbelieves in God, while whoever says &quot;we were given rain by the grace and mercy of God&quot; is the believer. The star is a marker of time, not a cause.</p></details>
+    <details><summary>Is the calculation here accurate?</summary><p>The mansions are computed by equal sidereal division: 12° 51′ 26″ each, the method adopted by Muslim astronomers. We verified that each mansion falls on its actual star. The older star-based system has unequal arcs following the stars themselves, and can differ from the calculation by a single night.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">Back to Mawlidi</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script src="../../assets/moon.js"></script>
+<script>
+const NAMES=["Al-Sharatan","Al-Butayn","Al-Thurayya","Al-Dabaran","Al-Haq‘a","Al-Han‘a","Al-Dhira‘","Al-Nathra","Al-Tarf","Al-Jabha","Al-Zubra","Al-Sarfa","Al-‘Awwa","Al-Simak","Al-Ghafr","Al-Zubana","Al-Iklil","Al-Qalb","Al-Shawla","Al-Na‘a’im","Al-Balda","Sa‘d al-Dhabih","Sa‘d Bula‘","Sa‘d al-Su‘ud","Sa‘d al-Akhbiya","Al-Fargh al-Muqaddam","Al-Fargh al-Mu’akhkhar","Al-Risha"], STARS=["β and γ Arietis — the ram’s horns","ε, δ and ρ Arietis — the ram’s belly","The Pleiades cluster in Taurus","Aldebaran, α Tauri","λ and φ Orionis — Orion’s head","γ and ξ Geminorum","Castor and Pollux — the lion’s outstretched arm","The Praesepe cluster in Cancer","κ Leonis and λ Cancri — the lion’s eyes","Regulus and the Sickle of Leo","δ and θ Leonis — the lion’s shoulder","Denebola, β Leonis","Stars in Virgo","Spica, α Virginis","ι, κ and λ Virginis","α and β Librae — the scorpion’s claws","β, δ and π Scorpii","Antares, α Scorpii — the scorpion’s heart","λ and υ Scorpii — the sting","Stars in Sagittarius","A starless gap between Al-Na‘a’im and Sa‘d al-Dhabih","α and β Capricorni","ε and μ Aquarii","β and ξ Aquarii","γ, ζ, η and π Aquarii","α and β Pegasi","γ Pegasi and α Andromedae","β Andromedae — also called the belly of the fish"];
+const MG=["January","February","March","April","May","June","July","August","September","October","November","December"], MH=["Muharram","Safar","Rabiʿ al-Awwal","Rabiʿ al-Thani","Jumada al-Ula","Jumada al-Akhira","Rajab","Shaʿban","Ramadan","Shawwal","Dhu al-Qaʿda","Dhu al-Hijja"];
+const SG="CE", SH="AH";
+const TX={"errY":"Enter a year between 1900 and 2099","errD":"Invalid date — check the day and month","moonIn":"The Moon is in","sunIn":"and the Sun today is in","star":"Star"};
+
+(function(){
+  const d=document.getElementById('fD'), m=document.getElementById('fM');
+  for(let i=1;i<=31;i++) d.innerHTML+='<option value="'+i+'">'+i+'</option>';
+  MG.forEach((n,i)=>m.innerHTML+='<option value="'+(i+1)+'">'+n+'</option>');
+})();
+
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;}
+function setToday(){
+  const n=new Date();
+  document.getElementById('fD').value=n.getDate();
+  document.getElementById('fM').value=n.getMonth()+1;
+  document.getElementById('fY').value=n.getFullYear();
+  run();
+}
+function render(y,m,d){
+  const jd=jdOfNoon(y,m,d), mm=moonMansion(jd), sm=sunMansion(jd), H=jToH(gToJ(y,m,d));
+  document.getElementById('now').innerHTML=
+    '<div class="out-lbl">'+d+' '+MG[m-1]+' '+y+SG+' · '+H.d+' '+MH[H.m-1]+' '+H.y+SH+'</div>'+
+    '<div class="out-main">'+TX.moonIn+' <b>'+NAMES[mm.idx]+'</b></div>'+
+    '<div class="out-week">'+TX.star+': '+STARS[mm.idx]+'</div>'+
+    '<div class="mansion-sun">'+TX.sunIn+' <b>'+NAMES[sm.idx]+'</b></div>';
+  // أبرز صف المنزلة في الجدول
+  document.querySelectorAll('.mtable tbody tr').forEach((tr,i)=>
+    tr.classList.toggle('on', i===mm.idx));
+}
+function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(!y||y<1900||y>2099) return show(TX.errY);
+  const t=new Date(y,m-1,d);
+  if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(TX.errD);
+  document.getElementById('err').hidden=true;
+  render(y,m,d);
+}
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+setToday();
+</script>
+</body>
+</html>

@@ -93,3 +93,28 @@
   border:1px solid var(--border2);box-shadow:0 10px 40px rgba(0,0,0,0.45);}
 .card-acts{justify-content:center;}
 .hint{text-align:center;font-size:12px;color:var(--muted);margin-bottom:26px;}
+
+/* ═══ منازل القمر ═══ */
+.tool.wide{max-width:760px;}
+.mansion-now{text-align:center;margin:8px 0 18px;}
+.mansion-now .out-main b{color:var(--gold);}
+.mansion-sun{margin-top:14px;padding-top:12px;border-top:1px solid var(--border2);
+  font-size:14px;color:var(--muted);}
+.mansion-sun b{color:var(--gold-light);}
+.pick{background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  padding:14px 16px;margin-bottom:26px;}
+.pick summary{cursor:pointer;color:var(--gold);font-size:14px;}
+.pick .fields{margin-top:14px;}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:26px;
+  border:1px solid var(--border2);border-radius:16px;}
+.mtable{width:100%;border-collapse:collapse;font-size:14px;min-width:520px;}
+.mtable th{background:rgba(201,168,76,0.07);color:var(--gold);font-weight:700;
+  padding:11px 12px;text-align:start;white-space:nowrap;}
+.mtable td{padding:10px 12px;border-top:1px solid var(--border2);vertical-align:top;}
+.mtable td.n{color:var(--muted);width:2.6em;}
+.mtable td.m{color:var(--gold-light);font-weight:700;white-space:nowrap;}
+.mtable td.hint-cell{color:var(--muted);font-size:13px;}
+.mtable tr.on td{background:rgba(201,168,76,0.10);}
+.mtable tr.on td.m{color:var(--gold);}
+.anwa{margin-bottom:8px;}
+.anwa p{font-size:15px;line-height:1.95;color:var(--text);margin-bottom:14px;}
