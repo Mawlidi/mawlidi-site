@@ -27,7 +27,20 @@ const SLUGS = {
   a7:'islamic-view-of-birth',
   a8:'birth-in-arab-civilization',
   a9:'philosophers-on-existence',
-  a10:'names-and-identity'
+  a10:'names-and-identity',
+  a11:'how-to-calculate-hijri-age',
+  a12:'why-hijri-year-is-11-days-shorter',
+  a13:'hijri-month-names-and-meanings',
+  a14:'why-ramadan-date-changes'
+};
+
+// المقالة → الأداة التي يحتاجها قارئها فعلاً بعد القراءة
+const TOOLS = {
+  a4:  { slug:'converter', ar:'جرّب محوّل التاريخ الهجري ↔ الميلادي', en:'Try the Hijri ↔ Gregorian converter' },
+  a11: { slug:'age',       ar:'احسب عمرك بالهجري والميلادي الآن',     en:'Calculate your Hijri and Gregorian age' },
+  a12: { slug:'calendar',  ar:'استعرض التقويم الهجري لسنة كاملة',      en:'Browse a full-year Hijri calendar' },
+  a13: { slug:'calendar',  ar:'استعرض الأشهر الهجرية في تقويم السنة',  en:'See the months in the full-year calendar' },
+  a14: { slug:'countdown', ar:'كم باقي على رمضان؟ عد تنازلي مباشر',    en:'How long until Ramadan? Live countdown' }
 };
 
 const LANGS = {
@@ -123,6 +136,7 @@ ${alt}<link rel="alternate" hreflang="x-default" href="${SITE}/arb/articles/${sl
   <div class="body">
 ${art.body}
   </div>
+${TOOLS[art.id] ? `  <a class="art-cta" href="../../${TOOLS[art.id].slug}/">${esc(TOOLS[art.id][L.code])} →</a>` : ''}
 </article>
 ${more ? `<section class="more"><h2>${L.readmore}</h2><div class="more-grid">${more}</div></section>` : ''}
 <footer class="foot"><a class="btn" href="../../">${L.back}</a></footer>

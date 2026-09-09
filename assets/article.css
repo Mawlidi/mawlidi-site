@@ -68,3 +68,10 @@ body{background:var(--bg);color:var(--text);line-height:1.9;overflow-x:hidden;
   padding:13px 34px;font-size:16px;}
 
 @media(min-width:640px){ .grid,.more-grid{grid-template-columns:1fr 1fr;} }
+
+/* دعوة إلى الأداة التي تخدم قارئ المقالة */
+.art-cta{display:block;margin-top:34px;background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.03));
+  border:1px solid var(--border);border-radius:18px;padding:18px 20px;
+  color:var(--gold-light);text-decoration:none;font-size:16px;line-height:1.6;
+  text-align:center;transition:border-color .2s;overflow-wrap:break-word;}
+.art-cta:hover{border-color:var(--gold);}
