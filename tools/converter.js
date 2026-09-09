@@ -135,12 +135,16 @@ module.exports = function converterPage(lang) {
   <p class="note">${esc(L.note)}</p>
   <p class="tool-link"><a href="../calendar/">${esc(L.cal)} →</a> &nbsp;·&nbsp; <a href="${L.moreHref}">${esc(L.more)} →</a></p>
 
+  <div data-ad-slot="leaderboard"></div>
+
   <section class="faq">
 ${L.faq.map(([q,a]) => `    <details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('\n')}
   </section>
 </main>
 
+<div data-artist-corner></div>
 <footer class="foot"><a class="btn" href="../">${L.back}</a></footer>
+<script src="../../assets/ads.js"></script>
 
 <script src="../../assets/hijri.js"></script>
 <script>

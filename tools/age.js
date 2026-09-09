@@ -148,12 +148,16 @@ module.exports = function agePage(lang){
     <a href="${L.occr}">${esc(L.occ)} →</a>
   </p>
 
+  <div data-ad-slot="leaderboard"></div>
+
   <section class="faq">
 ${L.faq.map(([q,a])=>`    <details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('\n')}
   </section>
 </main>
 
+<div data-artist-corner></div>
 <footer class="foot"><a class="btn" href="../">${L.back}</a></footer>
+<script src="../../assets/ads.js"></script>
 
 <script src="../../assets/hijri.js"></script>
 <script>

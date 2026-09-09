@@ -474,6 +474,9 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
     <div id="art-prev"></div>
   </div>
 
+  <div data-ad-slot="leaderboard"></div>
+  <div data-artist-corner></div>
+
   <div class="footer">
     <div class="footer-brand">مَوْلِدي 🌙</div>
     <div class="footer-links">
@@ -800,6 +803,8 @@ function calc(){
   }
   buildResultHTML(yr,mon,day,bH,tH,tJD);
   document.getElementById('rs').classList.add('on');
+  // شاشة النتيجة تُبنى بعد تحميل ads.js، فتحتاج تركيباً جديداً لمساحاتها
+  if(window.ADS) ADS.mountAll();
   document.getElementById('rb').scrollTop=0;setPg(0);
 }
 
@@ -824,12 +829,7 @@ function buildResultHTML(yr,mon,day,bH,tH,tJD){
     <div class="sc2"><div class="sn">${Math.abs((tH.y-bH.y)-(today.getFullYear()-yr))}</div><div class="sl">سنوات الفارق</div></div>
     <div class="sc2"><div class="sn">${daysLeft}</div><div class="sl">يوم على عيدك</div></div>
   </div>
-  <div class="ad-sep">إعلان</div>
-  <div class="ad-card ad-platinum" onclick="openOv('adv-ov')">
-    <div class="ad-icon">🎂</div>
-    <div class="ad-body"><div class="ad-tier">PLATINUM ✦</div><div class="ad-name">مخبز النجوم الذهبية</div><div class="ad-sub">تورتات مخصصة لعيد ميلادك الهجري</div></div>
-    <div class="ad-btn">اطلب</div>
-  </div>
+  <div data-ad-slot="leaderboard"></div>
   <div class="hdr-lbl" style="margin-top:16px;">رحلة ميلادك عبر السنين</div>
   <div class="tabs">
     <button class="tab on" onclick="filterRows('all',this)">الكل</button>
@@ -837,27 +837,7 @@ function buildResultHTML(yr,mon,day,bH,tH,tJD){
     <button class="tab" onclick="filterRows('future',this)">المستقبل</button>
   </div>
   <div class="lb" id="rows-list"></div>
-  <div class="ad-sep">إعلان</div>
-  <div class="ad-card ad-gold" onclick="openOv('adv-ov')">
-    <div class="ad-icon">🎁</div>
-    <div class="ad-body"><div class="ad-tier">GOLD ★</div><div class="ad-name">هدايا الهلال</div><div class="ad-sub">هدايا فاخرة للمناسبات الهجرية</div></div>
-    <div class="ad-btn">تسوّق</div>
-  </div>
-  <div class="ad-sep">إعلان</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-    <div class="ad-card ad-silver" style="flex-direction:column;text-align:center;" onclick="openOv('adv-ov')">
-      <div class="ad-icon">🌸</div><div class="ad-tier">SILVER</div><div class="ad-name" style="font-size:12px;">ورود القمر</div>
-    </div>
-    <div class="ad-card ad-silver" style="flex-direction:column;text-align:center;" onclick="openOv('adv-ov')">
-      <div class="ad-icon">📸</div><div class="ad-tier">SILVER</div><div class="ad-name" style="font-size:12px;">لحظات</div>
-    </div>
-  </div>
-  <div class="ad-sep">إعلان</div>
-  <div class="ad-card ad-bronze" onclick="openOv('adv-ov')">
-    <div class="ad-icon">🎈</div>
-    <div class="ad-body"><div class="ad-tier">BRONZE</div><div class="ad-name">بالونات الفرح</div><div class="ad-sub">تنسيق حفلات وتوصيل</div></div>
-    <div class="ad-btn">اتصل</div>
-  </div>
+  <div data-ad-slot="leaderboard"></div>
   <div style="background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:18px;padding:20px;margin-top:14px;text-align:center;">
     <div style="font-size:14px;color:var(--gold);font-weight:700;margin-bottom:6px;">✦ أعلن معنا في مَوْلِدي</div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">وصول مباشر لجمهور يبحث عن أعياد الميلاد الهجرية · باقات من 200 درهم</div>
@@ -1625,5 +1605,6 @@ document.addEventListener('keydown',function(e){
 */
 
 </script>
+<script src="../assets/ads.js"></script>
 </body>
 </html>

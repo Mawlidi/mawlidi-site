@@ -144,8 +144,11 @@ ${art.body}
   </div>
 ${TOOLS[art.id] ? `  <a class="art-cta" href="../../${TOOLS[art.id].slug}/">${esc(TOOLS[art.id][L.code])} →</a>` : ''}
 </article>
+<div data-ad-slot="leaderboard"></div>
 ${more ? `<section class="more"><h2>${L.readmore}</h2><div class="more-grid">${more}</div></section>` : ''}
+<div data-artist-corner></div>
 <footer class="foot"><a class="btn" href="../../">${L.back}</a></footer>
+<script src="../../../assets/ads.js"></script>
 </body>
 </html>
 `;
@@ -193,7 +196,10 @@ function indexPage(arts, lang, L) {
 <div class="grid">
 ${cards}
 </div>
+<div data-ad-slot="leaderboard"></div>
+<div data-artist-corner></div>
 <footer class="foot"><a class="btn" href="../">${L.back}</a></footer>
+<script src="../../assets/ads.js"></script>
 </body>
 </html>
 `;

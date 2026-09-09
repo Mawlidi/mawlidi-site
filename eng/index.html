@@ -366,6 +366,9 @@ html,body{height:100%;font-family:'Lato',sans-serif;background:var(--bg);color:v
     <div id="art-prev"></div>
   </div>
 
+  <div data-ad-slot="leaderboard"></div>
+  <div data-artist-corner></div>
+
   <div class="footer">
     <div class="footer-brand">Mawlidi 🌙</div>
     <div class="footer-links">
@@ -568,6 +571,8 @@ function calc(){
   }
   buildResultHTML(yr,mon,day,bH,tH,tJD);
   document.getElementById('rs').classList.add('on');
+  // شاشة النتيجة تُبنى بعد تحميل ads.js، فتحتاج تركيباً جديداً لمساحاتها
+  if(window.ADS) ADS.mountAll();
   document.getElementById('rb').scrollTop=0;setPg(0);
 }
 
@@ -592,20 +597,7 @@ function buildResultHTML(yr,mon,day,bH,tH,tJD){
     <div class="sc2"><div class="sn">${Math.abs((tH.y-bH.y)-(today.getFullYear()-yr))}</div><div class="sl">Year Difference</div></div>
     <div class="sc2"><div class="sn">${daysLeft}</div><div class="sl">Days to Birthday</div></div>
   </div>
-  <div class="ad-sep">Advertisement</div>
-  <div class="ad-card ad-platinum" onclick="openOv('adv-ov')"><div class="ad-icon">🎂</div><div class="ad-body"><div class="ad-tier">PLATINUM ✦</div><div class="ad-name">Golden Stars Bakery</div><div class="ad-sub">Custom cakes for your Hijri birthday</div></div><div class="ad-btn">Order</div></div>
-  <div class="hdr-lbl" style="margin-top:16px;">Your Birthday Journey Through the Years</div>
-  <div class="tabs"><button class="tab on" onclick="filterRows('all',this)">All</button><button class="tab" onclick="filterRows('past',this)">Past</button><button class="tab" onclick="filterRows('future',this)">Future</button></div>
-  <div class="lb" id="rows-list"></div>
-  <div class="ad-sep">Advertisement</div>
-  <div class="ad-card ad-gold" onclick="openOv('adv-ov')"><div class="ad-icon">🎁</div><div class="ad-body"><div class="ad-tier">GOLD ★</div><div class="ad-name">Crescent Gifts</div><div class="ad-sub">Luxury gifts for Hijri occasions</div></div><div class="ad-btn">Shop</div></div>
-  <div class="ad-sep">Advertisement</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-    <div class="ad-card ad-silver" style="flex-direction:column;text-align:center;" onclick="openOv('adv-ov')"><div class="ad-icon">🌸</div><div class="ad-tier">SILVER</div><div class="ad-name" style="font-size:12px;">Moon Flowers</div></div>
-    <div class="ad-card ad-silver" style="flex-direction:column;text-align:center;" onclick="openOv('adv-ov')"><div class="ad-icon">📸</div><div class="ad-tier">SILVER</div><div class="ad-name" style="font-size:12px;">Moments</div></div>
-  </div>
-  <div class="ad-sep">Advertisement</div>
-  <div class="ad-card ad-bronze" onclick="openOv('adv-ov')"><div class="ad-icon">🎈</div><div class="ad-body"><div class="ad-tier">BRONZE</div><div class="ad-name">Balloon Joy</div><div class="ad-sub">Party decoration & delivery</div></div><div class="ad-btn">Call</div></div>
+  <div data-ad-slot="leaderboard"></div>
   <div style="background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:18px;padding:20px;margin-top:14px;text-align:center;">
     <div style="font-size:14px;color:var(--gold);font-weight:700;margin-bottom:6px;">✦ Advertise on Mawlidi</div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Direct reach to Hijri birthday seekers · Packages from AED 200</div>
@@ -1218,5 +1210,6 @@ function navTo(ovId){
   openOv(ovId);
 }
 </script>
+<script src="../assets/ads.js"></script>
 </body>
 </html>

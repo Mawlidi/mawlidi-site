@@ -110,13 +110,16 @@ module.exports = function calendarPage(lang) {
   <div class="months" id="months"></div>
 
   <p class="note no-print">${esc(L.note)}</p>
+  <div class="no-print" data-ad-slot="leaderboard"></div>
   <p class="tool-link no-print">
     <a href="${L.convHref}">${esc(L.conv)} →</a> &nbsp;·&nbsp;
     <a href="${L.moreHref}">${esc(L.more)} →</a>
   </p>
 </main>
 
+<div class="no-print" data-artist-corner></div>
 <footer class="foot no-print"><a class="btn" href="../">${L.back}</a></footer>
+<script src="../../assets/ads.js"></script>
 
 <script src="../../assets/hijri.js"></script>
 <script>
