@@ -436,6 +436,7 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
       <span class="footer-link" onclick="openOv('about-ov')">من نحن</span>
       <span class="footer-link" onclick="openOv('obs-ov')">المرصد</span>
       <span class="footer-link" onclick="openOv('arts-ov')">المقالات</span>
+      <a class="footer-link" href="articles/" style="text-decoration:none;">أرشيف المقالات</a>
       <span class="footer-link" onclick="openOv('adv-ov')">أعلن معنا</span>
     </div>
     الفنان الطيب عامر · Altayeb Amer · جميع الحقوق محفوظة © ٢٠٢٥ · mawlidi.com
@@ -1218,7 +1219,7 @@ body:`<p>"ما اسمك؟" — هذا السؤال الأول في كل لقاء
 async function loadContent() {
   // Try to fetch content.json from same directory
   try {
-    const res = await fetch('./content.json?v=' + Date.now());
+    const res = await fetch('../content.json?v=' + Date.now());
     if (res.ok) {
       const data = await res.json();
       // Override article metadata (not bodies - they stay in HTML)

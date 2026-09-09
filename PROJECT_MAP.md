@@ -46,6 +46,9 @@ python3 -m http.server 8899 --directory mawlidi   # من مجلد Claude Workspa
 - **المرحلة 1** — تفكيك المقالات إلى 19 صفحة مستقلة + أرشيف لكل لغة
   + Article/CollectionPage schema + روابط داخلية متبادلة
   (الموقع انتقل من رابطين قابلين للفهرسة إلى 21)
+- رابط `<a>` حقيقي إلى الأرشيف في تذييل الصفحتين (بقية روابط التذييل `<span onclick>` لا يراها الزاحف)
+- **إصلاح خلل قديم**: `arb/index.html` كان يطلب `./content.json` (404) — النسخة العربية
+  لم تقرأ `content.json` قط، فلم تظهر تعديلات لوحة التحكم عليها إطلاقاً
 
 ## [ORPHANS & PENDING]
 
@@ -53,7 +56,6 @@ python3 -m http.server 8899 --directory mawlidi   # من مجلد Claude Workspa
 |---|---|---|
 | 1 | **تفعيل Cloudflare Web Analytics** | ⏳ يحتاج لوحة تحكم Cloudflare — لا قياس إطلاقاً حالياً |
 | 2 | **تسجيل الموقع في Google Search Console + رفع sitemap** | ⏳ يحتاج حساب المالك |
-| 3 | **رابط ظاهر من `/arb/` و `/eng/` إلى `/articles/`** | ⏳ الأرشيف في sitemap لكن بلا رابط `<a>` من الصفحة الرئيسية |
 | 4 | النسخة الإنجليزية ناقصة 3 مقالات (a8, a9, a10) | ⏳ |
 | 5 | `dashboard-pro-v6.html` مكشوف على النطاق العام | ⏳ مُستبعَد من robots، لكن يُفضّل نقله خارج مسار النشر |
 | 6 | `viewport` فيه `user-scalable=no` في الصفحتين الرئيسيتين | ⏳ مشكلة وصولية — الصفحات المُولَّدة سليمة |
