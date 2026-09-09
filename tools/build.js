@@ -16,6 +16,7 @@ const calendarPage  = require('./calendar.js');
 const agePage       = require('./age.js');
 const countdownPage = require('./countdown.js');
 const moonPage      = require('./moon.js');
+const cardPage      = require('./card.js');
 
 // معرّف المقالة → slug ثابت (لا يتغيّر أبداً بعد النشر: تغييره يكسر الروابط)
 const SLUGS = {
@@ -256,7 +257,7 @@ for (const [lang, L] of Object.entries(LANGS)) {
   }
 
   // أدوات إضافية بنفس النمط
-  for (const [slug, tpl] of [['age', agePage], ['countdown', countdownPage], ['moon', moonPage]]) {
+  for (const [slug, tpl] of [['age', agePage], ['countdown', countdownPage], ['moon', moonPage], ['card', cardPage]]) {
     urls.push({ loc:`${SITE}/${lang}/${slug}/`, pri:'0.9' });
     if (!CHECK) {
       const td = path.join(ROOT, lang, slug);

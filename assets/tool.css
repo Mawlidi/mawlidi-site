@@ -86,3 +86,10 @@
 .moon-name{text-align:center;font-size:clamp(20px,4.6vw,26px);color:var(--gold-light);
   margin-top:6px;overflow-wrap:break-word;}
 .moon-sub{text-align:center;font-size:13px;color:var(--muted);margin:4px 0 18px;min-height:18px;}
+
+/* ═══ بطاقة الميلاد ═══ */
+.card-wrap{display:flex;justify-content:center;margin:8px 0 16px;}
+.card-wrap canvas{width:100%;max-width:340px;height:auto;border-radius:18px;
+  border:1px solid var(--border2);box-shadow:0 10px 40px rgba(0,0,0,0.45);}
+.card-acts{justify-content:center;}
+.hint{text-align:center;font-size:12px;color:var(--muted);margin-bottom:26px;}

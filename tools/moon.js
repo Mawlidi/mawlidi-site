@@ -17,6 +17,7 @@ const T = {
     note:'الحساب فلكي بحت (خوارزمية Meeus المختصرة) مرجعه منتصف نهار اليوم بالتوقيت العالمي، ويصف شكل القمر لا أثراً له على أحد. ما تراه في سماء بلدك قد يختلف قليلاً باختلاف الساعة والموقع.',
     l1:'حاسبة العمر', h1r:'../age/',
     l2:'التقويم الهجري السنوي', h2r:'../calendar/',
+    l3:'اصنع بطاقة ميلادك للمشاركة',
     more:'اقرأ: التقويم الهجري نبضة حضارة كاملة', mr:'../articles/hijri-calendar-civilization/',
     faq:[
       ['كيف يُحسب طور القمر؟',
@@ -42,6 +43,7 @@ const T = {
     note:'This is a purely astronomical calculation (an abridged Meeus algorithm) referenced to noon Universal Time, describing the Moon’s appearance and claiming nothing about anyone. What you would have seen from your own sky may differ slightly with time and location.',
     l1:'Age calculator', h1r:'../age/',
     l2:'Full-year Hijri calendar', h2r:'../calendar/',
+    l3:'Create a shareable birthday card',
     more:'Read: The Hijri calendar, pulse of a civilisation', mr:'../articles/hijri-calendar-civilization/',
     faq:[
       ['How is the Moon’s phase calculated?',
@@ -152,6 +154,7 @@ module.exports = function moonPage(lang){
   <p class="tool-link">
     <a href="${L.h1r}">${esc(L.l1)} →</a> &nbsp;·&nbsp;
     <a href="${L.h2r}">${esc(L.l2)} →</a><br>
+    <a href="../card/">${esc(L.l3)} →</a><br>
     <a href="${L.mr}">${esc(L.more)} →</a>
   </p>
 

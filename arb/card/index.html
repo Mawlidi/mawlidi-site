@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>بطاقة ميلادك الهجري — مَوْلِدي</title>
+<meta name="description" content="اصنع بطاقة أنيقة تحمل تاريخ ميلادك الهجري وقمر تلك الليلة، واحفظها أو شاركها بضغطة واحدة.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/arb/card/">
+<link rel="alternate" hreflang="en" href="https://mawlidi.com/eng/card/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/card/">
+<meta property="og:title" content="بطاقة ميلادك الهجري — مَوْلِدي">
+<meta property="og:description" content="اصنع بطاقة أنيقة تحمل تاريخ ميلادك الهجري وقمر تلك الليلة، واحفظها أو شاركها بضغطة واحدة.">
+<meta property="og:url" content="https://mawlidi.com/arb/card/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"بطاقة ميلادك الهجري","description":"اصنع بطاقة أنيقة تحمل تاريخ ميلادك الهجري وقمر تلك الليلة، واحفظها أو شاركها بضغطة واحدة.","url":"https://mawlidi.com/arb/card/","applicationCategory":"UtilityApplication","inLanguage":"ar","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"كيف أشارك البطاقة على واتساب؟","acceptedAnswer":{"@type":"Answer","text":"اضغط زر المشاركة إن كان جهازك يدعمه، فتظهر قائمة التطبيقات مباشرة. وإن لم يظهر الزر، احفظ الصورة بزر الحفظ ثم أرسلها من معرض الصور كأي صورة أخرى. على الهاتف يمكنك أيضاً الضغط المطوّل على البطاقة لحفظها."}},{"@type":"Question","name":"هل تُرفع بياناتي إلى خادم؟","acceptedAnswer":{"@type":"Answer","text":"لا. البطاقة تُرسم كاملة داخل متصفحك، ولا يغادر تاريخ ميلادك جهازك في أي لحظة. الصفحة تعمل حتى بلا اتصال بالإنترنت بعد تحميلها."}},{"@type":"Question","name":"لماذا يختلف تاريخي الهجري عن المكتوب في هويتي؟","acceptedAnswer":{"@type":"Answer","text":"الحساب هنا يعتمد التقويم الهجري الجدولي، بينما تعتمد كثير من البلدان رؤية الهلال في تحديد بداية الشهر. الفارق يوم واحد غالباً. الوثيقة الرسمية هي المعتمدة في المعاملات، والبطاقة للمشاركة والتذكار."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Cairo',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">الرئيسية</a> <span>/</span> <span>بطاقة ميلادك</span></nav>
+
+<main class="tool">
+  <h1>بطاقة ميلادك</h1>
+  <p class="tool-sub">اصنع بطاقة أنيقة تحمل تاريخ ميلادك الهجري وقمر تلك الليلة، واحفظها أو شاركها بضغطة واحدة.</p>
+
+  <div class="fields">
+    <label class="fld"><span>اليوم</span><select id="fD"></select></label>
+    <label class="fld"><span>الشهر</span><select id="fM"></select></label>
+    <label class="fld"><span>السنة</span><input id="fY" type="number" inputmode="numeric" placeholder="1990"></label>
+  </div>
+  <div class="acts"><button class="go" onclick="run()">اصنع البطاقة</button></div>
+  <p class="err" id="err" hidden></p>
+
+  <section id="out" hidden>
+    <div class="card-wrap"><canvas id="cv" width="1080" height="1350" role="img" aria-label="بطاقة ميلادك الهجري"></canvas></div>
+    <div class="acts card-acts">
+      <button class="go" id="dlBtn">⬇ حفظ الصورة</button>
+      <button class="ghost" id="shBtn" hidden>مشاركة</button>
+    </div>
+    <p class="hint">اضغط مطولاً على الصورة لحفظها إن لم يعمل الزر</p>
+  </section>
+
+  <p class="tool-link">
+    <a href="../moon/">قمر ميلادك →</a> &nbsp;·&nbsp;
+    <a href="../age/">حاسبة العمر →</a>
+  </p>
+
+  <section class="faq">
+    <details><summary>كيف أشارك البطاقة على واتساب؟</summary><p>اضغط زر المشاركة إن كان جهازك يدعمه، فتظهر قائمة التطبيقات مباشرة. وإن لم يظهر الزر، احفظ الصورة بزر الحفظ ثم أرسلها من معرض الصور كأي صورة أخرى. على الهاتف يمكنك أيضاً الضغط المطوّل على البطاقة لحفظها.</p></details>
+    <details><summary>هل تُرفع بياناتي إلى خادم؟</summary><p>لا. البطاقة تُرسم كاملة داخل متصفحك، ولا يغادر تاريخ ميلادك جهازك في أي لحظة. الصفحة تعمل حتى بلا اتصال بالإنترنت بعد تحميلها.</p></details>
+    <details><summary>لماذا يختلف تاريخي الهجري عن المكتوب في هويتي؟</summary><p>الحساب هنا يعتمد التقويم الهجري الجدولي، بينما تعتمد كثير من البلدان رؤية الهلال في تحديد بداية الشهر. الفارق يوم واحد غالباً. الوثيقة الرسمية هي المعتمدة في المعاملات، والبطاقة للمشاركة والتذكار.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">العودة إلى مَوْلِدي</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script src="../../assets/moon.js"></script>
+<script>
+const MG=["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"], MH=["محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"], WD=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+const SG="م", SH="هـ";
+const PH=["محاق","هلال متزايد","تربيع أول","أحدب متزايد","بدر","أحدب متناقص","تربيع أخير","هلال متناقص"];
+const TX={"errY":"أدخل سنة بين 1900 و 2099","errD":"التاريخ غير صحيح، تحقق من اليوم والشهر","kicker":"تاريخ ميلادي بالتقويم الهجري","age":"عمري القمري","years":"سنة","site":"مَوْلِدي","share":"بطاقة ميلادك الهجري","shareFail":"تعذّرت المشاركة — احفظ الصورة وشاركها يدوياً"};
+const RTL=true;
+const F1="Cairo", F2="Tajawal";
+
+(function(){
+  const d=document.getElementById('fD'), m=document.getElementById('fM');
+  for(let i=1;i<=31;i++) d.innerHTML+='<option value="'+i+'">'+i+'</option>';
+  MG.forEach((n,i)=>m.innerHTML+='<option value="'+(i+1)+'">'+n+'</option>');
+})();
+
+const W=1080, H=1350;
+let lastBlob=null, lastName='mawlidi-card.png';
+
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;document.getElementById('out').hidden=true;}
+
+// نجوم ثابتة مشتقة من التاريخ، فتخرج البطاقة نفسها في كل مرة
+function stars(ctx, seed){
+  let s=seed;
+  const rnd=()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; };
+  for(let i=0;i<150;i++){
+    const x=rnd()*W, y=rnd()*H, r=rnd()*1.9+0.4, a=rnd()*0.55+0.12;
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,'+a.toFixed(2)+')'; ctx.fill();
+  }
+}
+
+function drawMoon(ctx, cx, cy, R, elong){
+  ctx.save();
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.fillStyle='#141430'; ctx.fill();
+  ctx.strokeStyle='rgba(201,168,76,0.30)'; ctx.lineWidth=2; ctx.stroke();
+
+  const k=Math.cos(elong*Math.PI/180), rx=Math.abs(k)*R, right=elong<180;
+  ctx.beginPath();
+  ctx.ellipse(cx,cy,R,R, 0, -Math.PI/2, Math.PI/2, !right);
+  // اتجاه قوس الحدّ الفاصل: يتحدّب نحو الجانب المضاء في الهلال، ونحو المظلم في الأحدب
+  ctx.ellipse(cx,cy,rx,R, 0, Math.PI/2, -Math.PI/2, (k>0)===right);
+  ctx.closePath();
+  const g=ctx.createRadialGradient(cx-R*0.25,cy-R*0.3,R*0.15,cx,cy,R*1.05);
+  g.addColorStop(0,'#FFF8E4'); g.addColorStop(0.62,'#EBD9A4'); g.addColorStop(1,'#B99B57');
+  ctx.fillStyle=g; ctx.fill();
+
+  ctx.clip();
+  ctx.fillStyle='rgba(120,100,60,0.20)';
+  [[-0.26,-0.34,0.16],[0.24,-0.05,0.11],[-0.10,0.34,0.19],[0.38,0.44,0.08]]
+    .forEach(([dx,dy,r])=>{ ctx.beginPath(); ctx.arc(cx+dx*R,cy+dy*R,r*R,0,Math.PI*2); ctx.fill(); });
+  ctx.restore();
+}
+
+function line(ctx,text,y,size,color,weight){
+  ctx.font=weight+' '+size+'px "'+F1+'","'+F2+'",sans-serif';
+  ctx.fillStyle=color; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(text, W/2, y);
+}
+
+function draw(y,m,d){
+  const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  ctx.direction = RTL ? 'rtl' : 'ltr';
+
+  const jd=gToJ(y,m,d), Hd=jToH(jd), p=moonPhase(y,m,d);
+  const now=new Date(), tH=jToH(gToJ(now.getFullYear(),now.getMonth()+1,now.getDate()));
+  let ha=tH.y-Hd.y; if(tH.m<Hd.m||(tH.m===Hd.m&&tH.d<Hd.d)) ha--;
+
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#07071A'); bg.addColorStop(0.55,'#0C0C22'); bg.addColorStop(1,'#07071A');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  stars(ctx, jd);
+
+  ctx.strokeStyle='rgba(201,168,76,0.26)'; ctx.lineWidth=3;
+  ctx.strokeRect(46,46,W-92,H-92);
+
+  line(ctx,TX.site,150,58,'#C9A84C','900');
+  line(ctx,TX.kicker,215,30,'rgba(240,237,232,0.55)','400');
+
+  drawMoon(ctx, W/2, 430, 150, p.elongation);
+  line(ctx,PH[p.idx]+' · '+Math.round(p.illum*100)+'%',632,30,'rgba(240,237,232,0.55)','400');
+
+  line(ctx, Hd.d+' '+MH[Hd.m-1], 760, 86, '#E8C97A','900');
+  line(ctx, Hd.y+SH, 850, 62, '#C9A84C','700');
+
+  ctx.strokeStyle='rgba(201,168,76,0.22)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(W/2-190,920); ctx.lineTo(W/2+190,920); ctx.stroke();
+
+  line(ctx, d+' '+MG[m-1]+' '+y+SG, 985, 42,'#F0EDE8','700');
+  line(ctx, WD[(jd+1)%7], 1048, 32,'rgba(240,237,232,0.55)','400');
+
+  if(ha>=0) line(ctx, TX.age+': '+ha+' '+TX.years, 1140, 34,'#C9A84C','700');
+  line(ctx,'mawlidi.com',1252,28,'rgba(240,237,232,0.38)','400');
+
+  lastName='mawlidi-'+Hd.y+'-'+Hd.m+'-'+Hd.d+'.png';
+  return new Promise(res=>cv.toBlob(b=>{lastBlob=b;res(b);},'image/png'));
+}
+
+async function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(!y||y<1900||y>2099) return show(TX.errY);
+  const t=new Date(y,m-1,d);
+  if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(TX.errD);
+  document.getElementById('err').hidden=true;
+  document.getElementById('out').hidden=false;
+  if(document.fonts && document.fonts.ready) await document.fonts.ready;
+  await draw(y,m,d);
+}
+
+document.getElementById('dlBtn').onclick=()=>{
+  if(!lastBlob) return;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(lastBlob); a.download=lastName;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+};
+
+(function(){
+  const b=document.getElementById('shBtn');
+  if(!(navigator.canShare && navigator.share)) return;
+  b.hidden=false;
+  b.onclick=async()=>{
+    if(!lastBlob) return;
+    const f=new File([lastBlob],lastName,{type:'image/png'});
+    if(!navigator.canShare({files:[f]})) return show(TX.shareFail);
+    try{ await navigator.share({files:[f], title:TX.share, text:TX.share}); }
+    catch(e){ if(e && e.name!=='AbortError') show(TX.shareFail); }
+  };
+})();
+
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+</script>
+</body>
+</html>
