@@ -20,8 +20,8 @@ HTML/CSS/JS ثابت بلا build step وبلا npm. النشر: Cloudflare Page
 /assets/tool.css         أنماط صفحات الأدوات
 /assets/calendar.css     أنماط التقويم السنوي (تشمل قواعد الطباعة)
 /content.json            بيانات وصفية للمقالات والتصنيفات — تُحمَّل وقت التشغيل
-/dashboard-pro-v6.html   لوحة تحكم CMS تكتب في content.json عبر GitHub API
 /sitemap.xml             مُولَّد
+/404.html                صفحة الخطأ — بدونها كان أي رابط خاطئ يردّ 200 (soft 404)
 /robots.txt
 /_headers /_redirects    إعدادات Cloudflare Pages
 /tools/build.js          مولّد الصفحات و sitemap (خارج مسار النشر)
@@ -44,6 +44,13 @@ node tools/build.js
 
 `SLUGS` في `tools/build.js` تربط `id` المقالة برابطها الدائم.
 **تغيير slug منشور يكسر الروابط ويُفقد ترتيب البحث** — أضف جديداً ولا تُعدّل قديماً.
+
+## [لوحة التحكم]
+`~/Claude Workspace/mawlidi-cms/dashboard-pro-v6.html` — خارج المستودع عمداً.
+كانت منشورة على النطاق العام ويفتحها أي أحد. لا أسرار مكتوبة فيها (تطلب token
+وقت التشغيل)، لكن لا مبرر لنشرها. تُفتح بالنقر المزدوج من Finder.
+لإعادة نشرها بأمان: Cloudflare Zero Trust ← Access ← Applications ← تطبيق
+self-hosted على `mawlidi.com/dashboard*` بسياسة تسمح لإيميلك وحده.
 
 ## [المعاينة المحلية]
 ```bash
@@ -76,7 +83,7 @@ python3 -m http.server 8899 --directory mawlidi   # من مجلد Claude Workspa
 | 1 | **تفعيل Cloudflare Web Analytics** | ⏳ يحتاج لوحة تحكم Cloudflare — لا قياس إطلاقاً حالياً |
 | 2 | **تسجيل الموقع في Google Search Console + رفع sitemap** | ⏳ يحتاج حساب المالك |
 | 4 | النسخة الإنجليزية ناقصة 3 مقالات (a8, a9, a10) | ⏳ |
-| 5 | `dashboard-pro-v6.html` مكشوف على النطاق العام | ⏳ **يحتاج قرارك**: نقله خارج النشر يوقف استخدامه من المتصفح. البديل الصحيح Cloudflare Access على هذا المسار |
+| 5 | لوحة التحكم | ✅ نُقلت خارج المستودع إلى `~/Claude Workspace/mawlidi-cms/` — لم تعد منشورة. تُفتح محلياً، وتاريخها محفوظ في git |
 | 7 | `content.json` لا يحمل متن المقالات | قيد معماري — اللوحة لا تستطيع تحرير المتن |
 | 8 | المرحلة 2: بقية الأدوات (حاسبة العمر، العد التنازلي لرمضان/العيد، بطاقة ميلاد قابلة للمشاركة) | ⏳ المحوّل والتقويم أُنجزا |
 | 9 | المرحلة 3: مقالات جديدة موجّهة لنيّة البحث | لم تبدأ |

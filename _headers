@@ -7,10 +7,18 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=()
 
+# صفحات HTML: لا تُخزَّن مؤقتاً — وإلا لم يرَ الزائر أي نشر جديد قبل ساعة
 /arb/*
   Content-Language: ar
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=0, must-revalidate
 
 /eng/*
   Content-Language: en
+  Cache-Control: public, max-age=0, must-revalidate
+
+# الأصول الثابتة: تخزين طويل، وتتغيّر بتغيّر اسمها أو محتواها
+/assets/*
+  Cache-Control: public, max-age=604800
+
+/sitemap.xml
   Cache-Control: public, max-age=3600

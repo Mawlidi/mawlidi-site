@@ -2,8 +2,8 @@
 User-agent: *
 Allow: /
 
-# لوحة التحكم ليست محتوى للفهرسة
-Disallow: /dashboard-pro-v6.html
+# ملفات ليست محتوى للفهرسة
 Disallow: /content.json
+Disallow: /tools/
 
 Sitemap: https://mawlidi.com/sitemap.xml
