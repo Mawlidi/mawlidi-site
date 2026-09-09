@@ -58,7 +58,7 @@ html,body{height:100%;font-family:'Lato',sans-serif;background:var(--bg);color:v
 .stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--gold-light);line-height:1;}
 .stat-lbl{font-size:10px;color:var(--muted);margin-top:4px;text-transform:uppercase;}
 .teaser-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
-.teaser{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02));border:1px solid var(--border);border-radius:20px;padding:18px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:14px;}
+.teaser{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02));text-decoration:none;color:inherit;border:1px solid var(--border);border-radius:20px;padding:18px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:14px;}
 .teaser:hover{transform:translateX(4px);border-color:rgba(201,168,76,0.4);}
 .teaser-icon{font-size:30px;flex-shrink:0;}
 .teaser-body{flex:1;}
@@ -295,30 +295,38 @@ html,body{height:100%;font-family:'Lato',sans-serif;background:var(--bg);color:v
     </div>
   </section>
 
+  <div class="sec" style="padding-top:22px;">
+    <div class="teaser-cards">
+      <div class="teaser" onclick="openOv('obs-ov')">
+        <div class="teaser-icon">🔭</div>
+        <div class="teaser-body"><div class="teaser-title">Birth Observatory</div><div class="teaser-desc">12 knowledge categories in psychology, history & cosmos</div></div>
+        <div class="teaser-arrow">→</div>
+  </div>
+
   <div class="sec" style="padding-top:28px;">
     <h2 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--gold-light);text-align:center;margin-bottom:8px;">Discover More Than a Date</h2>
     <p style="font-size:13px;color:var(--muted);text-align:center;line-height:1.7;margin-bottom:18px;">Mawlidi is more than a calculator — it's a journey through time, civilization, and identity.</p>
     <div class="stat-row">
       <div class="stat-box"><div class="stat-num">12</div><div class="stat-lbl">Categories</div></div>
       <div class="stat-box"><div class="stat-num">15+</div><div class="stat-lbl">Articles</div></div>
-      <div class="stat-box"><div class="stat-num">1446</div><div class="stat-lbl">Hijri Year</div></div>
+      <div class="stat-box"><div class="stat-num" id="hyNow">—</div><div class="stat-lbl">Hijri Year</div></div>
     </div>
-    <div class="teaser-cards">
-      <div class="teaser" onclick="openOv('obs-ov')">
-        <div class="teaser-icon">🔭</div>
-        <div class="teaser-body"><div class="teaser-title">Birth Observatory</div><div class="teaser-desc">12 knowledge categories in psychology, history & cosmos</div></div>
-        <div class="teaser-arrow">→</div>
       </div>
-      <div class="teaser" onclick="openOv('arts-ov')">
+      <a class="teaser" href="converter/">
+        <div class="teaser-icon">📅</div>
+        <div class="teaser-body"><div class="teaser-title">Date Converter</div><div class="teaser-desc">Convert any date between Hijri and Gregorian instantly</div></div>
+        <div class="teaser-arrow">→</div>
+      </a>
+      <a class="teaser" href="articles/">
         <div class="teaser-icon">📖</div>
         <div class="teaser-body"><div class="teaser-title">Deep Articles</div><div class="teaser-desc">Why we differ, the beauty of the lunar calendar and more</div></div>
         <div class="teaser-arrow">→</div>
-      </div>
+      </a>
     </div>
   </div>
 
   <div class="sec" style="padding-top:24px;">
-    <div class="sec-hdr"><h2 class="sec-title">Featured Articles</h2><button class="see-all" onclick="openOv('arts-ov')">View All →</button></div>
+    <div class="sec-hdr"><h2 class="sec-title">Featured Articles</h2><a class="see-all" href="articles/" style="text-decoration:none;">View All →</a></div>
     <div id="art-prev"></div>
   </div>
 
@@ -492,6 +500,9 @@ const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturda
   MAR.forEach((mn,i)=>m.innerHTML+=`<option value="${i+1}">${mn}</option>`);
   for(let i=1;i<=31;i++)d.innerHTML+=`<option value="${i}">${i}</option>`;
 })();
+
+(function(){const n=new Date();
+  document.getElementById("hyNow").textContent=jToH(gToJ(n.getFullYear(),n.getMonth()+1,n.getDate())).y;})();
 
 let ROWS=[];
 function calc(){

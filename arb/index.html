@@ -88,7 +88,7 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
 .stat-num{font-family:'Tajawal',sans-serif;font-size:28px;font-weight:900;color:var(--gold-light);line-height:1;}
 .stat-lbl{font-size:10px;color:var(--muted);margin-top:4px;}
 .teaser-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
-.teaser{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02));
+.teaser{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02));text-decoration:none;color:inherit;
   border:1px solid var(--border);border-radius:20px;padding:18px;cursor:pointer;
   transition:all .25s;display:flex;align-items:center;gap:14px;}
 .teaser:hover,.teaser:active{transform:translateX(-4px);border-color:rgba(201,168,76,0.4);}
@@ -402,6 +402,14 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
     </div>
   </section>
 
+  <div class="sec" style="padding-top:22px;">
+    <div class="teaser-cards">
+      <div class="teaser" onclick="openOv('obs-ov')">
+        <div class="teaser-icon">🔭</div>
+        <div class="teaser-body"><div class="teaser-title">مرصد المواليد</div><div class="teaser-desc">12 تصنيفاً معرفياً في علم النفس والتاريخ والكون</div></div>
+        <div class="teaser-arrow">←</div>
+  </div>
+
   <!-- ENGAGE -->
   <div class="sec" style="padding-top:28px;">
     <h2 class="engage-title">اكتشف ما وراء تاريخ ميلادك</h2>
@@ -409,24 +417,24 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
     <div class="stat-row">
       <div class="stat-box"><div class="stat-num">12</div><div class="stat-lbl">تصنيف معرفي</div></div>
       <div class="stat-box"><div class="stat-num">15+</div><div class="stat-lbl">مقالة عميقة</div></div>
-      <div class="stat-box"><div class="stat-num">1446</div><div class="stat-lbl">سنة هجرية</div></div>
+      <div class="stat-box"><div class="stat-num" id="hyNow">—</div><div class="stat-lbl">سنة هجرية</div></div>
     </div>
-    <div class="teaser-cards">
-      <div class="teaser" onclick="openOv('obs-ov')">
-        <div class="teaser-icon">🔭</div>
-        <div class="teaser-body"><div class="teaser-title">مرصد المواليد</div><div class="teaser-desc">12 تصنيفاً معرفياً في علم النفس والتاريخ والكون</div></div>
-        <div class="teaser-arrow">←</div>
       </div>
-      <div class="teaser" onclick="openOv('arts-ov')">
+      <a class="teaser" href="converter/">
+        <div class="teaser-icon">📅</div>
+        <div class="teaser-body"><div class="teaser-title">محوّل التاريخ</div><div class="teaser-desc">حوّل أي تاريخ بين الهجري والميلادي فوراً</div></div>
+        <div class="teaser-arrow">←</div>
+      </a>
+      <a class="teaser" href="articles/">
         <div class="teaser-icon">📖</div>
         <div class="teaser-body"><div class="teaser-title">مقالات معمّقة</div><div class="teaser-desc">اقرأ عن لماذا نختلف وعن جمال التقويم القمري</div></div>
         <div class="teaser-arrow">←</div>
-      </div>
+      </a>
     </div>
   </div>
 
   <div class="sec" style="padding-top:24px;">
-    <div class="sec-hdr"><h2 class="sec-title">أبرز المقالات</h2><button class="see-all" onclick="openOv('arts-ov')">عرض الكل ←</button></div>
+    <div class="sec-hdr"><h2 class="sec-title">أبرز المقالات</h2><a class="see-all" href="articles/" style="text-decoration:none;">عرض الكل ←</a></div>
     <div id="art-prev"></div>
   </div>
 
@@ -722,6 +730,9 @@ const DAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء',
   for(let i=1;i<=31;i++)d.innerHTML+=`<option value="${i}">${i}</option>`;
   MAR.forEach((mn,i)=>m.innerHTML+=`<option value="${i+1}">${mn}</option>`);
 })();
+
+(function(){const n=new Date();
+  document.getElementById("hyNow").textContent=jToH(gToJ(n.getFullYear(),n.getMonth()+1,n.getDate())).y;})();
 
 // ═══ CALCULATE ═══
 let ROWS=[];
