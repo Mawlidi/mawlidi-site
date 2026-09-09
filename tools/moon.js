@@ -1,0 +1,232 @@
+/* قالب صفحة طور القمر يوم الميلاد — يُستدعى من tools/build.js */
+const SITE = 'https://mawlidi.com';
+
+const T = {
+  arb: {
+    code:'ar', dir:'rtl', font:"'Cairo',sans-serif",
+    fonts:"family=Tajawal:wght@300;400;700;900&family=Cairo:wght@300;400;600;700;900",
+    title:'كيف كان القمر يوم ميلادك؟',
+    h1:'قمر ميلادك',
+    desc:'شاهد شكل القمر في السماء يوم ولادتك: طوره ونسبة إضاءته وعمره بالأيام، بحساب فلكي دقيق.',
+    home:'الرئيسية', site:'مَوْلِدي', back:'العودة إلى مَوْلِدي',
+    day:'اليوم', month:'الشهر', year:'السنة', go:'أرِني القمر', today:'اليوم',
+    errY:'أدخل سنة بين 1900 و 2099', errD:'التاريخ غير صحيح، تحقق من اليوم والشهر',
+    illum:'من القرص مضاء', age:'يوماً من عمر الشهر القمري', hijri:'ويوافق',
+    waxing:'متزايد', waning:'متناقص',
+    phases:['محاق','هلال متزايد','تربيع أول','أحدب متزايد','بدر','أحدب متناقص','تربيع أخير','هلال متناقص'],
+    note:'الحساب فلكي بحت (خوارزمية Meeus المختصرة) مرجعه منتصف نهار اليوم بالتوقيت العالمي، ويصف شكل القمر لا أثراً له على أحد. ما تراه في سماء بلدك قد يختلف قليلاً باختلاف الساعة والموقع.',
+    l1:'حاسبة العمر', h1r:'../age/',
+    l2:'التقويم الهجري السنوي', h2r:'../calendar/',
+    more:'اقرأ: التقويم الهجري نبضة حضارة كاملة', mr:'../articles/hijri-calendar-civilization/',
+    faq:[
+      ['كيف يُحسب طور القمر؟',
+       'طور القمر يُحدَّد بالزاوية بين القمر والشمس كما تُرى من الأرض، وتسمى الاستطالة. حين تكون الزاوية صفراً يكون القمر بين الأرض والشمس فلا نرى منه شيئاً، وهو المحاق. وحين تبلغ مئة وثمانين درجة يكون القمر في الجهة المقابلة للشمس فيظهر قرصاً كاملاً، وهو البدر. ما بينهما هلال أو أحدب، متزايد أو متناقص.'],
+      ['ما الفرق بين عمر القمر والتاريخ الهجري؟',
+       'عمر القمر رقم فلكي مستمر يقيس الأيام المنقضية منذ لحظة المحاق، وقد يكون كسرياً. أما اليوم في التقويم الهجري فرقم صحيح يبدأ بغروب الشمس ويتبع إما الحساب الجدولي أو رؤية الهلال. ولهذا قد لا يتطابق الرقمان تماماً.'],
+      ['هل لطور القمر أثر على شخصية المولود؟',
+       'لا يوجد دليل علمي على ذلك. الدراسات التي بحثت العلاقة بين أطوار القمر والسلوك البشري أو المواليد لم تجد ارتباطاً يصمد أمام التحليل الإحصائي. هذه الصفحة تعرض حقيقة فلكية عن شكل السماء في يوم بعينه، ولا تدّعي أكثر من ذلك.']
+    ]
+  },
+  eng: {
+    code:'en', dir:'ltr', font:"'Lato',sans-serif",
+    fonts:"family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700;900",
+    title:'What Did the Moon Look Like on Your Birthday?',
+    h1:'Your Birth Moon',
+    desc:'See the Moon as it appeared on the day you were born: its phase, the fraction lit, and its age in days — computed astronomically.',
+    home:'Home', site:'Mawlidi', back:'Back to Mawlidi',
+    day:'Day', month:'Month', year:'Year', go:'Show the Moon', today:'Today',
+    errY:'Enter a year between 1900 and 2099', errD:'Invalid date — check the day and month',
+    illum:'of the disc lit', age:'days into the lunar month', hijri:'which corresponds to',
+    waxing:'waxing', waning:'waning',
+    phases:['New Moon','Waxing Crescent','First Quarter','Waxing Gibbous','Full Moon','Waning Gibbous','Last Quarter','Waning Crescent'],
+    note:'This is a purely astronomical calculation (an abridged Meeus algorithm) referenced to noon Universal Time, describing the Moon’s appearance and claiming nothing about anyone. What you would have seen from your own sky may differ slightly with time and location.',
+    l1:'Age calculator', h1r:'../age/',
+    l2:'Full-year Hijri calendar', h2r:'../calendar/',
+    more:'Read: The Hijri calendar, pulse of a civilisation', mr:'../articles/hijri-calendar-civilization/',
+    faq:[
+      ['How is the Moon’s phase calculated?',
+       'The phase is set by the angle between the Moon and the Sun as seen from Earth, called the elongation. At zero degrees the Moon lies between Earth and Sun and nothing is lit — the new moon. At one hundred and eighty degrees it sits opposite the Sun and shows a full disc. Everything between is a crescent or a gibbous moon, waxing or waning.'],
+      ['How does the Moon’s age differ from the Hijri date?',
+       'The Moon’s age is a continuous astronomical figure measuring days elapsed since the exact instant of the new moon, and it can be fractional. A Hijri date is a whole number that begins at sunset and follows either the tabular calculation or a crescent sighting. The two need not match exactly.'],
+      ['Does the Moon’s phase affect a newborn’s personality?',
+       'There is no scientific evidence that it does. Studies examining links between lunar phases and human behaviour or birth patterns have not produced correlations that survive statistical scrutiny. This page reports an astronomical fact about the sky on a given day, and claims nothing beyond it.']
+    ]
+  }
+};
+
+const MONTHS = {
+  arb:{ g:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+        h:['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'],
+        w:['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'], sg:'م', sh:'هـ' },
+  eng:{ g:['January','February','March','April','May','June','July','August','September','October','November','December'],
+        h:['Muharram','Safar','Rabiʿ al-Awwal','Rabiʿ al-Thani','Jumada al-Ula','Jumada al-Akhira','Rajab','Shaʿban','Ramadan','Shawwal','Dhu al-Qaʿda','Dhu al-Hijja'],
+        w:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], sg:'CE', sh:'AH' }
+};
+
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+module.exports = function moonPage(lang){
+  const L=T[lang], M=MONTHS[lang];
+  const url=`${SITE}/${lang}/moon/`;
+  const other = lang==='arb' ? 'eng' : 'arb';
+  const ld=[
+    {'@context':'https://schema.org','@type':'WebApplication',name:L.title,description:L.desc,
+     url,applicationCategory:'UtilityApplication',inLanguage:L.code,
+     offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}},
+    {'@context':'https://schema.org','@type':'FAQPage',
+     mainEntity:L.faq.map(([q,a])=>({'@type':'Question',name:q,
+       acceptedAnswer:{'@type':'Answer',text:a}}))}
+  ];
+  return `<!DOCTYPE html>
+<html lang="${L.code}" dir="${L.dir}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>${esc(L.title)} — ${L.site}</title>
+<meta name="description" content="${esc(L.desc)}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="${url}">
+<link rel="alternate" hreflang="${other==='eng'?'en':'ar'}" href="${SITE}/${other}/moon/">
+<link rel="alternate" hreflang="x-default" href="${SITE}/arb/moon/">
+<meta property="og:title" content="${esc(L.title)} — ${L.site}">
+<meta property="og:description" content="${esc(L.desc)}">
+<meta property="og:url" content="${url}">
+<meta property="og:type" content="website">
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<link href="https://fonts.googleapis.com/css2?${L.fonts}&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:${L.font};}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">${L.home}</a> <span>/</span> <span>${esc(L.h1)}</span></nav>
+
+<main class="tool">
+  <h1>${esc(L.h1)}</h1>
+  <p class="tool-sub">${esc(L.desc)}</p>
+
+  <div class="fields">
+    <label class="fld"><span>${L.day}</span><select id="fD"></select></label>
+    <label class="fld"><span>${L.month}</span><select id="fM"></select></label>
+    <label class="fld"><span>${L.year}</span><input id="fY" type="number" inputmode="numeric" placeholder="1990"></label>
+  </div>
+  <div class="acts">
+    <button class="go" onclick="run()">${L.go}</button>
+    <button class="ghost" onclick="setToday()">${L.today}</button>
+  </div>
+  <p class="err" id="err" hidden></p>
+
+  <section class="moon-out" id="out" hidden>
+    <div class="moon-stage">
+      <svg id="moonSvg" viewBox="0 0 200 200" role="img" aria-labelledby="moonTitle">
+        <title id="moonTitle"></title>
+        <defs>
+          <radialGradient id="lit" cx="38%" cy="34%">
+            <stop offset="0%" stop-color="#FFF8E4"/>
+            <stop offset="62%" stop-color="#EBD9A4"/>
+            <stop offset="100%" stop-color="#B99B57"/>
+          </radialGradient>
+        </defs>
+        <circle cx="100" cy="100" r="82" fill="#12122a" stroke="rgba(201,168,76,0.28)"/>
+        <clipPath id="litClip"><path id="moonClip"/></clipPath>
+        <path id="moonLit" fill="url(#lit)"/>
+        <g fill="rgba(120,100,60,0.22)" id="craters" clip-path="url(#litClip)">
+          <circle cx="78"  cy="72"  r="13"/><circle cx="120" cy="96"  r="9"/>
+          <circle cx="92"  cy="128" r="16"/><circle cx="132" cy="140" r="7"/>
+          <circle cx="66"  cy="112" r="6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="moon-name" id="phName"></div>
+    <div class="moon-sub" id="phDir"></div>
+    <div class="tot-grid">
+      <div class="tot"><b id="phIll"></b><span>${L.illum}</span></div>
+      <div class="tot"><b id="phAge"></b><span>${L.age}</span></div>
+    </div>
+    <div class="out"><div class="out-main" id="dateG"></div>
+      <div class="out-week" id="dateH"></div><div class="out-week" id="dateW"></div></div>
+  </section>
+
+  <p class="note">${esc(L.note)}</p>
+  <p class="tool-link">
+    <a href="${L.h1r}">${esc(L.l1)} →</a> &nbsp;·&nbsp;
+    <a href="${L.h2r}">${esc(L.l2)} →</a><br>
+    <a href="${L.mr}">${esc(L.more)} →</a>
+  </p>
+
+  <section class="faq">
+${L.faq.map(([q,a])=>`    <details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('\n')}
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">${L.back}</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script src="../../assets/moon.js"></script>
+<script>
+const MG=${JSON.stringify(M.g)}, MH=${JSON.stringify(M.h)}, WD=${JSON.stringify(M.w)};
+const SG=${JSON.stringify(M.sg)}, SH=${JSON.stringify(M.sh)};
+const PH=${JSON.stringify(L.phases)};
+const TX=${JSON.stringify({errY:L.errY,errD:L.errD,hijri:L.hijri,waxing:L.waxing,waning:L.waning})};
+
+(function(){
+  const d=document.getElementById('fD'), m=document.getElementById('fM');
+  for(let i=1;i<=31;i++) d.innerHTML+='<option value="'+i+'">'+i+'</option>';
+  MG.forEach((n,i)=>m.innerHTML+='<option value="'+(i+1)+'">'+n+'</option>');
+})();
+
+// حدّ الظل: نصف دائرة ثابت + نصف قطع ناقص عرضه يتبع الاستطالة
+function litPath(elong){
+  const R=82, cx=100, cy=100;
+  const k=Math.cos(elong*Math.PI/180);        // 1 محاق … -1 بدر
+  const rx=Math.abs(k)*R;
+  const right = elong<180;                     // الجانب المضاء
+  const sweepOuter = right?1:0;
+  const sweepInner = (k>0)===right ? 0 : 1;    // مقعّر أم محدّب
+  return 'M '+cx+' '+(cy-R)+
+         ' A '+R+' '+R+' 0 0 '+sweepOuter+' '+cx+' '+(cy+R)+
+         ' A '+rx+' '+R+' 0 0 '+sweepInner+' '+cx+' '+(cy-R)+' Z';
+}
+
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;document.getElementById('out').hidden=true;}
+function setToday(){
+  const n=new Date();
+  document.getElementById('fD').value=n.getDate();
+  document.getElementById('fM').value=n.getMonth()+1;
+  document.getElementById('fY').value=n.getFullYear();
+  run();
+}
+function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(!y||y<1900||y>2099) return show(TX.errY);
+  const t=new Date(y,m-1,d);
+  if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(TX.errD);
+  document.getElementById('err').hidden=true;
+
+  const p=moonPhase(y,m,d);
+  const dPath=litPath(p.elongation);
+  document.getElementById('moonLit').setAttribute('d',dPath);
+  document.getElementById('moonClip').setAttribute('d',dPath);
+  document.getElementById('phName').textContent=PH[p.idx];
+  document.getElementById('moonTitle').textContent=PH[p.idx];
+  // أسماء الهلال والأحدب تحمل الاتجاه أصلاً؛ التربيعان وحدهما يحتاجانه
+  document.getElementById('phDir').textContent =
+    (p.idx===2||p.idx===6) ? (p.waxing?TX.waxing:TX.waning) : '';
+  document.getElementById('phIll').textContent=Math.round(p.illum*100)+'%';
+  document.getElementById('phAge').textContent=p.age.toFixed(1);
+
+  const jd=gToJ(y,m,d), H=jToH(jd);
+  document.getElementById('dateG').textContent=d+' '+MG[m-1]+' '+y+SG;
+  document.getElementById('dateH').textContent=TX.hijri+' '+H.d+' '+MH[H.m-1]+' '+H.y+SH;
+  document.getElementById('dateW').textContent=WD[(jd+1)%7];
+  document.getElementById('out').hidden=false;
+}
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+setToday();
+</script>
+</body>
+</html>
+`;
+};

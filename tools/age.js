@@ -20,6 +20,7 @@ const T = {
     note:'الفرق بين العمرين ليس خطأً: السنة القمرية أقصر من الشمسية بأحد عشر يوماً، فكل 33 سنة ميلادية تعادل نحو 34 سنة هجرية.',
     l1:'التقويم الهجري السنوي', h1r:'../calendar/',
     l2:'محوّل التاريخ', h2r:'../converter/',
+    l3:'كيف كان القمر يوم ميلادك؟',
     occ:'اقرأ: لماذا يختلف شخصان وُلدا في اليوم نفسه؟', occr:'../articles/why-two-people-born-same-day-differ/',
     faq:[
       ['كيف أحسب عمري بالهجري؟',
@@ -48,6 +49,7 @@ const T = {
     note:'The gap between the two ages is not an error: the lunar year is eleven days shorter than the solar one, so 33 Gregorian years amount to about 34 Hijri years.',
     l1:'Full-year Hijri calendar', h1r:'../calendar/',
     l2:'Date converter', h2r:'../converter/',
+    l3:'What did the Moon look like on your birthday?',
     occ:'Read: Why do two people born on the same day differ?', occr:'../articles/why-two-people-born-same-day-differ/',
     faq:[
       ['How do I calculate my age in Hijri years?',
@@ -142,6 +144,7 @@ module.exports = function agePage(lang){
   <p class="tool-link">
     <a href="${L.h1r}">${esc(L.l1)} →</a> &nbsp;·&nbsp;
     <a href="${L.h2r}">${esc(L.l2)} →</a><br>
+    <a href="../moon/">${esc(L.l3)} →</a><br>
     <a href="${L.occr}">${esc(L.occ)} →</a>
   </p>
 

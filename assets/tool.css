@@ -77,3 +77,12 @@
 .cd-u b{display:block;font-size:clamp(17px,4vw,23px);color:var(--gold);line-height:1.3;}
 .cd-u span{display:block;font-size:10px;color:var(--muted);margin-top:2px;}
 .cd-today{text-align:center;color:var(--gold);font-size:16px;padding:8px 0;}
+
+/* ═══ قمر الميلاد ═══ */
+.moon-out{margin:8px 0 26px;}
+.moon-stage{display:flex;justify-content:center;padding:10px 0 6px;}
+.moon-stage svg{width:min(220px,62vw);height:auto;
+  filter:drop-shadow(0 0 26px rgba(201,168,76,0.22));}
+.moon-name{text-align:center;font-size:clamp(20px,4.6vw,26px);color:var(--gold-light);
+  margin-top:6px;overflow-wrap:break-word;}
+.moon-sub{text-align:center;font-size:13px;color:var(--muted);margin:4px 0 18px;min-height:18px;}

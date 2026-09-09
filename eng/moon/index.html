@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>What Did the Moon Look Like on Your Birthday? — Mawlidi</title>
+<meta name="description" content="See the Moon as it appeared on the day you were born: its phase, the fraction lit, and its age in days — computed astronomically.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/eng/moon/">
+<link rel="alternate" hreflang="ar" href="https://mawlidi.com/arb/moon/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/moon/">
+<meta property="og:title" content="What Did the Moon Look Like on Your Birthday? — Mawlidi">
+<meta property="og:description" content="See the Moon as it appeared on the day you were born: its phase, the fraction lit, and its age in days — computed astronomically.">
+<meta property="og:url" content="https://mawlidi.com/eng/moon/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"What Did the Moon Look Like on Your Birthday?","description":"See the Moon as it appeared on the day you were born: its phase, the fraction lit, and its age in days — computed astronomically.","url":"https://mawlidi.com/eng/moon/","applicationCategory":"UtilityApplication","inLanguage":"en","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is the Moon’s phase calculated?","acceptedAnswer":{"@type":"Answer","text":"The phase is set by the angle between the Moon and the Sun as seen from Earth, called the elongation. At zero degrees the Moon lies between Earth and Sun and nothing is lit — the new moon. At one hundred and eighty degrees it sits opposite the Sun and shows a full disc. Everything between is a crescent or a gibbous moon, waxing or waning."}},{"@type":"Question","name":"How does the Moon’s age differ from the Hijri date?","acceptedAnswer":{"@type":"Answer","text":"The Moon’s age is a continuous astronomical figure measuring days elapsed since the exact instant of the new moon, and it can be fractional. A Hijri date is a whole number that begins at sunset and follows either the tabular calculation or a crescent sighting. The two need not match exactly."}},{"@type":"Question","name":"Does the Moon’s phase affect a newborn’s personality?","acceptedAnswer":{"@type":"Answer","text":"There is no scientific evidence that it does. Studies examining links between lunar phases and human behaviour or birth patterns have not produced correlations that survive statistical scrutiny. This page reports an astronomical fact about the sky on a given day, and claims nothing beyond it."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Lato',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">Home</a> <span>/</span> <span>Your Birth Moon</span></nav>
+
+<main class="tool">
+  <h1>Your Birth Moon</h1>
+  <p class="tool-sub">See the Moon as it appeared on the day you were born: its phase, the fraction lit, and its age in days — computed astronomically.</p>
+
+  <div class="fields">
+    <label class="fld"><span>Day</span><select id="fD"></select></label>
+    <label class="fld"><span>Month</span><select id="fM"></select></label>
+    <label class="fld"><span>Year</span><input id="fY" type="number" inputmode="numeric" placeholder="1990"></label>
+  </div>
+  <div class="acts">
+    <button class="go" onclick="run()">Show the Moon</button>
+    <button class="ghost" onclick="setToday()">Today</button>
+  </div>
+  <p class="err" id="err" hidden></p>
+
+  <section class="moon-out" id="out" hidden>
+    <div class="moon-stage">
+      <svg id="moonSvg" viewBox="0 0 200 200" role="img" aria-labelledby="moonTitle">
+        <title id="moonTitle"></title>
+        <defs>
+          <radialGradient id="lit" cx="38%" cy="34%">
+            <stop offset="0%" stop-color="#FFF8E4"/>
+            <stop offset="62%" stop-color="#EBD9A4"/>
+            <stop offset="100%" stop-color="#B99B57"/>
+          </radialGradient>
+        </defs>
+        <circle cx="100" cy="100" r="82" fill="#12122a" stroke="rgba(201,168,76,0.28)"/>
+        <clipPath id="litClip"><path id="moonClip"/></clipPath>
+        <path id="moonLit" fill="url(#lit)"/>
+        <g fill="rgba(120,100,60,0.22)" id="craters" clip-path="url(#litClip)">
+          <circle cx="78"  cy="72"  r="13"/><circle cx="120" cy="96"  r="9"/>
+          <circle cx="92"  cy="128" r="16"/><circle cx="132" cy="140" r="7"/>
+          <circle cx="66"  cy="112" r="6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="moon-name" id="phName"></div>
+    <div class="moon-sub" id="phDir"></div>
+    <div class="tot-grid">
+      <div class="tot"><b id="phIll"></b><span>of the disc lit</span></div>
+      <div class="tot"><b id="phAge"></b><span>days into the lunar month</span></div>
+    </div>
+    <div class="out"><div class="out-main" id="dateG"></div>
+      <div class="out-week" id="dateH"></div><div class="out-week" id="dateW"></div></div>
+  </section>
+
+  <p class="note">This is a purely astronomical calculation (an abridged Meeus algorithm) referenced to noon Universal Time, describing the Moon’s appearance and claiming nothing about anyone. What you would have seen from your own sky may differ slightly with time and location.</p>
+  <p class="tool-link">
+    <a href="../age/">Age calculator →</a> &nbsp;·&nbsp;
+    <a href="../calendar/">Full-year Hijri calendar →</a><br>
+    <a href="../articles/hijri-calendar-civilization/">Read: The Hijri calendar, pulse of a civilisation →</a>
+  </p>
+
+  <section class="faq">
+    <details><summary>How is the Moon’s phase calculated?</summary><p>The phase is set by the angle between the Moon and the Sun as seen from Earth, called the elongation. At zero degrees the Moon lies between Earth and Sun and nothing is lit — the new moon. At one hundred and eighty degrees it sits opposite the Sun and shows a full disc. Everything between is a crescent or a gibbous moon, waxing or waning.</p></details>
+    <details><summary>How does the Moon’s age differ from the Hijri date?</summary><p>The Moon’s age is a continuous astronomical figure measuring days elapsed since the exact instant of the new moon, and it can be fractional. A Hijri date is a whole number that begins at sunset and follows either the tabular calculation or a crescent sighting. The two need not match exactly.</p></details>
+    <details><summary>Does the Moon’s phase affect a newborn’s personality?</summary><p>There is no scientific evidence that it does. Studies examining links between lunar phases and human behaviour or birth patterns have not produced correlations that survive statistical scrutiny. This page reports an astronomical fact about the sky on a given day, and claims nothing beyond it.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">Back to Mawlidi</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script src="../../assets/moon.js"></script>
+<script>
+const MG=["January","February","March","April","May","June","July","August","September","October","November","December"], MH=["Muharram","Safar","Rabiʿ al-Awwal","Rabiʿ al-Thani","Jumada al-Ula","Jumada al-Akhira","Rajab","Shaʿban","Ramadan","Shawwal","Dhu al-Qaʿda","Dhu al-Hijja"], WD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const SG="CE", SH="AH";
+const PH=["New Moon","Waxing Crescent","First Quarter","Waxing Gibbous","Full Moon","Waning Gibbous","Last Quarter","Waning Crescent"];
+const TX={"errY":"Enter a year between 1900 and 2099","errD":"Invalid date — check the day and month","hijri":"which corresponds to","waxing":"waxing","waning":"waning"};
+
+(function(){
+  const d=document.getElementById('fD'), m=document.getElementById('fM');
+  for(let i=1;i<=31;i++) d.innerHTML+='<option value="'+i+'">'+i+'</option>';
+  MG.forEach((n,i)=>m.innerHTML+='<option value="'+(i+1)+'">'+n+'</option>');
+})();
+
+// حدّ الظل: نصف دائرة ثابت + نصف قطع ناقص عرضه يتبع الاستطالة
+function litPath(elong){
+  const R=82, cx=100, cy=100;
+  const k=Math.cos(elong*Math.PI/180);        // 1 محاق … -1 بدر
+  const rx=Math.abs(k)*R;
+  const right = elong<180;                     // الجانب المضاء
+  const sweepOuter = right?1:0;
+  const sweepInner = (k>0)===right ? 0 : 1;    // مقعّر أم محدّب
+  return 'M '+cx+' '+(cy-R)+
+         ' A '+R+' '+R+' 0 0 '+sweepOuter+' '+cx+' '+(cy+R)+
+         ' A '+rx+' '+R+' 0 0 '+sweepInner+' '+cx+' '+(cy-R)+' Z';
+}
+
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;document.getElementById('out').hidden=true;}
+function setToday(){
+  const n=new Date();
+  document.getElementById('fD').value=n.getDate();
+  document.getElementById('fM').value=n.getMonth()+1;
+  document.getElementById('fY').value=n.getFullYear();
+  run();
+}
+function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(!y||y<1900||y>2099) return show(TX.errY);
+  const t=new Date(y,m-1,d);
+  if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(TX.errD);
+  document.getElementById('err').hidden=true;
+
+  const p=moonPhase(y,m,d);
+  const dPath=litPath(p.elongation);
+  document.getElementById('moonLit').setAttribute('d',dPath);
+  document.getElementById('moonClip').setAttribute('d',dPath);
+  document.getElementById('phName').textContent=PH[p.idx];
+  document.getElementById('moonTitle').textContent=PH[p.idx];
+  // أسماء الهلال والأحدب تحمل الاتجاه أصلاً؛ التربيعان وحدهما يحتاجانه
+  document.getElementById('phDir').textContent =
+    (p.idx===2||p.idx===6) ? (p.waxing?TX.waxing:TX.waning) : '';
+  document.getElementById('phIll').textContent=Math.round(p.illum*100)+'%';
+  document.getElementById('phAge').textContent=p.age.toFixed(1);
+
+  const jd=gToJ(y,m,d), H=jToH(jd);
+  document.getElementById('dateG').textContent=d+' '+MG[m-1]+' '+y+SG;
+  document.getElementById('dateH').textContent=TX.hijri+' '+H.d+' '+MH[H.m-1]+' '+H.y+SH;
+  document.getElementById('dateW').textContent=WD[(jd+1)%7];
+  document.getElementById('out').hidden=false;
+}
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+setToday();
+</script>
+</body>
+</html>
