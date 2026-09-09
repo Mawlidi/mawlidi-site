@@ -18,6 +18,7 @@ const countdownPage = require('./countdown.js');
 const moonPage      = require('./moon.js');
 const cardPage      = require('./card.js');
 const mansionsPage  = require('./mansions.js');
+const zodiacPage    = require('./zodiac.js');
 
 // معرّف المقالة → slug ثابت (لا يتغيّر أبداً بعد النشر: تغييره يكسر الروابط)
 const SLUGS = {
@@ -39,6 +40,7 @@ const SLUGS = {
 
 // المقالة → الأداة التي يحتاجها قارئها فعلاً بعد القراءة
 const TOOLS = {
+  a2:  { slug:'zodiac',    ar:'أين كانت الشمس فعلاً يوم ميلادك؟',      en:'Where was the Sun really on your birthday?' },
   a3:  { slug:'mansions',  ar:'منازل القمر: رصد عربي لا تنجيم',        en:'The lunar mansions: Arab observation, not astrology' },
   a4:  { slug:'converter', ar:'جرّب محوّل التاريخ الهجري ↔ الميلادي', en:'Try the Hijri ↔ Gregorian converter' },
   a11: { slug:'age',       ar:'احسب عمرك بالهجري والميلادي الآن',     en:'Calculate your Hijri and Gregorian age' },
@@ -259,7 +261,7 @@ for (const [lang, L] of Object.entries(LANGS)) {
   }
 
   // أدوات إضافية بنفس النمط
-  for (const [slug, tpl] of [['age', agePage], ['countdown', countdownPage], ['moon', moonPage], ['card', cardPage], ['mansions', mansionsPage]]) {
+  for (const [slug, tpl] of [['age', agePage], ['countdown', countdownPage], ['moon', moonPage], ['card', cardPage], ['mansions', mansionsPage], ['zodiac', zodiacPage]]) {
     urls.push({ loc:`${SITE}/${lang}/${slug}/`, pri:'0.9' });
     if (!CHECK) {
       const td = path.join(ROOT, lang, slug);

@@ -102,6 +102,42 @@ function moonPhase(y, m, d) {
   };
 }
 
+
+/* ═══ دائرة البروج: التقسيم التقويمي مقابل الكوكبات الحقيقية ═══
+   البرج الشائع تقسيم تقويمي متساوٍ: 12 برجاً × 30° من نقطة الاعتدال
+   الربيعي. أما الكوكبات فمساحات فلكية حقيقية غير متساوية، حدودها
+   معتمدة من الاتحاد الفلكي الدولي، ومنها الحواء التي تعبرها الشمس
+   ولا تُعدّ برجاً. المبادرة أزاحت الاثنين نحو 24° منذ وُضع التقسيم. */
+
+// حدود الكوكبات على مسار الشمس، بخط الطول السيدري (ثابتة مع النجوم)
+const CONSTELLATIONS = [
+  [275.89,'Capricornus'], [303.28,'Aquarius'],  [327.38,'Pisces'],
+  [4.91,  'Aries'],       [29.18, 'Taurus'],    [66.57, 'Gemini'],
+  [94.23, 'Cancer'],      [114.31,'Leo'],       [150.08,'Virgo'],
+  [193.53,'Libra'],       [217.67,'Scorpius'],  [223.74,'Ophiuchus'],
+  [242.02,'Sagittarius']
+];
+
+// البرج التقويمي: 0 = الحمل
+function zodiacSign(jd) {
+  const lon = sunLongitude(jd);
+  return { idx: Math.floor(lon / 30), lon, frac: (lon % 30) / 30 };
+}
+
+// الكوكبة التي تقع فيها الشمس فعلاً
+function sunConstellation(jd) {
+  const s = siderealLon(jd, sunLongitude(jd));
+  let found = CONSTELLATIONS.length - 1;         // القوس تلتف حول الصفر
+  for (let i = 0; i < CONSTELLATIONS.length; i++) {
+    const a = CONSTELLATIONS[i][0],
+          b = CONSTELLATIONS[(i + 1) % CONSTELLATIONS.length][0];
+    const inside = a < b ? (s >= a && s < b) : (s >= a || s < b);
+    if (inside) { found = i; break; }
+  }
+  return { idx: found, name: CONSTELLATIONS[found][1], lon: s };
+}
+
 if (typeof module !== 'undefined' && module.exports)
   module.exports = { moonPhase, elongation, jdOfNoon, SYNODIC,
-    sunLongitude, moonLongitude, moonMansion, sunMansion, MANSION_ARC };
+    sunLongitude, moonLongitude, moonMansion, sunMansion, MANSION_ARC,
+    zodiacSign, sunConstellation, CONSTELLATIONS };

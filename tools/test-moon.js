@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /* اختبارات محرك أطوار القمر — التشغيل: node tools/test-moon.js */
 const { moonPhase, elongation, jdOfNoon, SYNODIC,
-        sunMansion, moonMansion, MANSION_ARC } = require('../assets/moon.js');
+        sunMansion, moonMansion, MANSION_ARC,
+        zodiacSign, sunConstellation, CONSTELLATIONS } = require('../assets/moon.js');
 let pass=0, fail=0;
 const ok=(name,cond,extra='')=>{cond?pass++:(fail++,console.log('❌ '+name+(extra?'\n   '+extra:'')));};
 
@@ -74,6 +75,29 @@ ok('التقدّم الليلي بين 0 و2 منزلة', step.every(v=>v>=0&&v<
    `القيم المرصودة: ${[...new Set(step)].join(', ')}`);
 ok('متوسط التقدّم قرب منزلة واحدة',
    Math.abs(step.reduce((a,b)=>a+b,0)/step.length - 28/27.32158) < 0.12);
+
+// 9) البرج التقويمي: الشمس تدخل الحمل عند الاعتدال الربيعي
+ok('الاعتدال الربيعي = بداية الحمل', zodiacSign(jdOfNoon(2026,3,21)).idx===0);
+ok('الانقلاب الصيفي = بداية السرطان', zodiacSign(jdOfNoon(2026,6,22)).idx===3);
+ok('الاعتدال الخريفي = بداية الميزان', zodiacSign(jdOfNoon(2026,9,23)).idx===6);
+
+// 10) الكوكبة الحقيقية تخالف البرج التقويمي — وهذا جوهر الأداة
+const CASES=[[3,25,'Pisces'],[5,1,'Aries'],[6,25,'Gemini'],
+             [11,26,'Scorpius'],[12,5,'Ophiuchus'],[1,15,'Sagittarius']];
+for(const [m,d,exp] of CASES)
+  ok(`كوكبة الشمس في ${m}-${d} هي ${exp}`, sunConstellation(jdOfNoon(2026,m,d)).name===exp,
+     `المحسوب ${sunConstellation(jdOfNoon(2026,m,d)).name}`);
+
+// 11) الكوكبات 13 لا 12، والحواء منها
+ok('الكوكبات على مسار الشمس 13', CONSTELLATIONS.length===13);
+ok('الحواء ضمنها', CONSTELLATIONS.some(c=>c[1]==='Ophiuchus'));
+
+// 12) كل يوم في السنة يقع في كوكبة واحدة صحيحة
+let badC=0;
+for(let jd=jdOfNoon(2026,1,1); jd<jdOfNoon(2027,1,1); jd++){
+  const c=sunConstellation(jd); if(c.idx<0||c.idx>12) badC++;
+}
+ok('كل أيام السنة ضمن كوكبة معرّفة', badC===0, `مخالفات: ${badC}`);
 
 console.log(`\n${fail===0?'✅':'❌'} نجح ${pass} · فشل ${fail}`);
 process.exit(fail?1:0);

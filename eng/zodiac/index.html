@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>Where Was the Sun on Your Birthday? Sign vs Constellation — Mawlidi</title>
+<meta name="description" content="Your calendar sign and the constellation the Sun was actually in on the day you were born — they differ, and this page explains why.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/eng/zodiac/">
+<link rel="alternate" hreflang="ar" href="https://mawlidi.com/arb/zodiac/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/zodiac/">
+<meta property="og:title" content="Where Was the Sun on Your Birthday? Sign vs Constellation — Mawlidi">
+<meta property="og:description" content="Your calendar sign and the constellation the Sun was actually in on the day you were born — they differ, and this page explains why.">
+<meta property="og:url" content="https://mawlidi.com/eng/zodiac/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"Where Was the Sun on Your Birthday? Sign vs Constellation","description":"Your calendar sign and the constellation the Sun was actually in on the day you were born — they differ, and this page explains why.","url":"https://mawlidi.com/eng/zodiac/","applicationCategory":"ReferenceApplication","inLanguage":"en","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does my sign differ from the constellation the Sun was in?","acceptedAnswer":{"@type":"Answer","text":"Because a sign is a calendar division anchored to the vernal equinox, while constellations are anchored to the stars. Earth’s axis wobbles, dragging the equinox point one degree every seventy-two years, and the drift has reached about twenty-four degrees since the scheme was fixed twenty-two centuries ago. The sign now lags the constellation by nearly a full step."}},{"@type":"Question","name":"What is Ophiuchus and why is it not a sign?","acceptedAnswer":{"@type":"Answer","text":"Ophiuchus is a constellation the Sun crosses between Scorpius and Sagittarius, spending about eighteen days there — longer than it spends in Scorpius itself. It was never included because the scheme chose twelve equal parts to match the months of the year, not to match the sky."}},{"@type":"Question","name":"Does the Sun’s position describe a newborn’s character?","acceptedAnswer":{"@type":"Answer","text":"No. Peer-reviewed studies have found no correlation that survives statistical scrutiny. The best known is Geoffrey Dean’s study of two thousand people born in London within minutes of each other, followed for thirty years, which found them no more alike than any random group. This page presents the Sun’s position as an astronomical fact and nothing more."}},{"@type":"Question","name":"Is the calculation accurate?","acceptedAnswer":{"@type":"Answer","text":"The Sun’s longitude is computed with a Meeus algorithm accurate to well under a degree, and the sign follows directly from it. Constellation boundaries come from the official IAU limits, converted to sidereal longitude so they stay fixed against the stars across centuries. A single day of difference can appear at a boundary, since the Sun crosses it at a precise moment rather than at noon."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Lato',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">Home</a> <span>/</span> <span>The Sun and the Zodiac</span></nav>
+
+<main class="tool">
+  <h1>The Sun and the Zodiac</h1>
+  <p class="tool-sub">Your calendar sign and the constellation the Sun was actually in on the day you were born — they differ, and this page explains why.</p>
+
+  <div class="fields">
+    <label class="fld"><span>Day</span><select id="fD"></select></label>
+    <label class="fld"><span>Month</span><select id="fM"></select></label>
+    <label class="fld"><span>Year</span><input id="fY" type="number" inputmode="numeric" placeholder="1990"></label>
+  </div>
+  <div class="acts">
+    <button class="go" onclick="run()">Calculate</button>
+    <button class="ghost" onclick="setToday()">Today</button>
+  </div>
+  <p class="err" id="err" hidden></p>
+
+  <section id="out" hidden>
+    <div class="out-lbl date-lbl" id="dateLbl"></div>
+    <div class="zpair">
+      <div class="zbox"><div class="zlbl">Sign in the common calendar</div>
+        <div class="zval" id="zSign"></div><div class="zlon" id="zSignLon"></div></div>
+      <div class="zbox real"><div class="zlbl">Constellation the Sun was actually in</div>
+        <div class="zval" id="zConst"></div><div class="zlon" id="zConstLon"></div></div>
+    </div>
+    <p class="zverdict" id="zVerdict"></p>
+  </section>
+
+  <section class="anwa">
+    <h2 class="mini-h">What is the difference?</h2>
+    <p>A zodiac sign is not the Sun’s position in the sky; it is a calendar division. The zodiac circle was cut into twelve equal parts of thirty degrees each, beginning at the vernal equinox. That scheme was fixed some twenty-two centuries ago, when the divisions did roughly coincide with the constellations whose names they took.</p>
+    <p>Then Earth’s axis moved. Our planet wobbles like a spinning top, completing one wobble roughly every twenty-six thousand years. The effect is called precession, and Hipparchus discovered it in the second century BCE. It drags the vernal equinox point through the stars at about one degree every seventy-two years.</p>
+    <p>After twenty-two centuries the drift has reached some twenty-four degrees — very nearly a whole sign. So a person told today that they are an Aries most likely had the Sun sitting in the constellation Pisces on the day they were born.</p>
+    <p>There is a second difference. Constellations are real, unequal areas of sky with boundaries fixed by the International Astronomical Union. The Sun spends about forty-five days in Virgo and only six in Scorpius. And its path crosses thirteen constellations, not twelve, because it passes through Ophiuchus — which the calendar scheme never included.</p>
+    <p>So which is correct? Both, in their own domain. The twelvefold scheme is a convention for dividing the year; the constellations describe what is actually overhead. The only error is confusing the two — saying the Sun was in Aries when it was in Pisces.</p>
+  </section>
+
+  <p class="note">This page reports an astronomical calculation of where the Sun stood on a given day. It describes no one’s character and predicts nothing. Claims that signs govern temperament or fortune have not survived scientific testing.</p>
+  <p class="tool-link">
+    <a href="../moon/">Your birth moon →</a> &nbsp;·&nbsp;
+    <a href="../mansions/">Lunar mansions →</a><br>
+    <a href="../articles/astronomy-vs-astrology/">Read: The difference between astronomy and astrology →</a>
+  </p>
+
+  <section class="faq">
+    <details><summary>Why does my sign differ from the constellation the Sun was in?</summary><p>Because a sign is a calendar division anchored to the vernal equinox, while constellations are anchored to the stars. Earth’s axis wobbles, dragging the equinox point one degree every seventy-two years, and the drift has reached about twenty-four degrees since the scheme was fixed twenty-two centuries ago. The sign now lags the constellation by nearly a full step.</p></details>
+    <details><summary>What is Ophiuchus and why is it not a sign?</summary><p>Ophiuchus is a constellation the Sun crosses between Scorpius and Sagittarius, spending about eighteen days there — longer than it spends in Scorpius itself. It was never included because the scheme chose twelve equal parts to match the months of the year, not to match the sky.</p></details>
+    <details><summary>Does the Sun’s position describe a newborn’s character?</summary><p>No. Peer-reviewed studies have found no correlation that survives statistical scrutiny. The best known is Geoffrey Dean’s study of two thousand people born in London within minutes of each other, followed for thirty years, which found them no more alike than any random group. This page presents the Sun’s position as an astronomical fact and nothing more.</p></details>
+    <details><summary>Is the calculation accurate?</summary><p>The Sun’s longitude is computed with a Meeus algorithm accurate to well under a degree, and the sign follows directly from it. Constellation boundaries come from the official IAU limits, converted to sidereal longitude so they stay fixed against the stars across centuries. A single day of difference can appear at a boundary, since the Sun crosses it at a precise moment rather than at noon.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">Back to Mawlidi</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script src="../../assets/moon.js"></script>
+<script>
+const SIGNS=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"], CONSTS=["Capricornus","Aquarius","Pisces","Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpius","Ophiuchus","Sagittarius"];
+const MG=["January","February","March","April","May","June","July","August","September","October","November","December"], MH=["Muharram","Safar","Rabiʿ al-Awwal","Rabiʿ al-Thani","Jumada al-Ula","Jumada al-Akhira","Rajab","Shaʿban","Ramadan","Shawwal","Dhu al-Qaʿda","Dhu al-Hijja"];
+const SG="CE", SH="AH";
+const TX={"errY":"Enter a year between 1900 and 2099","errD":"Invalid date — check the day and month","same":"here the two agree","diff":"the two disagree","lonS":"Tropical longitude","lonC":"Sidereal longitude"};
+
+(function(){
+  const d=document.getElementById('fD'), m=document.getElementById('fM');
+  for(let i=1;i<=31;i++) d.innerHTML+='<option value="'+i+'">'+i+'</option>';
+  MG.forEach((n,i)=>m.innerHTML+='<option value="'+(i+1)+'">'+n+'</option>');
+})();
+
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;document.getElementById('out').hidden=true;}
+function setToday(){
+  const n=new Date();
+  document.getElementById('fD').value=n.getDate();
+  document.getElementById('fM').value=n.getMonth()+1;
+  document.getElementById('fY').value=n.getFullYear();
+  run();
+}
+function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(!y||y<1900||y>2099) return show(TX.errY);
+  const t=new Date(y,m-1,d);
+  if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(TX.errD);
+  document.getElementById('err').hidden=true;
+
+  const jd=jdOfNoon(y,m,d), z=zodiacSign(jd), c=sunConstellation(jd), H=jToH(gToJ(y,m,d));
+  document.getElementById('dateLbl').textContent=
+    d+' '+MG[m-1]+' '+y+SG+' · '+H.d+' '+MH[H.m-1]+' '+H.y+SH;
+  document.getElementById('zSign').textContent=SIGNS[z.idx];
+  document.getElementById('zSignLon').textContent=TX.lonS+': '+z.lon.toFixed(1)+'°';
+  document.getElementById('zConst').textContent=CONSTS[c.idx];
+  document.getElementById('zConstLon').textContent=TX.lonC+': '+c.lon.toFixed(1)+'°';
+  const agree = SIGNS[z.idx]===CONSTS[c.idx];
+  const v=document.getElementById('zVerdict');
+  v.textContent = agree ? TX.same : TX.diff;
+  v.classList.toggle('agree', agree);
+  document.getElementById('out').hidden=false;
+}
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+setToday();
+</script>
+</body>
+</html>
