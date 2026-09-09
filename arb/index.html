@@ -88,6 +88,7 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
 .stat-num{font-family:'Tajawal',sans-serif;font-size:28px;font-weight:900;color:var(--gold-light);line-height:1;}
 .stat-lbl{font-size:10px;color:var(--muted);margin-top:4px;}
 .teaser-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+@media(min-width:560px){.teaser-cards{display:grid;grid-template-columns:1fr 1fr;}}
 .teaser{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02));text-decoration:none;color:inherit;
   border:1px solid var(--border);border-radius:20px;padding:18px;cursor:pointer;
   transition:all .25s;display:flex;align-items:center;gap:14px;}
@@ -420,6 +421,16 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
       <div class="stat-box"><div class="stat-num" id="hyNow">—</div><div class="stat-lbl">سنة هجرية</div></div>
     </div>
       </div>
+      <a class="teaser" href="age/">
+        <div class="teaser-icon">🎂</div>
+        <div class="teaser-body"><div class="teaser-title">حاسبة العمر</div><div class="teaser-desc">عمرك بالسنوات والأشهر والأيام، هجرياً وميلادياً</div></div>
+        <div class="teaser-arrow">←</div>
+      </a>
+      <a class="teaser" href="countdown/">
+        <div class="teaser-icon">⏳</div>
+        <div class="teaser-body"><div class="teaser-title">كم باقي على رمضان؟</div><div class="teaser-desc">عد تنازلي مباشر لرمضان والعيدين والمناسبات</div></div>
+        <div class="teaser-arrow">←</div>
+      </a>
       <a class="teaser" href="calendar/">
         <div class="teaser-icon">🗓️</div>
         <div class="teaser-body"><div class="teaser-title">التقويم الهجري</div><div class="teaser-desc">سنة هجرية كاملة بمناسباتها — قابلة للطباعة</div></div>
@@ -452,6 +463,8 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--bg);color:
       <a class="footer-link" href="articles/" style="text-decoration:none;">أرشيف المقالات</a>
       <a class="footer-link" href="converter/" style="text-decoration:none;">محوّل التاريخ</a>
       <a class="footer-link" href="calendar/" style="text-decoration:none;">التقويم الهجري</a>
+      <a class="footer-link" href="age/" style="text-decoration:none;">حاسبة العمر</a>
+      <a class="footer-link" href="countdown/" style="text-decoration:none;">العد التنازلي</a>
       <span class="footer-link" onclick="openOv('adv-ov')">أعلن معنا</span>
     </div>
     الفنان الطيب عامر · Altayeb Amer · جميع الحقوق محفوظة © ٢٠٢٥ · mawlidi.com

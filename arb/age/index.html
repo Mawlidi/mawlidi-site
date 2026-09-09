@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>حاسبة العمر بالهجري والميلادي — مَوْلِدي</title>
+<meta name="description" content="احسب عمرك بالضبط بالسنوات والأشهر والأيام، في التقويمين الهجري والميلادي معاً، مع موعد ميلادك القادم.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/arb/age/">
+<link rel="alternate" hreflang="en" href="https://mawlidi.com/eng/age/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/age/">
+<meta property="og:title" content="حاسبة العمر بالهجري والميلادي — مَوْلِدي">
+<meta property="og:description" content="احسب عمرك بالضبط بالسنوات والأشهر والأيام، في التقويمين الهجري والميلادي معاً، مع موعد ميلادك القادم.">
+<meta property="og:url" content="https://mawlidi.com/arb/age/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"حاسبة العمر بالهجري والميلادي","description":"احسب عمرك بالضبط بالسنوات والأشهر والأيام، في التقويمين الهجري والميلادي معاً، مع موعد ميلادك القادم.","url":"https://mawlidi.com/arb/age/","applicationCategory":"UtilityApplication","inLanguage":"ar","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"كيف أحسب عمري بالهجري؟","acceptedAnswer":{"@type":"Answer","text":"عمرك الهجري يُحسب بتحويل تاريخ ميلادك الميلادي إلى ما يقابله في التقويم الهجري، ثم حساب الفارق بينه وبين التاريخ الهجري اليوم. ولأن السنة القمرية أقصر بنحو أحد عشر يوماً، يكون عمرك الهجري أكبر من الميلادي دائماً — بفارق سنة تقريباً كل 33 سنة."}},{"@type":"Question","name":"لماذا يزيد عمري الهجري عن الميلادي؟","acceptedAnswer":{"@type":"Answer","text":"السنة الهجرية اثنا عشر شهراً قمرياً مجموعها نحو 354 يوماً، بينما السنة الميلادية 365 يوماً. الفارق أحد عشر يوماً سنوياً يتراكم، فمن بلغ 33 عاماً ميلادياً يكون قد أتمّ نحو 34 عاماً هجرياً."}},{"@type":"Question","name":"هل الحساب هنا دقيق؟","acceptedAnswer":{"@type":"Answer","text":"الحساب يعتمد التقويم الهجري الجدولي المستخدم في الأنظمة الرسمية والبرمجية. أما بداية الشهر في بعض البلدان فتُحدَّد برؤية الهلال، وقد تفرق يوماً واحداً عن الحساب الجدولي."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Cairo',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">الرئيسية</a> <span>/</span> <span>حاسبة العمر</span></nav>
+
+<main class="tool">
+  <h1>حاسبة العمر</h1>
+  <p class="tool-sub">احسب عمرك بالضبط بالسنوات والأشهر والأيام، في التقويمين الهجري والميلادي معاً، مع موعد ميلادك القادم.</p>
+
+  <div class="fields">
+    <label class="fld"><span>اليوم</span><select id="fD"></select></label>
+    <label class="fld"><span>الشهر</span><select id="fM"></select></label>
+    <label class="fld"><span>السنة</span><input id="fY" type="number" inputmode="numeric" placeholder="1990"></label>
+  </div>
+  <div class="acts"><button class="go" onclick="run()">احسب</button></div>
+  <p class="err" id="err" hidden></p>
+
+  <section id="out" hidden>
+    <div class="age-pair">
+      <div class="age-box"><div class="age-lbl">عمرك بالميلادي</div><div class="age-val" id="agG"></div></div>
+      <div class="age-box"><div class="age-lbl">عمرك بالهجري</div><div class="age-val" id="agH"></div></div>
+    </div>
+    <div class="out"><div class="out-lbl">وُلدت يوم</div>
+      <div class="out-main" id="bornG"></div>
+      <div class="out-week" id="bornH"></div>
+      <div class="out-week" id="bornW"></div>
+    </div>
+    <h2 class="mini-h">بالأرقام</h2>
+    <div class="tot-grid" id="tot"></div>
+    <h2 class="mini-h">ميلادك الميلادي القادم</h2>
+    <div class="out"><div class="out-main" id="nxG"></div><div class="out-week" id="nxGd"></div></div>
+    <h2 class="mini-h">ميلادك الهجري القادم</h2>
+    <div class="out"><div class="out-main" id="nxH"></div><div class="out-week" id="nxHd"></div></div>
+  </section>
+
+  <p class="note">الفرق بين العمرين ليس خطأً: السنة القمرية أقصر من الشمسية بأحد عشر يوماً، فكل 33 سنة ميلادية تعادل نحو 34 سنة هجرية.</p>
+  <p class="tool-link">
+    <a href="../calendar/">التقويم الهجري السنوي →</a> &nbsp;·&nbsp;
+    <a href="../converter/">محوّل التاريخ →</a><br>
+    <a href="../articles/why-two-people-born-same-day-differ/">اقرأ: لماذا يختلف شخصان وُلدا في اليوم نفسه؟ →</a>
+  </p>
+
+  <section class="faq">
+    <details><summary>كيف أحسب عمري بالهجري؟</summary><p>عمرك الهجري يُحسب بتحويل تاريخ ميلادك الميلادي إلى ما يقابله في التقويم الهجري، ثم حساب الفارق بينه وبين التاريخ الهجري اليوم. ولأن السنة القمرية أقصر بنحو أحد عشر يوماً، يكون عمرك الهجري أكبر من الميلادي دائماً — بفارق سنة تقريباً كل 33 سنة.</p></details>
+    <details><summary>لماذا يزيد عمري الهجري عن الميلادي؟</summary><p>السنة الهجرية اثنا عشر شهراً قمرياً مجموعها نحو 354 يوماً، بينما السنة الميلادية 365 يوماً. الفارق أحد عشر يوماً سنوياً يتراكم، فمن بلغ 33 عاماً ميلادياً يكون قد أتمّ نحو 34 عاماً هجرياً.</p></details>
+    <details><summary>هل الحساب هنا دقيق؟</summary><p>الحساب يعتمد التقويم الهجري الجدولي المستخدم في الأنظمة الرسمية والبرمجية. أما بداية الشهر في بعض البلدان فتُحدَّد برؤية الهلال، وقد تفرق يوماً واحداً عن الحساب الجدولي.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">العودة إلى مَوْلِدي</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script>
+const MG=["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"], MH=["محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"], WD=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+const SG="م", SH="هـ";
+const L={"errY":"أدخل سنة بين 1900 و 2099","errD":"التاريخ غير صحيح، تحقق من اليوم والشهر","errF":"تاريخ الميلاد في المستقبل","yrs":"سنة","mos":"شهراً","dys":"يوماً","bornH":"ويوافق","tDays":"يوماً عشته","tWeeks":"أسبوعاً","tHours":"ساعة","tBreath":"نفَساً تقريباً","after":"بعد","dleft":"يوماً"};
+
+(function(){
+  const d=document.getElementById('fD'), m=document.getElementById('fM');
+  for(let i=1;i<=31;i++) d.innerHTML+='<option value="'+i+'">'+i+'</option>';
+  MG.forEach((n,i)=>m.innerHTML+='<option value="'+(i+1)+'">'+n+'</option>');
+})();
+
+const nf=n=>n.toLocaleString("ar-EG");
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;document.getElementById('out').hidden=true;}
+
+// فارق تقويمي بالسنوات والأشهر والأيام، يعمل للتقويمين
+function diff(b,t,lenOfMonth){
+  let y=t.y-b.y, m=t.m-b.m, d=t.d-b.d;
+  if(d<0){ m--; const pm=t.m===1?12:t.m-1, py=t.m===1?t.y-1:t.y; d+=lenOfMonth(py,pm); }
+  if(m<0){ m+=12; y--; }
+  return {y,m,d};
+}
+const gLen=(y,m)=>new Date(y,m,0).getDate();
+
+function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(!y||y<1900||y>2099) return show(L.errY);
+  const t=new Date(y,m-1,d);
+  if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(L.errD);
+  const now=new Date(), bJD=gToJ(y,m,d),
+        tJD=gToJ(now.getFullYear(),now.getMonth()+1,now.getDate());
+  if(bJD>tJD) return show(L.errF);
+  document.getElementById('err').hidden=true;
+
+  const bH=jToH(bJD), tH=jToH(tJD);
+  const dg=diff({y,m,d},{y:now.getFullYear(),m:now.getMonth()+1,d:now.getDate()},gLen);
+  const dh=diff(bH,tH,hMonthLen);
+  const fmt=o=>o.y+' '+L.yrs+' · '+o.m+' '+L.mos+' · '+o.d+' '+L.dys;
+  document.getElementById('agG').textContent=fmt(dg);
+  document.getElementById('agH').textContent=fmt(dh);
+
+  document.getElementById('bornG').textContent=d+' '+MG[m-1]+' '+y+SG;
+  document.getElementById('bornH').textContent=L.bornH+' '+bH.d+' '+MH[bH.m-1]+' '+bH.y+SH;
+  document.getElementById('bornW').textContent=WD[(bJD+1)%7];
+
+  const days=tJD-bJD;
+  document.getElementById('tot').innerHTML=
+    [[nf(days),L.tDays],[nf(Math.floor(days/7)),L.tWeeks],
+     [nf(days*24),L.tHours],[nf(days*24*60*16),L.tBreath]]
+    .map(([v,l])=>'<div class="tot"><b>'+v+'</b><span>'+l+'</span></div>').join('');
+
+  // الميلاد الميلادي القادم
+  let ng=new Date(now.getFullYear(),m-1,d);
+  if(gToJ(ng.getFullYear(),m,d)<=tJD) ng=new Date(now.getFullYear()+1,m-1,d);
+  const ngJD=gToJ(ng.getFullYear(),m,d);
+  document.getElementById('nxG').textContent=d+' '+MG[m-1]+' '+ng.getFullYear()+SG;
+  document.getElementById('nxGd').textContent=L.after+' '+nf(ngJD-tJD)+' '+L.dleft;
+
+  // الميلاد الهجري القادم — يتخطّى السنوات التي لا يوجد فيها هذا اليوم
+  let hy=tH.y, nhJD=null;
+  for(let k=0;k<4 && nhJD===null;k++,hy++){
+    if(!hValid(hy,bH.m,bH.d)) continue;
+    const jd=hToJ(hy,bH.m,bH.d);
+    if(jd>tJD) nhJD=jd; }
+  const nhH=jToH(nhJD), nhG=jToG(nhJD);
+  document.getElementById('nxH').textContent=
+    nhH.d+' '+MH[nhH.m-1]+' '+nhH.y+SH+' — '+nhG.d+' '+MG[nhG.m-1]+' '+nhG.y+SG;
+  document.getElementById('nxHd').textContent=L.after+' '+nf(nhJD-tJD)+' '+L.dleft;
+
+  document.getElementById('out').hidden=false;
+}
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+</script>
+</body>
+</html>

@@ -13,6 +13,8 @@ const SITE = 'https://mawlidi.com';
 const CHECK = process.argv.includes('--check');
 const converterPage = require('./converter.js');
 const calendarPage  = require('./calendar.js');
+const agePage       = require('./age.js');
+const countdownPage = require('./countdown.js');
 
 // معرّف المقالة → slug ثابت (لا يتغيّر أبداً بعد النشر: تغييره يكسر الروابط)
 const SLUGS = {
@@ -231,6 +233,17 @@ for (const [lang, L] of Object.entries(LANGS)) {
     fs.mkdirSync(kd, { recursive:true });
     fs.writeFileSync(path.join(kd, 'index.html'), calendarPage(lang));
     written++;
+  }
+
+  // أدوات إضافية بنفس النمط
+  for (const [slug, tpl] of [['age', agePage], ['countdown', countdownPage]]) {
+    urls.push({ loc:`${SITE}/${lang}/${slug}/`, pri:'0.9' });
+    if (!CHECK) {
+      const td = path.join(ROOT, lang, slug);
+      fs.mkdirSync(td, { recursive:true });
+      fs.writeFileSync(path.join(td, 'index.html'), tpl(lang));
+      written++;
+    }
   }
 }
 

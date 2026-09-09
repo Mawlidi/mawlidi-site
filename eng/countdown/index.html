@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>How Long Until Ramadan and Eid? Live Countdown — Mawlidi</title>
+<meta name="description" content="How many days until Ramadan, Eid al-Fitr, Eid al-Adha and the Islamic New Year — a live countdown in days and hours.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/eng/countdown/">
+<link rel="alternate" hreflang="ar" href="https://mawlidi.com/arb/countdown/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/countdown/">
+<meta property="og:title" content="How Long Until Ramadan and Eid? Live Countdown — Mawlidi">
+<meta property="og:description" content="How many days until Ramadan, Eid al-Fitr, Eid al-Adha and the Islamic New Year — a live countdown in days and hours.">
+<meta property="og:url" content="https://mawlidi.com/eng/countdown/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"How Long Until Ramadan and Eid? Live Countdown","description":"How many days until Ramadan, Eid al-Fitr, Eid al-Adha and the Islamic New Year — a live countdown in days and hours.","url":"https://mawlidi.com/eng/countdown/","applicationCategory":"UtilityApplication","inLanguage":"en","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long until Ramadan?","acceptedAnswer":{"@type":"Answer","text":"The counter at the top of this page measures the time remaining until the first of Ramadan in the tabular Hijri calendar, updating every second. Bear in mind that many countries announce the start of the month by sighting the crescent, which can fall a day earlier or later."}},{"@type":"Question","name":"Why does Ramadan move every year?","acceptedAnswer":{"@type":"Answer","text":"Ramadan is a lunar month, and the lunar year is about eleven days shorter than the solar one. Ramadan therefore shifts eleven days earlier in the Gregorian calendar each year, travelling through all four seasons and returning to the same point after roughly 33 years."}},{"@type":"Question","name":"Is the Eid date here official?","acceptedAnswer":{"@type":"Answer","text":"No. This page shows an astronomical, tabular calculation — precise, but not a religious announcement. The official date is declared by the relevant authority in your country once the crescent has been sighted."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Lato',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">Home</a> <span>/</span> <span>Countdown</span></nav>
+
+<main class="tool">
+  <h1>Countdown</h1>
+  <p class="tool-sub">How many days until Ramadan, Eid al-Fitr, Eid al-Adha and the Islamic New Year — a live countdown in days and hours.</p>
+  <div class="cd-list" id="list"></div>
+  <p class="note">Dates are computed with the tabular Hijri calendar — arithmetic, not observational. Your country’s announcement, based on sighting the crescent, may differ by one day.</p>
+  <p class="tool-link">
+    <a href="../calendar/">Full-year Hijri calendar →</a> &nbsp;·&nbsp;
+    <a href="../converter/">Date converter →</a>
+  </p>
+  <section class="faq">
+    <details><summary>How long until Ramadan?</summary><p>The counter at the top of this page measures the time remaining until the first of Ramadan in the tabular Hijri calendar, updating every second. Bear in mind that many countries announce the start of the month by sighting the crescent, which can fall a day earlier or later.</p></details>
+    <details><summary>Why does Ramadan move every year?</summary><p>Ramadan is a lunar month, and the lunar year is about eleven days shorter than the solar one. Ramadan therefore shifts eleven days earlier in the Gregorian calendar each year, travelling through all four seasons and returning to the same point after roughly 33 years.</p></details>
+    <details><summary>Is the Eid date here official?</summary><p>No. This page shows an astronomical, tabular calculation — precise, but not a religious announcement. The official date is declared by the relevant authority in your country once the crescent has been sighted.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">Back to Mawlidi</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script>
+const MG=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], MH=["Muharram","Safar","Rabiʿ al-Awwal","Rabiʿ al-Thani","Jumada al-Ula","Jumada al-Akhira","Rajab","Shaʿban","Ramadan","Shawwal","Dhu al-Qaʿda","Dhu al-Hijja"], WD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const SG="CE", SH="AH";
+const EV=[[9,1,"🌙","First of Ramadan"],[10,1,"🎉","Eid al-Fitr"],[12,9,"🕋","Day of Arafah"],[12,10,"🐑","Eid al-Adha"],[1,1,"✨","Islamic New Year"],[1,10,"📿","Ashura"],[3,12,"🕌","Mawlid al-Nabi"]];
+const U={"d":"days","h":"hours","m":"min","s":"sec","today":"Today! 🌙"};
+
+// أقرب وقوع قادم لكل مناسبة: منتصف ليل اليوم الهجري بالتوقيت المحلي
+function nextOccurrence(hm,hd){
+  const n=new Date(), todayJD=gToJ(n.getFullYear(),n.getMonth()+1,n.getDate());
+  let y=jToH(todayJD).y;
+  for(let k=0;k<3;k++,y++){
+    if(!hValid(y,hm,hd)) continue;
+    const jd=hToJ(y,hm,hd);
+    if(jd>=todayJD){ const g=jToG(jd); return {jd,g,hy:y}; }
+  }
+  return null;
+}
+const ITEMS=EV.map(([hm,hd,icon,name])=>{
+  const o=nextOccurrence(hm,hd);
+  return {icon,name,hm,hd,...o,date:new Date(o.g.y,o.g.m-1,o.g.d)};
+}).sort((a,b)=>a.jd-b.jd);
+
+document.getElementById('list').innerHTML=ITEMS.map((it,i)=>
+  '<div class="cd'+(i===0?' soon':'')+'">'+
+    '<div class="cd-top"><span class="cd-name">'+it.icon+' '+it.name+'</span>'+
+    '<span class="cd-when">'+it.hd+' '+MH[it.hm-1]+' '+it.hy+SH+' — '+
+      it.g.d+' '+MG[it.g.m-1]+' '+it.g.y+SG+' · '+WD[(it.jd+1)%7]+'</span></div>'+
+    '<div class="cd-clock" id="c'+i+'"></div>'+
+  '</div>').join('');
+
+function tick(){
+  const now=Date.now();
+  ITEMS.forEach((it,i)=>{
+    const el=document.getElementById('c'+i), ms=it.date.getTime()-now;
+    if(ms<=0){ el.outerHTML='<div class="cd-today" id="c'+i+'">'+U.today+'</div>'; return; }
+    const d=Math.floor(ms/864e5), h=Math.floor(ms/36e5)%24,
+          m=Math.floor(ms/6e4)%60, s=Math.floor(ms/1e3)%60;
+    el.innerHTML=[[d,U.d],[h,U.h],[m,U.m],[s,U.s]]
+      .map(([v,l])=>'<div class="cd-u"><b>'+v+'</b><span>'+l+'</span></div>').join('');
+  });
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
