@@ -1,0 +1,9 @@
+# mawlidi.com
+User-agent: *
+Allow: /
+
+# لوحة التحكم ليست محتوى للفهرسة
+Disallow: /dashboard-pro-v6.html
+Disallow: /content.json
+
+Sitemap: https://mawlidi.com/sitemap.xml

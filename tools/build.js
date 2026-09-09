@@ -1,0 +1,231 @@
+#!/usr/bin/env node
+/* ═══════════════════════════════════════════════
+   MAWLIDI BUILD — يولّد صفحات المقالات المستقلة + sitemap
+   المصدر الوحيد للحقيقة: مصفوفة ARTS داخل arb/index.html و eng/index.html
+   التشغيل:  node tools/build.js         (توليد)
+             node tools/build.js --check (فحص فقط بلا كتابة)
+   ═══════════════════════════════════════════════ */
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.resolve(__dirname, '..');
+const SITE = 'https://mawlidi.com';
+const CHECK = process.argv.includes('--check');
+
+// معرّف المقالة → slug ثابت (لا يتغيّر أبداً بعد النشر: تغييره يكسر الروابط)
+const SLUGS = {
+  a1:'why-two-people-born-same-day-differ',
+  a2:'why-we-search-ourselves-in-astrology',
+  a3:'astronomy-vs-astrology',
+  a4:'hijri-calendar-civilization',
+  a5:'how-civilizations-celebrate-birthdays',
+  a6:'birth-order-and-personality',
+  a7:'islamic-view-of-birth',
+  a8:'birth-in-arab-civilization',
+  a9:'philosophers-on-existence',
+  a10:'names-and-identity'
+};
+
+const LANGS = {
+  arb: { dir:'rtl', code:'ar', file:'arb/index.html',
+         fonts:"family=Tajawal:wght@300;400;700;900&family=Cairo:wght@300;400;600;700;900",
+         font:"'Cairo',sans-serif", site:'مَوْلِدي', author:'الفنان الطيب عامر',
+         back:'العودة إلى مَوْلِدي', all:'كل المقالات', home:'الرئيسية',
+         readmore:'اقرأ أيضاً', minutes:'دقائق قراءة', catKey:'cat_ar' },
+  eng: { dir:'ltr', code:'en', file:'eng/index.html',
+         fonts:"family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700;900",
+         font:"'Lato',sans-serif", site:'Mawlidi', author:'Altayeb Amer',
+         back:'Back to Mawlidi', all:'All Articles', home:'Home',
+         readmore:'Read also', minutes:'min read', catKey:'cat_en' }
+};
+
+/* ── استخراج مصفوفة ARTS من ملف HTML ── */
+function extractArts(html) {
+  const start = html.indexOf('const ARTS=[');
+  if (start === -1) throw new Error('لم يُعثر على مصفوفة ARTS');
+  const open = html.indexOf('[', start);
+  let depth = 0, i = open, inTpl = false, inStr = null;
+  for (; i < html.length; i++) {
+    const c = html[i], p = html[i-1];
+    if (inStr) { if (c === inStr && p !== '\\') inStr = null; continue; }
+    if (inTpl) { if (c === '`' && p !== '\\') inTpl = false; continue; }
+    if (c === '`') { inTpl = true; continue; }
+    if (c === '"' || c === "'") { inStr = c; continue; }
+    if (c === '[') depth++;
+    else if (c === ']') { depth--; if (depth === 0) break; }
+  }
+  return new Function('return ' + html.slice(open, i + 1))();
+}
+
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+  .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// نص عادي من HTML، لأجل وسم description
+const plain = h => String(h).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+
+/* ── قالب صفحة المقالة ── */
+function articlePage(art, lang, L, siblings, hasAlt) {
+  const slug = SLUGS[art.id];
+  const url  = `${SITE}/${lang}/articles/${slug}/`;
+  const desc = art.sub || plain(art.body).slice(0, 155);
+  const cat  = art[L.catKey] || art.cat_ar || art.cat_en || '';
+  const alt  = hasAlt
+    ? `<link rel="alternate" hreflang="${lang==='arb'?'en':'ar'}" href="${SITE}/${lang==='arb'?'eng':'arb'}/articles/${slug}/">\n`
+    : '';
+  const ld = {
+    '@context':'https://schema.org','@type':'Article',
+    headline: art.title, description: desc,
+    inLanguage: L.code, mainEntityOfPage: url,
+    author:{'@type':'Person', name:L.author},
+    publisher:{'@type':'Organization', name:L.site},
+    articleSection: plain(cat)
+  };
+  const more = siblings.map(s =>
+    `<a class="more-card" href="../${SLUGS[s.id]}/"><span class="more-cat">${esc(plain(s[L.catKey]||''))}</span>${esc(s.title)}</a>`
+  ).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="${L.code}" dir="${L.dir}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>${esc(art.title)} — ${L.site}</title>
+<meta name="description" content="${esc(desc)}">
+<meta name="robots" content="index, follow">
+<meta name="author" content="${esc(L.author)}">
+<link rel="canonical" href="${url}">
+${alt}<link rel="alternate" hreflang="x-default" href="${SITE}/arb/articles/${slug}/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="${esc(art.title)}">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${url}">
+<meta property="og:locale" content="${L.code === 'ar' ? 'ar_AR' : 'en_US'}">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<link href="https://fonts.googleapis.com/css2?${L.fonts}&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/article.css">
+<style>body{font-family:${L.font};}</style>
+</head>
+<body>
+<nav class="crumb">
+  <a href="../../">${L.home}</a> <span>/</span>
+  <a href="../">${L.all}</a>
+</nav>
+<article class="art">
+  <span class="cat">${esc(plain(cat))}</span>
+  <h1>${esc(art.title)}</h1>
+  ${art.sub ? `<p class="sub">${esc(art.sub)}</p>` : ''}
+  <div class="meta">${art.min ? `${art.min} ${L.minutes}` : ''}</div>
+  <div class="body">
+${art.body}
+  </div>
+</article>
+${more ? `<section class="more"><h2>${L.readmore}</h2><div class="more-grid">${more}</div></section>` : ''}
+<footer class="foot"><a class="btn" href="../../">${L.back}</a></footer>
+</body>
+</html>
+`;
+}
+
+/* ── قالب صفحة الأرشيف ── */
+function indexPage(arts, lang, L) {
+  const url = `${SITE}/${lang}/articles/`;
+  const cards = arts.map(a =>
+    `<a class="card" href="./${SLUGS[a.id]}/">
+      <span class="card-cat">${esc(plain(a[L.catKey]||''))}</span>
+      <h2>${esc(a.title)}</h2>
+      <p>${esc(a.sub||'')}</p>
+      <span class="card-min">${a.min?`${a.min} ${L.minutes}`:''}</span>
+    </a>`).join('\n');
+  const ld = {
+    '@context':'https://schema.org','@type':'CollectionPage',
+    name:`${L.all} — ${L.site}`, url, inLanguage:L.code,
+    hasPart: arts.map(a => ({'@type':'Article', headline:a.title,
+      url:`${SITE}/${lang}/articles/${SLUGS[a.id]}/`}))
+  };
+  return `<!DOCTYPE html>
+<html lang="${L.code}" dir="${L.dir}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>${L.all} — ${L.site}</title>
+<meta name="description" content="${esc(arts.map(a=>a.title).slice(0,3).join(' · '))}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="${url}">
+<link rel="alternate" hreflang="${lang==='arb'?'en':'ar'}" href="${SITE}/${lang==='arb'?'eng':'arb'}/articles/">
+<link rel="alternate" hreflang="x-default" href="${SITE}/arb/articles/">
+<meta property="og:title" content="${L.all} — ${L.site}">
+<meta property="og:url" content="${url}">
+<meta property="og:type" content="website">
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<link href="https://fonts.googleapis.com/css2?${L.fonts}&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<style>body{font-family:${L.font};}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">${L.home}</a> <span>/</span> <span>${L.all}</span></nav>
+<header class="arch-head"><h1>${L.all}</h1></header>
+<div class="grid">
+${cards}
+</div>
+<footer class="foot"><a class="btn" href="../">${L.back}</a></footer>
+</body>
+</html>
+`;
+}
+
+/* ── التنفيذ ── */
+const urls = [
+  { loc:`${SITE}/arb/`, pri:'1.0' },
+  { loc:`${SITE}/eng/`, pri:'1.0' }
+];
+let written = 0;
+const report = {};
+
+for (const [lang, L] of Object.entries(LANGS)) {
+  const html = fs.readFileSync(path.join(ROOT, L.file), 'utf8');
+  const all = extractArts(html);
+  const arts = all.filter(a => SLUGS[a.id]);
+  const missing = all.filter(a => !SLUGS[a.id]).map(a => a.id);
+  if (missing.length) throw new Error(`معرّفات بلا slug في ${lang}: ${missing.join(', ')}`);
+  report[lang] = arts.length;
+
+  const outDir = path.join(ROOT, lang, 'articles');
+  urls.push({ loc:`${SITE}/${lang}/articles/`, pri:'0.9' });
+
+  arts.forEach((art, i) => {
+    const sibs = [arts[(i+1)%arts.length], arts[(i+2)%arts.length]].filter(s => s && s.id !== art.id);
+    const hasAlt = lang === 'arb'
+      ? Number(art.id.slice(1)) <= 7
+      : true;
+    urls.push({ loc:`${SITE}/${lang}/articles/${SLUGS[art.id]}/`, pri:'0.8' });
+    if (!CHECK) {
+      const d = path.join(outDir, SLUGS[art.id]);
+      fs.mkdirSync(d, { recursive:true });
+      fs.writeFileSync(path.join(d, 'index.html'), articlePage(art, lang, L, sibs, hasAlt));
+      written++;
+    }
+  });
+  if (!CHECK) {
+    fs.mkdirSync(outDir, { recursive:true });
+    fs.writeFileSync(path.join(outDir, 'index.html'), indexPage(arts, lang, L));
+    written++;
+  }
+}
+
+const today = new Date().toISOString().slice(0, 10);
+const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(u => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${today}</lastmod>
+    <priority>${u.pri}</priority>
+  </url>`).join('\n')}
+</urlset>
+`;
+if (!CHECK) fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
+
+console.log(`مقالات عربية: ${report.arb} | مقالات إنجليزية: ${report.eng}`);
+console.log(`روابط في sitemap: ${urls.length}`);
+console.log(CHECK ? 'فحص فقط — لم يُكتب شيء' : `ملفات مكتوبة: ${written} + sitemap.xml`);
