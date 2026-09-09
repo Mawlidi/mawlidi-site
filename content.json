@@ -413,6 +413,76 @@
         "min": 8,
         "status": "published",
         "target": "arts"
+      },
+      {
+        "id": "a8",
+        "cat": "cultures",
+        "cat_en": "🌍 Cultures & Birth",
+        "title": "Birth in Arab Civilisation: From Jahiliyyah to Islam",
+        "sub": "How the meaning of being born shifted in the Arab conscience",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a9",
+        "cat": "philosophy",
+        "cat_en": "📖 Philosophy & Existence",
+        "title": "Where Did We Come From? Philosophers on the Moment of Birth",
+        "sub": "A journey through the deepest questions about existence and arrival",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a10",
+        "cat": "birth",
+        "cat_en": "🌱 Humans & Birth",
+        "title": "Your Name and Your Identity: Why Names Matter Everywhere",
+        "sub": "What psychology and history reveal about the bond between a person and a name",
+        "min": 3,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a11",
+        "cat": "hijri",
+        "cat_en": "📅 The Hijri Calendar",
+        "title": "How Old Am I in Hijri Years? A Step-by-Step Method",
+        "sub": "Why your Hijri age is always the larger number, and how to work it out yourself",
+        "min": 4,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a12",
+        "cat": "hijri",
+        "cat_en": "📅 The Hijri Calendar",
+        "title": "Why Is the Hijri Year Eleven Days Shorter?",
+        "sub": "The gap that sends Ramadan travelling through all four seasons",
+        "min": 4,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a13",
+        "cat": "hijri",
+        "cat_en": "📅 The Hijri Calendar",
+        "title": "The Hijri Month Names, Their Meanings and Order",
+        "sub": "Why Ramadan is called Ramadan, and what the four sacred months are",
+        "min": 5,
+        "status": "published",
+        "target": "arts"
+      },
+      {
+        "id": "a14",
+        "cat": "hijri",
+        "cat_en": "📅 The Hijri Calendar",
+        "title": "Why Does the Date of Ramadan Change Every Year?",
+        "sub": "A simple calculation that tells you where Ramadan will fall in twenty years",
+        "min": 4,
+        "status": "published",
+        "target": "arts"
       }
     ]
   },

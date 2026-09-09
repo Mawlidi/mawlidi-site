@@ -194,6 +194,13 @@ ${cards}
 }
 
 /* ── التنفيذ ── */
+// أي المعرّفات موجودة فعلاً في كل لغة — لضبط hreflang بالواقع لا بافتراض
+const PRESENT = {};
+for (const [lang, L] of Object.entries(LANGS)) {
+  PRESENT[lang] = new Set(
+    extractArts(fs.readFileSync(path.join(ROOT, L.file), 'utf8')).map(a => a.id));
+}
+
 const urls = [
   { loc:`${SITE}/arb/`, pri:'1.0' },
   { loc:`${SITE}/eng/`, pri:'1.0' }
@@ -214,9 +221,7 @@ for (const [lang, L] of Object.entries(LANGS)) {
 
   arts.forEach((art, i) => {
     const sibs = [arts[(i+1)%arts.length], arts[(i+2)%arts.length]].filter(s => s && s.id !== art.id);
-    const hasAlt = lang === 'arb'
-      ? Number(art.id.slice(1)) <= 7
-      : true;
+    const hasAlt = PRESENT[lang === 'arb' ? 'eng' : 'arb'].has(art.id);
     urls.push({ loc:`${SITE}/${lang}/articles/${SLUGS[art.id]}/`, pri:'0.8' });
     if (!CHECK) {
       const d = path.join(outDir, SLUGS[art.id]);
