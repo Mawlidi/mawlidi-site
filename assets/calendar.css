@@ -1,0 +1,58 @@
+/* ═══ MAWLIDI — التقويم الهجري السنوي ═══ */
+.cal{max-width:1000px;margin:0 auto;}
+.cal h1{font-size:clamp(26px,5.5vw,38px);color:var(--gold-light);margin-bottom:10px;}
+
+.yr-bar{display:flex;align-items:flex-end;gap:10px;margin-bottom:12px;}
+.yr-in{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+.yr-in span{font-size:12px;color:var(--muted);}
+.yr-in input{width:100%;background:var(--bg2);color:var(--text);font:inherit;font-size:17px;
+  text-align:center;border:1px solid var(--border2);border-radius:12px;padding:12px 8px;}
+.yr-in input:focus{outline:none;border-color:var(--gold);}
+
+.yr-head{font-size:clamp(24px,5vw,34px);color:var(--gold);text-align:center;margin:22px 0 4px;}
+.yr-span{font-size:14px;color:var(--muted);text-align:center;margin-bottom:26px;}
+
+.occ{background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:18px 20px;margin-bottom:28px;}
+.occ h3{font-size:16px;color:var(--gold);margin-bottom:12px;}
+.occ-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  padding:8px 0;border-bottom:1px solid var(--border2);font-size:14px;flex-wrap:wrap;}
+.occ-row:last-child{border-bottom:0;}
+.occ-name{color:var(--text);flex:1 1 40%;min-width:0;}
+.occ-h{color:var(--gold-light);font-size:13px;}
+.occ-g{color:var(--muted);font-size:13px;flex-shrink:0;}
+
+.months{display:grid;gap:18px;grid-template-columns:1fr;}
+.mo{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:16px;}
+.mo h3{font-size:17px;color:var(--gold-light);margin-bottom:12px;}
+.mo h3 small{font-size:12px;color:var(--muted);font-weight:400;}
+.wd,.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.wd{margin-bottom:6px;}
+.wd span{font-size:10px;color:var(--muted);text-align:center;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;}
+.c{background:var(--bg2);border:1px solid transparent;border-radius:8px;
+  padding:6px 2px;text-align:center;min-width:0;}
+.c.empty{background:none;}
+.c b{display:block;font-size:14px;color:var(--text);font-weight:700;line-height:1.3;}
+.c i{display:block;font-size:9px;color:var(--muted);font-style:normal;line-height:1.3;}
+.c.fri b{color:var(--gold);}
+.c.now{border-color:var(--gold);background:rgba(201,168,76,0.12);}
+
+@media(min-width:620px){ .months{grid-template-columns:1fr 1fr;} }
+@media(min-width:960px){ .months{grid-template-columns:1fr 1fr 1fr;} }
+
+@media print{
+  .no-print{display:none!important;}
+  body{background:#fff;color:#111;padding:0;}
+  .cal{max-width:none;}
+  .yr-head,.mo h3{color:#7a5c10;}
+  .yr-span,.wd span,.c i,.mo h3 small{color:#555;}
+  .occ{border-color:#ccc;background:#fafafa;}
+  .occ h3{color:#7a5c10;} .occ-name{color:#111;} .occ-h,.occ-g{color:#444;}
+  .occ-row{border-color:#eee;}
+  .months{grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .mo{background:#fff;border-color:#ddd;break-inside:avoid;padding:10px;}
+  .c{background:#fff;border-color:#eee;}
+  .c b{color:#111;} .c.fri b{color:#7a5c10;}
+  .c.now{background:#f4ecd4;border-color:#7a5c10;}
+}

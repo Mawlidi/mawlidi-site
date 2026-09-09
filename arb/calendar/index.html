@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>التقويم الهجري لسنة كاملة — مَوْلِدي</title>
+<meta name="description" content="استعرض أي سنة هجرية كاملة بأشهرها وأيامها مقابل التاريخ الميلادي، واطبعها بضغطة واحدة.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/arb/calendar/">
+<link rel="alternate" hreflang="en" href="https://mawlidi.com/eng/calendar/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/calendar/">
+<meta property="og:title" content="التقويم الهجري لسنة كاملة — مَوْلِدي">
+<meta property="og:description" content="استعرض أي سنة هجرية كاملة بأشهرها وأيامها مقابل التاريخ الميلادي، واطبعها بضغطة واحدة.">
+<meta property="og:url" content="https://mawlidi.com/arb/calendar/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"التقويم الهجري لسنة كاملة","description":"استعرض أي سنة هجرية كاملة بأشهرها وأيامها مقابل التاريخ الميلادي، واطبعها بضغطة واحدة.","url":"https://mawlidi.com/arb/calendar/","applicationCategory":"UtilityApplication","inLanguage":"ar","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<link rel="stylesheet" href="../../assets/calendar.css">
+<style>body{font-family:'Cairo',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb no-print"><a href="../">الرئيسية</a> <span>/</span> <span>التقويم الهجري</span></nav>
+
+<main class="cal">
+  <h1>التقويم الهجري</h1>
+  <p class="tool-sub no-print">استعرض أي سنة هجرية كاملة بأشهرها وأيامها مقابل التاريخ الميلادي، واطبعها بضغطة واحدة.</p>
+
+  <div class="yr-bar no-print">
+    <button class="ghost" onclick="step(-1)">السابقة</button>
+    <label class="yr-in"><span>السنة الهجرية</span>
+      <input id="yr" type="number" inputmode="numeric" onchange="render()"></label>
+    <button class="ghost" onclick="step(1)">التالية</button>
+  </div>
+  <div class="acts no-print">
+    <button class="go" onclick="window.print()">🖨 طباعة</button>
+    <button class="ghost" onclick="goToday()">اليوم</button>
+  </div>
+  <p class="err no-print" id="err" hidden></p>
+
+  <h2 class="yr-head" id="yrHead"></h2>
+  <p class="yr-span" id="yrSpan"></p>
+
+  <section class="occ" id="occ"></section>
+  <div class="months" id="months"></div>
+
+  <p class="note no-print">الحساب بالتقويم الهجري الجدولي (خوارزمية كويتية) — حسابي لا رصدي، وقد يفرق يوماً واحداً عن الرؤية الشرعية في بلدك.</p>
+  <p class="tool-link no-print">
+    <a href="../converter/">محوّل التاريخ →</a> &nbsp;·&nbsp;
+    <a href="../articles/hijri-calendar-civilization/">اقرأ عن التقويم الهجري →</a>
+  </p>
+</main>
+
+<footer class="foot no-print"><a class="btn" href="../">العودة إلى مَوْلِدي</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script>
+const MG=["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"], MH=["محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"], WD=["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+const SG="م", SH="هـ";
+const EVENTS=[[1,1,"رأس السنة الهجرية"],[1,10,"عاشوراء"],[3,12,"المولد النبوي"],[9,1,"غرة رمضان"],[10,1,"عيد الفطر"],[12,9,"يوم عرفة"],[12,10,"عيد الأضحى"]];
+const TXT={days:"يوماً", corr:"يوافق",
+           err:"أدخل سنة هجرية بين 1318 و 1523", occ:"مناسبات السنة"};
+
+function gLabel(g){ return g.d+' '+MG[g.m-1]+' '+g.y; }
+
+function render(){
+  const y=+document.getElementById('yr').value, err=document.getElementById('err');
+  if(!y||y<1318||y>1523){ err.textContent=TXT.err; err.hidden=false; return; }
+  err.hidden=true;
+
+  const startJD=hToJ(y,1,1), endJD=hToJ(y+1,1,1)-1;
+  document.getElementById('yrHead').textContent=y+SH;
+  document.getElementById('yrSpan').textContent=
+    TXT.corr+' '+gLabel(jToG(startJD))+SG+' — '+gLabel(jToG(endJD))+SG;
+
+  // مناسبات السنة
+  const occ=EVENTS.map(([m,d,name])=>{
+    const g=jToG(hToJ(y,m,d));
+    return '<div class="occ-row"><span class="occ-name">'+name+'</span>'+
+           '<span class="occ-h">'+d+' '+MH[m-1]+'</span>'+
+           '<span class="occ-g">'+gLabel(g)+SG+'</span></div>';
+  }).join('');
+  document.getElementById('occ').innerHTML='<h3>'+TXT.occ+'</h3>'+occ;
+
+  // الأشهر
+  const todayJD=(n=>gToJ(n.getFullYear(),n.getMonth()+1,n.getDate()))(new Date());
+  let html='';
+  for(let m=1;m<=12;m++){
+    const jd0=hToJ(y,m,1), len=hMonthLen(y,m), lead=(jd0+1)%7;
+    let cells='';
+    for(let i=0;i<lead;i++) cells+='<div class="c empty"></div>';
+    for(let d=1;d<=len;d++){
+      const jd=jd0+d-1, g=jToG(jd);
+      const cls='c'+(jd===todayJD?' now':'')+((jd+1)%7===5?' fri':'');
+      cells+='<div class="'+cls+'"><b>'+d+'</b><i>'+g.d+'/'+g.m+'</i></div>';
+    }
+    html+='<section class="mo"><h3>'+MH[m-1]+' <small>'+len+' '+TXT.days+'</small></h3>'+
+          '<div class="wd">'+WD.map(w=>'<span>'+w+'</span>').join('')+'</div>'+
+          '<div class="grid7">'+cells+'</div></section>';
+  }
+  document.getElementById('months').innerHTML=html;
+  history.replaceState(null,'','?y='+y);
+}
+function step(n){ const i=document.getElementById('yr'); i.value=+i.value+n; render(); }
+function goToday(){
+  const n=new Date();
+  document.getElementById('yr').value=jToH(gToJ(n.getFullYear(),n.getMonth()+1,n.getDate())).y;
+  render();
+}
+const qy=+new URLSearchParams(location.search).get('y');
+if(qy>=1318&&qy<=1523){ document.getElementById('yr').value=qy; render(); } else goToday();
+</script>
+</body>
+</html>

@@ -12,6 +12,7 @@ const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://mawlidi.com';
 const CHECK = process.argv.includes('--check');
 const converterPage = require('./converter.js');
+const calendarPage  = require('./calendar.js');
 
 // معرّف المقالة → slug ثابت (لا يتغيّر أبداً بعد النشر: تغييره يكسر الروابط)
 const SLUGS = {
@@ -220,6 +221,15 @@ for (const [lang, L] of Object.entries(LANGS)) {
     const cd = path.join(ROOT, lang, 'converter');
     fs.mkdirSync(cd, { recursive:true });
     fs.writeFileSync(path.join(cd, 'index.html'), converterPage(lang));
+    written++;
+  }
+
+  // أداة: التقويم الهجري السنوي
+  urls.push({ loc:`${SITE}/${lang}/calendar/`, pri:'0.9' });
+  if (!CHECK) {
+    const kd = path.join(ROOT, lang, 'calendar');
+    fs.mkdirSync(kd, { recursive:true });
+    fs.writeFileSync(path.join(kd, 'index.html'), calendarPage(lang));
     written++;
   }
 }

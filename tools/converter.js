@@ -15,7 +15,7 @@ const T = {
     errY:'أدخل سنة بين 1900 و 2099', errH:'أدخل سنة هجرية بين 1318 و 1523',
     errD:'هذا التاريخ غير موجود في التقويم الهجري',
     note:'الحساب بالتقويم الهجري الجدولي (خوارزمية كويتية) — حسابي لا رصدي، وقد يفرق يوماً واحداً عن الرؤية الشرعية في بلدك.',
-    more:'اقرأ عن التقويم الهجري', moreHref:'../articles/hijri-calendar-civilization/',
+    cal:'التقويم الهجري السنوي', more:'اقرأ عن التقويم الهجري', moreHref:'../articles/hijri-calendar-civilization/',
     faq:[
       ['لماذا تختلف السنة الهجرية عن الميلادية بأحد عشر يوماً؟',
        'السنة الهجرية قمرية، تتكوّن من اثني عشر شهراً قمرياً طول كل منها 29 أو 30 يوماً، فيبلغ مجموعها 354 يوماً تقريباً. أما السنة الميلادية فشمسية وطولها 365 يوماً. الفرق بينهما نحو أحد عشر يوماً، ولهذا تتقدّم المناسبات الهجرية عبر فصول السنة الميلادية.'],
@@ -38,7 +38,7 @@ const T = {
     errY:'Enter a year between 1900 and 2099', errH:'Enter a Hijri year between 1318 and 1523',
     errD:'This date does not exist in the Hijri calendar',
     note:'Based on the tabular Hijri calendar (Kuwaiti algorithm) — arithmetic, not observational. It may differ by one day from the local moon sighting.',
-    more:'Read about the Hijri calendar', moreHref:'../articles/hijri-calendar-civilization/',
+    cal:'Full-year Hijri calendar', more:'Read about the Hijri calendar', moreHref:'../articles/hijri-calendar-civilization/',
     faq:[
       ['Why is the Hijri year 11 days shorter than the Gregorian year?',
        'The Hijri year is lunar: twelve lunar months of 29 or 30 days each, totalling about 354 days. The Gregorian year is solar, at 365 days. The eleven-day gap is why Islamic occasions drift backwards through the Gregorian seasons.'],
@@ -133,7 +133,7 @@ module.exports = function converterPage(lang) {
   </section>
 
   <p class="note">${esc(L.note)}</p>
-  <p class="tool-link"><a href="${L.moreHref}">${esc(L.more)} →</a></p>
+  <p class="tool-link"><a href="../calendar/">${esc(L.cal)} →</a> &nbsp;·&nbsp; <a href="${L.moreHref}">${esc(L.more)} →</a></p>
 
   <section class="faq">
 ${L.faq.map(([q,a]) => `    <details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('\n')}
