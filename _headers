@@ -16,9 +16,10 @@
   Content-Language: en
   Cache-Control: public, max-age=0, must-revalidate
 
-# الأصول الثابتة: تخزين طويل، وتتغيّر بتغيّر اسمها أو محتواها
+# أسماء الأصول ثابتة لا تحمل بصمة محتوى، فالتخزين الطويل بلا مراجعة
+# يعني أن إصلاحاً منشوراً لا يصل من حمّل النسخة القديمة
 /assets/*
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=86400, must-revalidate
 
 /sitemap.xml
   Cache-Control: public, max-age=3600
