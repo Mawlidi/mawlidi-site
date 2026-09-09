@@ -11,13 +11,19 @@ HTML/CSS/JS ثابت بلا build step وبلا npm. النشر: Cloudflare Page
 /eng/index.html          التطبيق الإنجليزي (994 سطراً)
 /arb/articles/           صفحات المقالات العربية المستقلة (10 + أرشيف)   ← مُولَّدة
 /eng/articles/           صفحات المقالات الإنجليزية المستقلة (7 + أرشيف) ← مُولَّدة
+/arb/converter/          محوّل التاريخ الهجري ↔ الميلادي  ← مُولَّد
+/eng/converter/          نفسه بالإنجليزية                 ← مُولَّد
+/assets/hijri.js         محرك التقويم — الطبقة المشتركة الوحيدة
 /assets/article.css      أنماط صفحات المقالات المستقلة (مشتركة)
+/assets/tool.css         أنماط صفحات الأدوات
 /content.json            بيانات وصفية للمقالات والتصنيفات — تُحمَّل وقت التشغيل
 /dashboard-pro-v6.html   لوحة تحكم CMS تكتب في content.json عبر GitHub API
 /sitemap.xml             مُولَّد
 /robots.txt
 /_headers /_redirects    إعدادات Cloudflare Pages
-/tools/build.js          مولّد صفحات المقالات و sitemap (خارج مسار النشر)
+/tools/build.js          مولّد الصفحات و sitemap (خارج مسار النشر)
+/tools/converter.js      قالب صفحة المحوّل
+/tools/test-hijri.js     اختبارات محرك التقويم
 ```
 
 ## [مصدر الحقيقة للمقالات]
@@ -39,7 +45,8 @@ node tools/build.js
 ```bash
 python3 -m http.server 8899 --directory mawlidi   # من مجلد Claude Workspace
 ```
-معيار النجاح: `node tools/build.js --check` يخرج بحالة 0، و`xmllint --noout sitemap.xml` يمرّ.
+معيار النجاح: `node tools/test-hijri.js` (12 اختباراً) و`node tools/build.js --check`
+يخرجان بحالة 0، و`xmllint --noout sitemap.xml` يمرّ.
 
 ## [ما أُنجز]
 - **المرحلة 0** — robots.txt، sitemap.xml، hreflang متناظر في اللغتين
@@ -49,6 +56,11 @@ python3 -m http.server 8899 --directory mawlidi   # من مجلد Claude Workspa
 - رابط `<a>` حقيقي إلى الأرشيف في تذييل الصفحتين (بقية روابط التذييل `<span onclick>` لا يراها الزاحف)
 - **إصلاح خلل قديم**: `arb/index.html` كان يطلب `./content.json` (404) — النسخة العربية
   لم تقرأ `content.json` قط، فلم تظهر تعديلات لوحة التحكم عليها إطلاقاً
+
+- **إصلاح جوهري في المحرك** — `hToJ` لم تكن عكس `jToH`، فكانت كل أعياد الميلاد
+  القادمة وعدّاد الأيام خاطئة بأكثر من سنة. صارت عكساً دقيقاً ببحث ثنائي،
+  والمحرك طبقة مشتركة واحدة بدل ثلاث نسخ.
+- **المرحلة 2 (بدأت)** — محوّل التاريخ الهجري ↔ الميلادي بلغتين، مع FAQ schema
 
 ## [ORPHANS & PENDING]
 
@@ -60,5 +72,5 @@ python3 -m http.server 8899 --directory mawlidi   # من مجلد Claude Workspa
 | 5 | `dashboard-pro-v6.html` مكشوف على النطاق العام | ⏳ مُستبعَد من robots، لكن يُفضّل نقله خارج مسار النشر |
 | 6 | `viewport` فيه `user-scalable=no` في الصفحتين الرئيسيتين | ⏳ مشكلة وصولية — الصفحات المُولَّدة سليمة |
 | 7 | `content.json` لا يحمل متن المقالات | قيد معماري — اللوحة لا تستطيع تحرير المتن |
-| 8 | المرحلة 2: الأدوات (محوّل التاريخ، التقويم السنوي، بطاقة الميلاد…) | لم تبدأ |
+| 8 | المرحلة 2: بقية الأدوات (التقويم السنوي، حاسبة العمر، العد التنازلي، بطاقة الميلاد) | ⏳ المحوّل أُنجز |
 | 9 | المرحلة 3: مقالات جديدة موجّهة لنيّة البحث | لم تبدأ |

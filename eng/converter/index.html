@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>Hijri ↔ Gregorian Date Converter — Mawlidi</title>
+<meta name="description" content="Convert any date between the Hijri and Gregorian calendars instantly, offline. Includes the weekday and month name.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/eng/converter/">
+<link rel="alternate" hreflang="ar" href="https://mawlidi.com/arb/converter/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/converter/">
+<meta property="og:title" content="Hijri ↔ Gregorian Date Converter — Mawlidi">
+<meta property="og:description" content="Convert any date between the Hijri and Gregorian calendars instantly, offline. Includes the weekday and month name.">
+<meta property="og:url" content="https://mawlidi.com/eng/converter/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"Hijri ↔ Gregorian Date Converter","description":"Convert any date between the Hijri and Gregorian calendars instantly, offline. Includes the weekday and month name.","url":"https://mawlidi.com/eng/converter/","applicationCategory":"UtilityApplication","inLanguage":"en","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is the Hijri year 11 days shorter than the Gregorian year?","acceptedAnswer":{"@type":"Answer","text":"The Hijri year is lunar: twelve lunar months of 29 or 30 days each, totalling about 354 days. The Gregorian year is solar, at 365 days. The eleven-day gap is why Islamic occasions drift backwards through the Gregorian seasons."}},{"@type":"Question","name":"Is this conversion exact?","acceptedAnswer":{"@type":"Answer","text":"It uses the tabular Hijri calendar adopted in official and computational use. In countries where the month begins with the physical sighting of the crescent, the date may differ by one day."}},{"@type":"Question","name":"How old am I in Hijri years?","acceptedAnswer":{"@type":"Answer","text":"Your Hijri age is higher than your Gregorian age because the lunar year is shorter — roughly 34 Hijri years for every 33 Gregorian ones. For your exact Hijri age and your next lunar birthday, use the Mawlidi calculator on the home page."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Lato',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">Home</a> <span>/</span> <span>Date Converter</span></nav>
+
+<main class="tool">
+  <h1>Date Converter</h1>
+  <p class="tool-sub">Convert any date between the Hijri and Gregorian calendars instantly, offline. Includes the weekday and month name.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab on" id="tab-g" role="tab" aria-selected="true"  onclick="setMode('g')">Gregorian → Hijri</button>
+    <button class="tab"    id="tab-h" role="tab" aria-selected="false" onclick="setMode('h')">Hijri → Gregorian</button>
+  </div>
+
+  <div class="fields">
+    <label class="fld"><span>Day</span><select id="fD"></select></label>
+    <label class="fld"><span>Month</span><select id="fM"></select></label>
+    <label class="fld"><span>Year</span><input id="fY" type="number" inputmode="numeric"></label>
+  </div>
+  <div class="acts">
+    <button class="go" onclick="run()">Convert</button>
+    <button class="ghost" onclick="setToday()">Today</button>
+  </div>
+  <p class="err" id="err" hidden></p>
+
+  <section class="out" id="out" hidden>
+    <div class="out-lbl">Result</div>
+    <div class="out-main" id="outMain"></div>
+    <div class="out-week" id="outWeek"></div>
+    <button class="ghost sm" id="copyBtn" onclick="copyOut()">Copy</button>
+  </section>
+
+  <p class="note">Based on the tabular Hijri calendar (Kuwaiti algorithm) — arithmetic, not observational. It may differ by one day from the local moon sighting.</p>
+  <p class="tool-link"><a href="../articles/hijri-calendar-civilization/">Read about the Hijri calendar →</a></p>
+
+  <section class="faq">
+    <details><summary>Why is the Hijri year 11 days shorter than the Gregorian year?</summary><p>The Hijri year is lunar: twelve lunar months of 29 or 30 days each, totalling about 354 days. The Gregorian year is solar, at 365 days. The eleven-day gap is why Islamic occasions drift backwards through the Gregorian seasons.</p></details>
+    <details><summary>Is this conversion exact?</summary><p>It uses the tabular Hijri calendar adopted in official and computational use. In countries where the month begins with the physical sighting of the crescent, the date may differ by one day.</p></details>
+    <details><summary>How old am I in Hijri years?</summary><p>Your Hijri age is higher than your Gregorian age because the lunar year is shorter — roughly 34 Hijri years for every 33 Gregorian ones. For your exact Hijri age and your next lunar birthday, use the Mawlidi calculator on the home page.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">Back to Mawlidi</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script>
+const MG=["January","February","March","April","May","June","July","August","September","October","November","December"], MH=["Muharram","Safar","Rabiʿ al-Awwal","Rabiʿ al-Thani","Jumada al-Ula","Jumada al-Akhira","Rajab","Shaʿban","Ramadan","Shawwal","Dhu al-Qaʿda","Dhu al-Hijja"], WD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const SG="CE", SH="AH";
+const ERR={y:"Enter a year between 1900 and 2099",h:"Enter a Hijri year between 1318 and 1523",d:"This date does not exist in the Hijri calendar"};
+const COPY="Copy", COPIED="Copied ✓";
+let mode='g', lastText='';
+
+function fillMonths(){
+  const sel=document.getElementById('fM'), cur=sel.value;
+  sel.innerHTML='';
+  (mode==='g'?MG:MH).forEach((n,i)=>{
+    const o=document.createElement('option'); o.value=i+1; o.textContent=n; sel.appendChild(o);
+  });
+  if(cur) sel.value=Math.min(+cur,12);
+}
+function fillDays(){
+  const sel=document.getElementById('fD'), cur=sel.value;
+  sel.innerHTML='';
+  for(let i=1;i<=(mode==='g'?31:30);i++){
+    const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);
+  }
+  if(cur) sel.value=Math.min(+cur,mode==='g'?31:30);
+}
+function setMode(m){
+  mode=m;
+  document.getElementById('tab-g').classList.toggle('on',m==='g');
+  document.getElementById('tab-h').classList.toggle('on',m==='h');
+  document.getElementById('tab-g').setAttribute('aria-selected',m==='g');
+  document.getElementById('tab-h').setAttribute('aria-selected',m==='h');
+  fillMonths(); fillDays();
+  document.getElementById('out').hidden=true;
+  document.getElementById('err').hidden=true;
+  setToday();
+}
+function setToday(){
+  const n=new Date();
+  if(mode==='g'){
+    document.getElementById('fD').value=n.getDate();
+    document.getElementById('fM').value=n.getMonth()+1;
+    document.getElementById('fY').value=n.getFullYear();
+  }else{
+    const H=jToH(gToJ(n.getFullYear(),n.getMonth()+1,n.getDate()));
+    document.getElementById('fD').value=H.d;
+    document.getElementById('fM').value=H.m;
+    document.getElementById('fY').value=H.y;
+  }
+  run();
+}
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;document.getElementById('out').hidden=true;}
+function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(mode==='g'){
+    if(!y||y<1900||y>2099) return show(ERR.y);
+    const t=new Date(y,m-1,d);
+    if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(ERR.d);
+    const jd=gToJ(y,m,d), H=jToH(jd);
+    render(H.d+' '+MH[H.m-1]+' '+H.y+SH, jd);
+  }else{
+    if(!y||y<1318||y>1523) return show(ERR.h);
+    if(!hValid(y,m,d)) return show(ERR.d);
+    const jd=hToJ(y,m,d), G=jToG(jd);
+    render(G.d+' '+MG[G.m-1]+' '+G.y+SG, jd);
+  }
+}
+function render(text, jd){
+  document.getElementById('err').hidden=true;
+  lastText=text;
+  document.getElementById('outMain').textContent=text;
+  document.getElementById('outWeek').textContent=WD[(jd+1)%7];
+  document.getElementById('out').hidden=false;
+  document.getElementById('copyBtn').textContent=COPY;
+}
+function copyOut(){
+  navigator.clipboard.writeText(lastText).then(()=>{
+    const b=document.getElementById('copyBtn'); b.textContent=COPIED;
+    setTimeout(()=>b.textContent=COPY,1600);
+  });
+}
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+setMode('g');
+</script>
+</body>
+</html>

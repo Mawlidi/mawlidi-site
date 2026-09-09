@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07071A">
+<title>محوّل التاريخ الهجري والميلادي — مَوْلِدي</title>
+<meta name="description" content="حوّل أي تاريخ من الهجري إلى الميلادي أو العكس، فوراً وبلا إنترنت. يشمل اليوم واسم الشهر ويوم الأسبوع.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mawlidi.com/arb/converter/">
+<link rel="alternate" hreflang="en" href="https://mawlidi.com/eng/converter/">
+<link rel="alternate" hreflang="x-default" href="https://mawlidi.com/arb/converter/">
+<meta property="og:title" content="محوّل التاريخ الهجري والميلادي — مَوْلِدي">
+<meta property="og:description" content="حوّل أي تاريخ من الهجري إلى الميلادي أو العكس، فوراً وبلا إنترنت. يشمل اليوم واسم الشهر ويوم الأسبوع.">
+<meta property="og:url" content="https://mawlidi.com/arb/converter/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"محوّل التاريخ الهجري والميلادي","description":"حوّل أي تاريخ من الهجري إلى الميلادي أو العكس، فوراً وبلا إنترنت. يشمل اليوم واسم الشهر ويوم الأسبوع.","url":"https://mawlidi.com/arb/converter/","applicationCategory":"UtilityApplication","inLanguage":"ar","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"لماذا تختلف السنة الهجرية عن الميلادية بأحد عشر يوماً؟","acceptedAnswer":{"@type":"Answer","text":"السنة الهجرية قمرية، تتكوّن من اثني عشر شهراً قمرياً طول كل منها 29 أو 30 يوماً، فيبلغ مجموعها 354 يوماً تقريباً. أما السنة الميلادية فشمسية وطولها 365 يوماً. الفرق بينهما نحو أحد عشر يوماً، ولهذا تتقدّم المناسبات الهجرية عبر فصول السنة الميلادية."}},{"@type":"Question","name":"هل هذا التحويل دقيق تماماً؟","acceptedAnswer":{"@type":"Answer","text":"التحويل هنا يعتمد التقويم الهجري الجدولي المستخدم في الحسابات الرسمية والبرمجية. لكن بداية الشهر الهجري في بعض البلدان تُحدَّد برؤية الهلال، وقد تفرق يوماً واحداً عن الحساب الجدولي."}},{"@type":"Question","name":"كم عمري بالهجري؟","acceptedAnswer":{"@type":"Answer","text":"العمر الهجري أكبر من الميلادي لأن السنة القمرية أقصر. كل 33 سنة ميلادية تعادل نحو 34 سنة هجرية. لحساب عمرك الهجري بدقة مع موعد ميلادك القادم، استخدم حاسبة مَوْلِدي في الصفحة الرئيسية."}}]}]</script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/article.css">
+<link rel="stylesheet" href="../../assets/tool.css">
+<style>body{font-family:'Cairo',sans-serif;}</style>
+</head>
+<body>
+<nav class="crumb"><a href="../">الرئيسية</a> <span>/</span> <span>محوّل التاريخ</span></nav>
+
+<main class="tool">
+  <h1>محوّل التاريخ</h1>
+  <p class="tool-sub">حوّل أي تاريخ من الهجري إلى الميلادي أو العكس، فوراً وبلا إنترنت. يشمل اليوم واسم الشهر ويوم الأسبوع.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab on" id="tab-g" role="tab" aria-selected="true"  onclick="setMode('g')">ميلادي ← هجري</button>
+    <button class="tab"    id="tab-h" role="tab" aria-selected="false" onclick="setMode('h')">هجري ← ميلادي</button>
+  </div>
+
+  <div class="fields">
+    <label class="fld"><span>اليوم</span><select id="fD"></select></label>
+    <label class="fld"><span>الشهر</span><select id="fM"></select></label>
+    <label class="fld"><span>السنة</span><input id="fY" type="number" inputmode="numeric"></label>
+  </div>
+  <div class="acts">
+    <button class="go" onclick="run()">حوّل</button>
+    <button class="ghost" onclick="setToday()">اليوم</button>
+  </div>
+  <p class="err" id="err" hidden></p>
+
+  <section class="out" id="out" hidden>
+    <div class="out-lbl">النتيجة</div>
+    <div class="out-main" id="outMain"></div>
+    <div class="out-week" id="outWeek"></div>
+    <button class="ghost sm" id="copyBtn" onclick="copyOut()">نسخ</button>
+  </section>
+
+  <p class="note">الحساب بالتقويم الهجري الجدولي (خوارزمية كويتية) — حسابي لا رصدي، وقد يفرق يوماً واحداً عن الرؤية الشرعية في بلدك.</p>
+  <p class="tool-link"><a href="../articles/hijri-calendar-civilization/">اقرأ عن التقويم الهجري →</a></p>
+
+  <section class="faq">
+    <details><summary>لماذا تختلف السنة الهجرية عن الميلادية بأحد عشر يوماً؟</summary><p>السنة الهجرية قمرية، تتكوّن من اثني عشر شهراً قمرياً طول كل منها 29 أو 30 يوماً، فيبلغ مجموعها 354 يوماً تقريباً. أما السنة الميلادية فشمسية وطولها 365 يوماً. الفرق بينهما نحو أحد عشر يوماً، ولهذا تتقدّم المناسبات الهجرية عبر فصول السنة الميلادية.</p></details>
+    <details><summary>هل هذا التحويل دقيق تماماً؟</summary><p>التحويل هنا يعتمد التقويم الهجري الجدولي المستخدم في الحسابات الرسمية والبرمجية. لكن بداية الشهر الهجري في بعض البلدان تُحدَّد برؤية الهلال، وقد تفرق يوماً واحداً عن الحساب الجدولي.</p></details>
+    <details><summary>كم عمري بالهجري؟</summary><p>العمر الهجري أكبر من الميلادي لأن السنة القمرية أقصر. كل 33 سنة ميلادية تعادل نحو 34 سنة هجرية. لحساب عمرك الهجري بدقة مع موعد ميلادك القادم، استخدم حاسبة مَوْلِدي في الصفحة الرئيسية.</p></details>
+  </section>
+</main>
+
+<footer class="foot"><a class="btn" href="../">العودة إلى مَوْلِدي</a></footer>
+
+<script src="../../assets/hijri.js"></script>
+<script>
+const MG=["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"], MH=["محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"], WD=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+const SG="م", SH="هـ";
+const ERR={y:"أدخل سنة بين 1900 و 2099",h:"أدخل سنة هجرية بين 1318 و 1523",d:"هذا التاريخ غير موجود في التقويم الهجري"};
+const COPY="نسخ", COPIED="نُسخ ✓";
+let mode='g', lastText='';
+
+function fillMonths(){
+  const sel=document.getElementById('fM'), cur=sel.value;
+  sel.innerHTML='';
+  (mode==='g'?MG:MH).forEach((n,i)=>{
+    const o=document.createElement('option'); o.value=i+1; o.textContent=n; sel.appendChild(o);
+  });
+  if(cur) sel.value=Math.min(+cur,12);
+}
+function fillDays(){
+  const sel=document.getElementById('fD'), cur=sel.value;
+  sel.innerHTML='';
+  for(let i=1;i<=(mode==='g'?31:30);i++){
+    const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);
+  }
+  if(cur) sel.value=Math.min(+cur,mode==='g'?31:30);
+}
+function setMode(m){
+  mode=m;
+  document.getElementById('tab-g').classList.toggle('on',m==='g');
+  document.getElementById('tab-h').classList.toggle('on',m==='h');
+  document.getElementById('tab-g').setAttribute('aria-selected',m==='g');
+  document.getElementById('tab-h').setAttribute('aria-selected',m==='h');
+  fillMonths(); fillDays();
+  document.getElementById('out').hidden=true;
+  document.getElementById('err').hidden=true;
+  setToday();
+}
+function setToday(){
+  const n=new Date();
+  if(mode==='g'){
+    document.getElementById('fD').value=n.getDate();
+    document.getElementById('fM').value=n.getMonth()+1;
+    document.getElementById('fY').value=n.getFullYear();
+  }else{
+    const H=jToH(gToJ(n.getFullYear(),n.getMonth()+1,n.getDate()));
+    document.getElementById('fD').value=H.d;
+    document.getElementById('fM').value=H.m;
+    document.getElementById('fY').value=H.y;
+  }
+  run();
+}
+function show(msg){const e=document.getElementById('err');e.textContent=msg;e.hidden=false;document.getElementById('out').hidden=true;}
+function run(){
+  const d=+document.getElementById('fD').value, m=+document.getElementById('fM').value,
+        y=+document.getElementById('fY').value;
+  if(mode==='g'){
+    if(!y||y<1900||y>2099) return show(ERR.y);
+    const t=new Date(y,m-1,d);
+    if(t.getFullYear()!==y||t.getMonth()!==m-1||t.getDate()!==d) return show(ERR.d);
+    const jd=gToJ(y,m,d), H=jToH(jd);
+    render(H.d+' '+MH[H.m-1]+' '+H.y+SH, jd);
+  }else{
+    if(!y||y<1318||y>1523) return show(ERR.h);
+    if(!hValid(y,m,d)) return show(ERR.d);
+    const jd=hToJ(y,m,d), G=jToG(jd);
+    render(G.d+' '+MG[G.m-1]+' '+G.y+SG, jd);
+  }
+}
+function render(text, jd){
+  document.getElementById('err').hidden=true;
+  lastText=text;
+  document.getElementById('outMain').textContent=text;
+  document.getElementById('outWeek').textContent=WD[(jd+1)%7];
+  document.getElementById('out').hidden=false;
+  document.getElementById('copyBtn').textContent=COPY;
+}
+function copyOut(){
+  navigator.clipboard.writeText(lastText).then(()=>{
+    const b=document.getElementById('copyBtn'); b.textContent=COPIED;
+    setTimeout(()=>b.textContent=COPY,1600);
+  });
+}
+document.getElementById('fY').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+setMode('g');
+</script>
+</body>
+</html>

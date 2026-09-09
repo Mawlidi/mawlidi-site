@@ -11,6 +11,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://mawlidi.com';
 const CHECK = process.argv.includes('--check');
+const converterPage = require('./converter.js');
 
 // معرّف المقالة → slug ثابت (لا يتغيّر أبداً بعد النشر: تغييره يكسر الروابط)
 const SLUGS = {
@@ -210,6 +211,15 @@ for (const [lang, L] of Object.entries(LANGS)) {
   if (!CHECK) {
     fs.mkdirSync(outDir, { recursive:true });
     fs.writeFileSync(path.join(outDir, 'index.html'), indexPage(arts, lang, L));
+    written++;
+  }
+
+  // أداة: محوّل التاريخ
+  urls.push({ loc:`${SITE}/${lang}/converter/`, pri:'0.9' });
+  if (!CHECK) {
+    const cd = path.join(ROOT, lang, 'converter');
+    fs.mkdirSync(cd, { recursive:true });
+    fs.writeFileSync(path.join(cd, 'index.html'), converterPage(lang));
     written++;
   }
 }
